@@ -1,4 +1,5 @@
 import { Prop, SchemaFactory } from '@nestjs/mongoose';
+import { Document } from 'mongoose';
 
 export enum UserRole {
   USER = 'user',
@@ -7,6 +8,7 @@ export enum UserRole {
   SUPERADMIN = 'superAdmin',
   GUEST = 'guest',
 }
+export type UserDocument = User & Document;
 
 export class User {
   @Prop({ required: true, unique: true })

@@ -8,6 +8,9 @@ import { CareerSuggestionModule } from './career_suggestion/career_suggestion.mo
 import { AiModule } from './ai/ai.module';
 import { ResumeAnalysisModule } from './resume-analysis/resume-analysis.module';
 import { ChatbotQueriesModule } from './chatbot-query/chatbot-query.module';
+import { CourseController } from './course/course.controller';
+import { CoursesModule } from './course/course.module';
+import { FeedbackModule } from './feedback/feedback.module';
 @Module({
   imports: [
     HttpModule,
@@ -25,6 +28,8 @@ import { ChatbotQueriesModule } from './chatbot-query/chatbot-query.module';
     AiModule,
     ResumeAnalysisModule,
     ChatbotQueriesModule,
+    CoursesModule,
+    FeedbackModule,
   ],
 })
 export class AppModule {}

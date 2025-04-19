@@ -5,7 +5,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { AiService } from './ai/ai.service';
 import { HttpModule } from '@nestjs/axios';
-
+import { CareerSuggestionService } from './career_suggestion/career_suggestion.service';
 @Module({
   imports: [
     HttpModule,
@@ -20,6 +20,6 @@ import { HttpModule } from '@nestjs/axios';
     UsersModule,
     AuthModule,
   ],
-  providers: [AiService],
+  providers: [CareerSuggestionService],
 })
 export class AppModule {}

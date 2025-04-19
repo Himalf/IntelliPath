@@ -24,46 +24,65 @@ export class ResumeAnalysisService {
     userId: string,
     file: Express.Multer.File,
   ): Promise<ResumeAnalysis> {
-    // Verifyi user exists
+    // 1. Verify user
     const user = await this.usersService.findOne(userId);
     if (!user) throw new NotFoundException('User not Found');
-    // Extracrt text from Pdf Buffer
+
+    // 2. Extract text from PDF
     const data = await pdfParse(file.buffer);
     const text = data.text;
 
-    // Build your AI prompt
+    // 3. Build the prompt
     const prompt = `
-    You are an AI resume analyst.
-    Analyze the following resume text and return JSON with keys:
-    {
-      "strengths": ["..."],
-      "weaknesses": ["..."],
-      "recommendations": ["..."]
-    }
-    Resume:
-    ${text}
-    `;
+  You are an AI resume analyst.
+  Analyze the following resume text and return JSON with these exact keys:
+  {
+    "strengths": ["..."],
+    "weaknesses": ["..."],
+    "recommendations": ["..."]
+  }
+  Return ONLY the JSON. No explanation or notes.
+  
+  Resume:
+  ${text}
+  `;
 
-    // Call AI Service
+    // 4. Get AI response
     const aiRaw = await this.aiService.generateCareerSuggestion(prompt);
+    console.log('🧠 Raw AI Response:', aiRaw); // Debug
 
-    // parse  the response from AI
+    // 5. Clean & Parse AI response
     let parsed: {
       strengths: string[];
       weaknesses: string[];
       recommendations: string[];
     };
+
     try {
       const start = aiRaw.indexOf('{');
       const end = aiRaw.lastIndexOf('}');
       const jsonString = aiRaw.slice(start, end + 1);
-      parsed = JSON.parse(jsonString);
-    } catch {
+
+      const cleaned = jsonString
+        .replace(/(\r\n|\n|\r)/gm, '')
+        .replace(/\\"/g, '"')
+        .replace(/\\n/g, '')
+        .trim();
+
+      parsed = JSON.parse(cleaned);
+
+      // Validate keys
+      if (!parsed.strengths || !parsed.weaknesses || !parsed.recommendations) {
+        throw new Error('Missing keys');
+      }
+    } catch (err) {
+      console.error('❌ AI JSON Parse Error:', err);
       throw new InternalServerErrorException(
         'Invalid AI resume analysis format',
       );
     }
-    // Save the data to the database (mongodb)
+
+    // 6. Save to DB
     const analysis = new this.resumeModel({
       user_id: user._id,
       resumeText: text,
@@ -71,8 +90,10 @@ export class ResumeAnalysisService {
       weakness: parsed.weaknesses,
       recommendation: parsed.recommendations,
     });
+
     return analysis.save();
   }
+
   async getAnalysisByUser(userId: string): Promise<ResumeAnalysis[]> {
     return this.resumeModel.find({ user_id: userId }).exec();
   }

@@ -9,6 +9,9 @@ import { CareerSuggestionService } from './career_suggestion/career_suggestion.s
 import { CareerSuggestionController } from './career_suggestion/career_suggestion.controller';
 import { CareerSuggestionModule } from './career_suggestion/career_suggestion.module';
 import { AiModule } from './ai/ai.module';
+import { ResumeAnalysisController } from './resume-analysis/resume-analysis.controller';
+import { ResumeAnalysisService } from './resume-analysis/resume-analysis.service';
+import { ResumeAnalysisModule } from './resume-analysis/resume-analysis.module';
 @Module({
   imports: [
     HttpModule,
@@ -24,6 +27,9 @@ import { AiModule } from './ai/ai.module';
     AuthModule,
     CareerSuggestionModule,
     AiModule,
+    ResumeAnalysisModule,
   ],
+  controllers: [ResumeAnalysisController],
+  providers: [ResumeAnalysisService],
 })
 export class AppModule {}

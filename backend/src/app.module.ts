@@ -11,8 +11,19 @@ import { ChatbotQueriesModule } from './chatbot-query/chatbot-query.module';
 import { CourseController } from './course/course.controller';
 import { CoursesModule } from './course/course.module';
 import { FeedbackModule } from './feedback/feedback.module';
+import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
+import { APP_GUARD } from '@nestjs/core';
 @Module({
   imports: [
+    ThrottlerModule.forRoot({
+      throttlers: [
+        {
+          ttl: 60000,
+          limit: 20,
+        },
+      ],
+    }),
+
     HttpModule,
     ConfigModule.forRoot({ isGlobal: true }), //loads env files automatically
     MongooseModule.forRootAsync({
@@ -30,6 +41,12 @@ import { FeedbackModule } from './feedback/feedback.module';
     ChatbotQueriesModule,
     CoursesModule,
     FeedbackModule,
+  ],
+  providers: [
+    {
+      provide: APP_GUARD,
+      useClass: ThrottlerGuard,
+    },
   ],
 })
 export class AppModule {}

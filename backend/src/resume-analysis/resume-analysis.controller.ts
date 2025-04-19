@@ -9,14 +9,20 @@ import {
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { memoryStorage } from 'multer';
-import { AuthGuard } from '@nestjs/passport';
 import { ResumeAnalysisService } from './resume-analysis.service';
+import { JwtAuthGuard } from 'src/auth/jwt.auth-guard';
+import { RoleGuards } from 'src/auth/guards/roles.guards';
+import { Roles } from 'src/auth/decorators/roles.decorators';
+import { UserRole } from 'src/users/schemas/user.schema';
+import { ApiBearerAuth } from '@nestjs/swagger';
 
+@ApiBearerAuth()
+@UseGuards(JwtAuthGuard, RoleGuards)
 @Controller('resume-analysis')
 export class ResumeAnalysisController {
   constructor(private readonly resumeService: ResumeAnalysisService) {}
 
-  @UseGuards(AuthGuard('jwt'))
+  @Roles(UserRole.USER, UserRole.EXPERT, UserRole.ADMIN, UserRole.SUPERADMIN)
   @Post('analyze/:userId')
   @UseInterceptors(
     FileInterceptor('file', {
@@ -31,7 +37,7 @@ export class ResumeAnalysisController {
     return this.resumeService.analyzeResume(userId, file);
   }
 
-  @UseGuards(AuthGuard('jwt'))
+  @Roles(UserRole.USER, UserRole.EXPERT, UserRole.ADMIN, UserRole.SUPERADMIN)
   @Get(':userId')
   getAnalysis(@Param('userId') userId: string) {
     return this.resumeService.getAnalysisByUser(userId);

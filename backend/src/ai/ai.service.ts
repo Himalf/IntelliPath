@@ -1,28 +1,35 @@
-import { HttpService } from '@nestjs/axios';
-import { HttpServer, Injectable } from '@nestjs/common';
-import { firstValueFrom } from 'rxjs';
+// ai/ai.service.ts
+import { Injectable } from '@nestjs/common';
+import axios from 'axios';
 
 @Injectable()
 export class AiService {
-  private readonly apiUrl = process.env.HF_API_URL;
-  private readonly apiKey = process.env.HF_API_KEY;
+  private readonly API_URL =
+    'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent';
 
-  constructor(private readonly httpService: HttpService) {}
+  private readonly API_KEY = process.env.GEMINI_API_KEY;
 
   async generateCareerSuggestion(prompt: string): Promise<string> {
-    const response = await firstValueFrom(
-      this.httpService.post(
-        this.apiUrl,
-        { inputs: prompt },
-        {
-          headers: {
-            Authorization: `Bearer ${this.apiKey}`,
-            'Content-Type': 'application/json',
+    try {
+      const res = await axios.post(`${this.API_URL}?key=${this.API_KEY}`, {
+        contents: [
+          {
+            parts: [{ text: prompt }],
           },
-        },
-      ),
-    );
-    const result = response.data?.[0]?.generated_text || 'No response';
-    return result;
+        ],
+      });
+
+      const text = res.data.candidates?.[0]?.content?.parts?.[0]?.text || '{}';
+
+      // Optional: try parsing JSON if possible
+      const jsonStart = text.indexOf('{');
+      const jsonEnd = text.lastIndexOf('}');
+      const jsonString = text.substring(jsonStart, jsonEnd + 1);
+
+      return jsonString;
+    } catch (err) {
+      console.error('Gemini AI Error:', err.message);
+      return '{}';
+    }
   }
 }

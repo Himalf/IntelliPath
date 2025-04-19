@@ -6,6 +6,9 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { AiService } from './ai/ai.service';
 import { HttpModule } from '@nestjs/axios';
 import { CareerSuggestionService } from './career_suggestion/career_suggestion.service';
+import { CareerSuggestionController } from './career_suggestion/career_suggestion.controller';
+import { CareerSuggestionModule } from './career_suggestion/career_suggestion.module';
+import { AiModule } from './ai/ai.module';
 @Module({
   imports: [
     HttpModule,
@@ -19,7 +22,8 @@ import { CareerSuggestionService } from './career_suggestion/career_suggestion.s
     }),
     UsersModule,
     AuthModule,
+    CareerSuggestionModule,
+    AiModule,
   ],
-  providers: [CareerSuggestionService],
 })
 export class AppModule {}

@@ -3,10 +3,15 @@ import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { ThrottlerGuard } from '@nestjs/throttler';
+import { WinstonLogger, WinstonModule } from 'nest-winston';
+import { winstonConfig } from './logger.config';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule, {
+    logger: WinstonModule.createLogger(winstonConfig),
+  });
   app.useGlobalPipes(new ValidationPipe());
+  app.enableCors();
   const config = new DocumentBuilder()
     .setTitle('Cats example')
     .setDescription('The cats API description')

@@ -28,7 +28,7 @@ export default function LandingPage() {
           <IconBrain />
         </div>
         <h1 className="text-5xl md:text-6xl font-extrabold mb-6 text-gray-900 tracking-tight animate-fade-in-up delay-100">
-          Elevate Your Career with AI
+          Elevate Your Career with IntelliPath AI
         </h1>
         <p className="text-gray-600 max-w-2xl text-lg mb-10 leading-relaxed animate-fade-in-up delay-200">
           Discover personalized career insights, skill enhancement strategies,

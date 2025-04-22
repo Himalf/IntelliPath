@@ -1,8 +1,8 @@
-// src/features/auth/AuthContext.tsx
 import { createContext, useContext, useEffect, useState } from "react";
 
 type User = {
   _id: string;
+  fullName: string;
   email: string;
   role: string;
 };
@@ -39,7 +39,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   }, []);
 
   const login = (token: string, user: User) => {
-    console.log("Login: storing user →", user); // 🐛 Debug
     localStorage.setItem("token", token);
     localStorage.setItem("user", JSON.stringify(user));
     setToken(token);

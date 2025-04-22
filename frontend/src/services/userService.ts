@@ -8,6 +8,8 @@ export interface User {
   education?: string;
   skills?: string;
   resume_url?: string;
+  createdAt?: string;
+  updatedAt?: string;
 }
 
 export interface CreateUserDto {

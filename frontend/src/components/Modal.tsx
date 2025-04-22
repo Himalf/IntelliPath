@@ -18,7 +18,7 @@ export default function Modal({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-transparent backdrop-blur-xs">
       <div
         className={`bg-white w-full ${width} rounded-lg shadow-lg relative p-6 animate-fade-in-up`}
       >

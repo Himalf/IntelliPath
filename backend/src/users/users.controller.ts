@@ -15,7 +15,6 @@ import { JwtAuthGuard } from 'src/auth/jwt.auth-guard';
 import { Roles } from 'src/auth/decorators/roles.decorators';
 import { UserRole } from './schemas/user.schema';
 import { RoleGuards } from 'src/auth/guards/roles.guards';
-import { ApiBearerAuth } from '@nestjs/swagger';
 
 @Controller('users')
 export class UsersController {

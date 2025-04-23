@@ -24,7 +24,7 @@ export default function Sidebar() {
       roles: ["STUDENT", "EXPERT", "ADMIN", "SUPERADMIN"],
     },
     {
-      path: "/resume",
+      path: "/dashboard/resume",
       label: "Resume Analysis",
       icon: <FaFileAlt className="w-5 h-5" />,
       roles: ["STUDENT", "EXPERT", "SUPERADMIN"],

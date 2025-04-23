@@ -19,7 +19,10 @@ class ResumeService {
 
     const response = await axiosInstance.post<ResumeAnalysis>(
       `/resume-analysis/analyze/${userId}`,
-      formData
+      formData,
+      {
+        headers: { "Content-Type": "multipart/form-data" },
+      }
     );
     return response.data;
   }

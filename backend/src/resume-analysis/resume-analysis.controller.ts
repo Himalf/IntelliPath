@@ -34,6 +34,7 @@ export class ResumeAnalysisController {
     @Param('userId') userId: string,
     @UploadedFile() file: Express.Multer.File,
   ) {
+    console.log('Received file:', file);
     return this.resumeService.analyzeResume(userId, file);
   }
 

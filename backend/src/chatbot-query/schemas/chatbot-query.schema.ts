@@ -3,7 +3,7 @@ import mongoose, { Document, Types } from 'mongoose';
 
 export type ChatbotQueryDocument = ChatbotQuery & Document;
 
-@Schema({ timestamps: { createdAt: 'timestamp' } })
+@Schema({ timestamps: true })
 export class ChatbotQuery {
   @Prop({ type: Types.ObjectId, ref: 'User', required: true })
   userId: Types.ObjectId;

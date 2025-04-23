@@ -4,8 +4,9 @@ import Register from "../features/auth/Register";
 import ProtectedRoute from "../components/ProtectedRoutes";
 import DashboardLayout from "../layouts/DashboardLayout";
 import { useAuth } from "../features/auth/AuthContext";
-import LandingPage from "../pages/LandingPage"; // 👈 import your landing page
+import LandingPage from "../pages/LandingPage";
 import UserManagementTable from "../features/user-management/UserManagement";
+import ResumePage from "@/pages/User/ResumePage";
 
 export default function AppRoutes() {
   const { token } = useAuth();
@@ -39,6 +40,7 @@ export default function AppRoutes() {
       >
         {/* Nested routes inside dashboard can go here */}
         <Route path="user-management" element={<UserManagementTable />} />
+        <Route path="resume" element={<ResumePage />} />
         {/* <Route path="career" element={<CareerSuggestions />} /> */}
         {/* <Route path="resume" element={<ResumeAnalysis />} /> */}
       </Route>

@@ -8,7 +8,7 @@ import {
   ResumeAnalysis,
   ResumeAnalysisDocument,
 } from './schemas/resume-analysis.schema';
-import { Model } from 'mongoose';
+import { Model, Types } from 'mongoose';
 import { AiService } from 'src/ai/ai.service';
 import { UsersService } from 'src/users/users.service';
 import * as pdfParse from 'pdf-parse';
@@ -49,7 +49,6 @@ export class ResumeAnalysisService {
 
     // 4. Get AI response
     const aiRaw = await this.aiService.generateCareerSuggestion(prompt);
-    console.log('🧠 Raw AI Response:', aiRaw); // Debug
 
     // 5. Clean & Parse AI response
     let parsed: {
@@ -76,7 +75,6 @@ export class ResumeAnalysisService {
         throw new Error('Missing keys');
       }
     } catch (err) {
-      console.error('❌ AI JSON Parse Error:', err);
       throw new InternalServerErrorException(
         'Invalid AI resume analysis format',
       );
@@ -95,6 +93,20 @@ export class ResumeAnalysisService {
   }
 
   async getAnalysisByUser(userId: string): Promise<ResumeAnalysis[]> {
-    return this.resumeModel.find({ user_id: userId }).exec();
+    try {
+      // Only try to convert if it's a valid ObjectId format
+      if (Types.ObjectId.isValid(userId)) {
+        return this.resumeModel
+          .find({ user_id: new Types.ObjectId(userId) })
+          .exec();
+      } else {
+        // If not a valid ObjectId, try searching by the string directly
+        // This assumes you might be storing user_id as a string in some documents
+        return this.resumeModel.find({ user_id: userId }).exec();
+      }
+    } catch (error) {
+      console.error('Error finding resume analyses:', error);
+      throw error;
+    }
   }
 }

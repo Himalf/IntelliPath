@@ -9,7 +9,7 @@ export enum UserRole {
   GUEST = 'GUEST',
 }
 export type UserDocument = User & Document;
-@Schema()
+@Schema({ timestamps: true })
 export class User {
   @Prop({ required: true, unique: true })
   email: string;

@@ -1,7 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Types } from 'mongoose';
 export type ResumeAnalysisDocument = ResumeAnalysis & Document;
-@Schema()
+@Schema({ timestamps: true })
 export class ResumeAnalysis {
   @Prop({ type: Types.ObjectId, ref: 'User', required: true })
   user_id: Types.ObjectId;

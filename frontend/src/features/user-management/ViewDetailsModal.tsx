@@ -18,11 +18,10 @@ interface Props {
 }
 
 export default function ViewUserDetailsModal({ isOpen, onClose, user }: Props) {
-  const [resumeAnalysis, setResumeAnalysis] = useState<ResumeAnalysis | null>(
-    null
+  const [resumeAnalysis, setResumeAnalysis] = useState<ResumeAnalysis[]>([]);
+  const [careerSuggestion, setCareerSuggestion] = useState<CareerSuggestion[]>(
+    []
   );
-  const [careerSuggestion, setCareerSuggestion] =
-    useState<CareerSuggestion | null>(null);
   const [activeTab, setActiveTab] = useState("info");
   const [isLoading, setIsLoading] = useState(false);
 
@@ -47,8 +46,8 @@ export default function ViewUserDetailsModal({ isOpen, onClose, user }: Props) {
         careerSuggestionService.getSuggestions(userId),
       ]);
 
-      setResumeAnalysis(resumeData[0] || null);
-      setCareerSuggestion(careerData[0] || null);
+      setResumeAnalysis(resumeData || []);
+      setCareerSuggestion(careerData || []);
     } catch (error) {
       console.error("Failed to fetch user data:", error);
     } finally {
@@ -97,10 +96,10 @@ export default function ViewUserDetailsModal({ isOpen, onClose, user }: Props) {
               <UserInfoTab user={user} />
             </Tabs.Content>
             <Tabs.Content value="resume" className="focus:outline-none">
-              <ResumeAnalysisTab analysis={resumeAnalysis} />
+              <ResumeAnalysisTab analyses={resumeAnalysis || []} />
             </Tabs.Content>
             <Tabs.Content value="career" className="focus:outline-none">
-              <CareerSuggestionsTab suggestion={careerSuggestion} />
+              <CareerSuggestionsTab suggestions={careerSuggestion || []} />
             </Tabs.Content>
           </>
         )}

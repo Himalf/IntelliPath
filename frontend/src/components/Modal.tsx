@@ -18,9 +18,9 @@ export default function Modal({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-transparent backdrop-blur-xs">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/30 backdrop-blur-sm">
       <div
-        className={`bg-white w-full ${width} rounded-lg shadow-lg relative p-6 animate-fade-in-up`}
+        className={`bg-white w-full ${width} max-h-[90vh] rounded-lg shadow-lg relative p-6 animate-fade-in-up overflow-y-auto`}
       >
         {/* Close button */}
         <button
@@ -32,11 +32,13 @@ export default function Modal({
 
         {/* Modal title */}
         {title && (
-          <h2 className="text-xl font-semibold mb-4 text-gray-800">{title}</h2>
+          <h2 className="text-xl font-semibold mb-4 text-gray-800 pr-6">
+            {title}
+          </h2>
         )}
 
-        {/* Modal content */}
-        <div>{children}</div>
+        {/* Scrollable content */}
+        <div className="overflow-y-auto">{children}</div>
       </div>
     </div>
   );

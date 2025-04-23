@@ -6,10 +6,10 @@ import careerSuggestionService, {
   CareerSuggestion,
 } from "@/services/careerSuggestionService";
 import * as Tabs from "@radix-ui/react-tabs";
-import ResumeAnalysisTab from "./tabs/ResumeAnalysisTab";
 import CareerSuggestionsTab from "./tabs/CareerSuggestionsTab";
 import UserInfoTab from "./tabs/UserInfoTab";
 import { Loader2 } from "lucide-react";
+import ResumeAnalysisTab from "@/features/user-management/tabs/ResumeAnalysisTab/";
 
 interface Props {
   isOpen: boolean;

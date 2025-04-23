@@ -8,6 +8,7 @@ import LandingPage from "../pages/LandingPage";
 import UserManagementTable from "../features/user-management/UserManagement";
 import ResumePage from "@/pages/User/ResumePage";
 import CareerSuggestionsPage from "@/pages/User/career-suggestions";
+import CourseManagementPage from "@/pages/admin/CourseManagementPage";
 
 export default function AppRoutes() {
   const { token } = useAuth();
@@ -43,6 +44,8 @@ export default function AppRoutes() {
         <Route path="user-management" element={<UserManagementTable />} />
         <Route path="resume" element={<ResumePage />} />
         <Route path="career" element={<CareerSuggestionsPage />} />
+        <Route path="course" element={<CourseManagementPage />} />
+
         {/* <Route path="resume" element={<ResumeAnalysis />} /> */}
       </Route>
 

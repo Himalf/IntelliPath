@@ -8,7 +8,6 @@ import {
   FaBook,
   FaSignOutAlt,
   FaUsersCog,
-  FaTools,
 } from "react-icons/fa";
 import { useAuth } from "../features/auth/AuthContext";
 
@@ -24,6 +23,18 @@ export default function Sidebar() {
       roles: ["STUDENT", "EXPERT", "ADMIN", "SUPERADMIN"],
     },
     {
+      path: "/dashboard/user-management",
+      label: "User Management",
+      icon: <FaUsersCog className="w-5 h-5" />,
+      roles: ["SUPERADMIN"],
+    },
+    {
+      path: "/dashboard/course",
+      label: "Courses",
+      icon: <FaBook className="w-5 h-5" />,
+      roles: ["STUDENT", "EXPERT", "ADMIN", "SUPERADMIN"],
+    },
+    {
       path: "/dashboard/resume",
       label: "Resume Analysis",
       icon: <FaFileAlt className="w-5 h-5" />,
@@ -35,41 +46,18 @@ export default function Sidebar() {
       icon: <FaBriefcase className="w-5 h-5" />,
       roles: ["STUDENT", "EXPERT", "ADMIN", "SUPERADMIN"],
     },
+
     {
-      path: "/skills",
-      label: "Skill Analytics",
-      icon: <FaUser className="w-5 h-5" />,
-      roles: ["EXPERT", "ADMIN", "SUPERADMIN"],
-    },
-    {
-      path: "/courses",
-      label: "Courses",
-      icon: <FaBook className="w-5 h-5" />,
-      roles: ["STUDENT", "EXPERT", "ADMIN", "SUPERADMIN"],
-    },
-    {
-      path: "/assistant",
+      path: "/dashboard/assistant",
       label: "AI Assistant",
       icon: <FaBrain className="w-5 h-5" />,
       roles: ["STUDENT", "EXPERT", "ADMIN", "SUPERADMIN"],
     },
     {
-      path: "/feedback",
+      path: "/dashboard/feedback",
       label: "Feedback",
       icon: <FaUser className="w-5 h-5" />,
       roles: ["STUDENT", "EXPERT", "ADMIN", "SUPERADMIN"],
-    },
-    {
-      path: "/dashboard/user-management",
-      label: "User Management",
-      icon: <FaUsersCog className="w-5 h-5" />,
-      roles: ["SUPERADMIN"],
-    },
-    {
-      path: "/admin-tools",
-      label: "Admin Tools",
-      icon: <FaTools className="w-5 h-5" />,
-      roles: ["ADMIN", "SUPERADMIN"],
     },
   ];
 

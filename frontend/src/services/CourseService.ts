@@ -1,0 +1,32 @@
+import axiosInstance from "./axiosInstance";
+
+export interface Course {
+  _id: string;
+  title: string;
+  description: string;
+  link?: string;
+  careerId?: string;
+  createdAt?: string;
+  updatedAt?: string;
+}
+
+const courseService = {
+  async getAll(): Promise<Course[]> {
+    const res = await axiosInstance.get("/courses");
+    return res.data;
+  },
+  async create(course: Partial<Course>) {
+    const res = await axiosInstance.post("/courses", course);
+    return res.data;
+  },
+  async update(id: string, course: Partial<Course>) {
+    const res = await axiosInstance.patch(`/courses/${id}`, course);
+    return res.data;
+  },
+  async delete(id: string) {
+    const res = await axiosInstance.delete(`/courses/${id}`);
+    return res.data;
+  },
+};
+
+export default courseService;

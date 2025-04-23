@@ -1,3 +1,4 @@
+import { X } from "lucide-react";
 import { ReactNode } from "react";
 
 interface ModalProps {
@@ -25,9 +26,9 @@ export default function Modal({
         {/* Close button */}
         <button
           onClick={onClose}
-          className="absolute top-3 right-3 text-gray-500 hover:text-gray-700 text-xl"
+          className="absolute top-3 right-3 text-gray-500 hover:text-gray-700 text-4xl cursor-pointer"
         >
-          &times;
+          <X />
         </button>
 
         {/* Modal title */}

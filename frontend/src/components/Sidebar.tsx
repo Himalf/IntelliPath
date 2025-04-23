@@ -30,7 +30,7 @@ export default function Sidebar() {
       roles: ["STUDENT", "EXPERT", "SUPERADMIN"],
     },
     {
-      path: "/career",
+      path: "/dashboard/career",
       label: "Career Suggestions",
       icon: <FaBriefcase className="w-5 h-5" />,
       roles: ["STUDENT", "EXPERT", "ADMIN", "SUPERADMIN"],

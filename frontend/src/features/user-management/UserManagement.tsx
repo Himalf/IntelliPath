@@ -207,7 +207,7 @@ export default function UserManagementTable() {
         <h2 className="text-2xl font-bold">User Management</h2>
         <button
           onClick={handleAdd}
-          className="bg-black text-white px-4 py-2 rounded flex items-center gap-2"
+          className="bg-black text-white px-4 py-2 rounded flex items-center gap-2 cursor-pointer"
         >
           <FaPlus size={14} /> Add User
         </button>
@@ -316,7 +316,7 @@ export default function UserManagementTable() {
                     <td className="px-4 py-3 text-center">
                       <DropdownMenu>
                         <DropdownMenuTrigger asChild>
-                          <button className="text-gray-500 hover:text-gray-800">
+                          <button className="text-gray-500 hover:text-gray-800 cursor-pointer">
                             <FaEllipsisV />
                           </button>
                         </DropdownMenuTrigger>

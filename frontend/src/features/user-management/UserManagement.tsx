@@ -8,10 +8,11 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@radix-ui/react-dropdown-menu";
-import { Edit, Search, SearchCheck, Trash2, View } from "lucide-react";
+import { Edit, Trash2, View } from "lucide-react";
 import UserModal from "./UserModal";
 import { formatDate } from "date-fns";
 import { Button } from "@/components/ui/button";
+import ViewUserDetailsModal from "./ViewDetailsModal";
 
 // Pagination component
 interface PaginationProps {
@@ -96,7 +97,8 @@ export default function UserManagementTable() {
   const [error, setError] = useState<string | null>(null);
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedUser, setSelectedUser] = useState<User | null>(null);
-
+  const [viewingUser, setViewingUser] = useState<User | null>(null);
+  const [viewUserModalOpen, setViewUserModalOpen] = useState(false);
   // Pagination state
   const [currentPage, setCurrentPage] = useState(1);
   const usersPerPage = 5;
@@ -130,6 +132,10 @@ export default function UserManagementTable() {
     } catch {
       alert("Delete failed.");
     }
+  };
+  const handleViewUser = (user: User) => {
+    setViewingUser(user);
+    setViewUserModalOpen(true);
   };
 
   const handleAdd = () => {
@@ -318,7 +324,10 @@ export default function UserManagementTable() {
                           className="bg-white shadow-lg rounded p-1 cursor-pointer"
                           align="end"
                         >
-                          <DropdownMenuItem className="flex items-center gap-2 p-2 text-sm hover:bg-gray-100 rounded">
+                          <DropdownMenuItem
+                            className="flex items-center gap-2 p-2 text-sm hover:bg-gray-100 rounded"
+                            onClick={() => handleViewUser(user)}
+                          >
                             <View className="w-4 h-4" /> View
                           </DropdownMenuItem>
                           <DropdownMenuItem
@@ -352,7 +361,11 @@ export default function UserManagementTable() {
           )}
         </div>
       )}
-
+      <ViewUserDetailsModal
+        isOpen={viewUserModalOpen}
+        onClose={() => setViewUserModalOpen(false)}
+        user={viewingUser}
+      />
       <UserModal
         isOpen={modalOpen}
         onClose={() => setModalOpen(false)}

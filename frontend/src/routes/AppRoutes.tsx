@@ -51,9 +51,12 @@ export default function AppRoutes() {
         <Route path="course" element={<CourseManagementPage />} />
         <Route path="assistant" element={<ChatInterface />} />
         <Route path="feedback" element={<FeedbackPage />} />
-        {/* <Route path="" element={<AdminDashboardPage />} /> */}
-
-        <Route path="" element={<UserDashboardPage />} />
+        {(user?.role === "ADMIN" || user?.role === "SUPERADMIN") && (
+          <Route path="" element={<AdminDashboardPage />} />
+        )}
+        {(user?.role === "USER" || user?.role === "EXPERT") && (
+          <Route path="" element={<UserDashboardPage />} />
+        )}
       </Route>
 
       {/* Catch-all route */}

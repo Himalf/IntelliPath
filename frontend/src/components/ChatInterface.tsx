@@ -8,6 +8,7 @@ import { format, isSameDay } from "date-fns";
 import { useAuth } from "@/features/auth/AuthContext";
 import chatbotService, { ChatMessage } from "@/services/chatbotService";
 import { FaPaperPlane } from "react-icons/fa";
+import { toast } from "sonner";
 
 const ChatInterface = () => {
   const { user } = useAuth();
@@ -66,9 +67,25 @@ const ChatInterface = () => {
     }
   };
 
-  const clearChatHistory = () => {
-    setChatHistory([]);
-    // Optionally, call an API to clear history on the server
+  const clearChatHistory = async (userId: string) => {
+    // Show a confirmation alert before proceeding with deletion
+    const confirmation = window.confirm(
+      "Are you sure you want to delete all chats? This action cannot be undone."
+    );
+
+    if (confirmation) {
+      try {
+        await chatbotService.deleteChatByUserId(userId);
+
+        setChatHistory([]);
+
+        toast.success("Chat history cleared successfully!");
+      } catch (error) {
+        toast.error("Failed to delete chat history.");
+      }
+    } else {
+      toast.info("Chat history deletion canceled.");
+    }
   };
 
   const renderMessagesWithDates = (messages: ChatMessage[]) => {
@@ -138,7 +155,7 @@ const ChatInterface = () => {
         </h1>
         <Button
           variant="outline"
-          onClick={clearChatHistory}
+          onClick={() => user?._id && clearChatHistory(user._id)}
           className="text-sm border-gray-300 hover:bg-gray-200 transition-colors"
         >
           Clear Chat

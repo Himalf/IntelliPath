@@ -22,6 +22,11 @@ const ChatbotService = {
     const res = await axiosInstance.get(`/chatbot-queries/${userId}`);
     return res.data;
   },
+
+  async deleteChatByUserId(userId: string) {
+    const res = await axiosInstance.delete(`chatbot-queries/${userId}`);
+    return res.data;
+  },
 };
 
 export default ChatbotService;

@@ -1,4 +1,12 @@
-import { Controller, Post, Body, Param, Get, UseGuards } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Body,
+  Param,
+  Get,
+  UseGuards,
+  Delete,
+} from '@nestjs/common';
 import { CreateChatbotQueryDto } from './dto/create-chatbot-query.dto';
 import { ChatbotQuery } from './schemas/chatbot-query.schema';
 import { ChatbotQueriesService } from './chatbot-query.service';
@@ -34,5 +42,10 @@ export class ChatbotQueriesController {
   @Get(':userId')
   async findByUser(@Param('userId') userId: string): Promise<ChatbotQuery[]> {
     return this.chatbotQueriesService.findByUser(userId);
+  }
+  @Roles(UserRole.USER, UserRole.EXPERT, UserRole.ADMIN, UserRole.SUPERADMIN)
+  @Delete(':userId')
+  async deleteAllByUser(@Param('userId') userId: string) {
+    return this.chatbotQueriesService.deleteAllByUser(userId);
   }
 }

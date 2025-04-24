@@ -43,4 +43,9 @@ export class ResumeAnalysisController {
   getAnalysis(@Param('userId') userId: string) {
     return this.resumeService.getAnalysisByUser(userId);
   }
+  @Roles(UserRole.ADMIN, UserRole.SUPERADMIN)
+  @Get()
+  getAllAnalyses() {
+    return this.resumeService.findAllAnalyses();
+  }
 }

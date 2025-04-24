@@ -109,4 +109,15 @@ export class ResumeAnalysisService {
       throw error;
     }
   }
+
+  async findAllAnalyses(): Promise<ResumeAnalysis[]> {
+    try {
+      return this.resumeModel.find().exec();
+    } catch (error) {
+      console.error('Error finding all resume analyses:', error);
+      throw new InternalServerErrorException(
+        'Error retrieving all resume analyses',
+      );
+    }
+  }
 }

@@ -26,4 +26,10 @@ export class CareerSuggestionController {
   async getSuggestions(@Param('userId') userId: string) {
     return this.suggestionService.getSuggestionsByUser(userId);
   }
+
+  @Roles(UserRole.ADMIN, UserRole.SUPERADMIN)
+  @Get()
+  async getAllSuggestions() {
+    return this.suggestionService.findAllSuggestions();
+  }
 }

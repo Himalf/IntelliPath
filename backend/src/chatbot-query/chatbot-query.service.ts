@@ -33,7 +33,8 @@ export class ChatbotQueriesService {
         "response": "your full reply here"
       }
       ONLY return the JSON. No explanations.
-  
+  This is only for the storing you responses in the response key but the response or message should be the Plain Text.
+   And understandable you can use bullets, paragraphs,even in code structure if needed
       Question:
       ${question}
     `;
@@ -78,6 +79,20 @@ export class ChatbotQueriesService {
       }
     } catch (error) {
       throw error;
+    }
+  }
+  async deleteAllByUser(userId: string): Promise<{ deletedCount: number }> {
+    try {
+      const result = await this.chatbotQueryModel
+        .deleteMany({
+          userId: Types.ObjectId.isValid(userId)
+            ? new Types.ObjectId(userId)
+            : userId,
+        })
+        .exec();
+      return result;
+    } catch (error) {
+      throw new InternalServerErrorException('Failed to delete queries');
     }
   }
 }

@@ -80,4 +80,17 @@ export class CareerSuggestionService {
       .populate('recommended_courses', 'title description url') // Populate course details
       .exec();
   }
+  async findAllSuggestions(): Promise<CareerSuggestion[]> {
+    try {
+      return this.suggestionModel
+        .find()
+        .populate('recommended_courses', 'title description url') // Populate course details
+        .exec();
+    } catch (error) {
+      console.error('Error finding all career suggestions:', error);
+      throw new InternalServerErrorException(
+        'Error retrieving all career suggestions',
+      );
+    }
+  }
 }

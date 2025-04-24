@@ -12,9 +12,10 @@ import CourseManagementPage from "@/pages/admin/CourseManagementPage";
 import ChatInterface from "@/components/ChatInterface";
 import FeedbackPage from "@/pages/User/feedback";
 import AdminDashboardPage from "@/pages/admin/AdminDashboardPage";
+import UserDashboardPage from "@/pages/User/UserDashboardPage";
 
 export default function AppRoutes() {
-  const { token } = useAuth();
+  const { token, user } = useAuth();
 
   return (
     <Routes>
@@ -50,7 +51,9 @@ export default function AppRoutes() {
         <Route path="course" element={<CourseManagementPage />} />
         <Route path="assistant" element={<ChatInterface />} />
         <Route path="feedback" element={<FeedbackPage />} />
-        <Route path="" element={<AdminDashboardPage />} />
+        {/* <Route path="" element={<AdminDashboardPage />} /> */}
+
+        <Route path="" element={<UserDashboardPage />} />
       </Route>
 
       {/* Catch-all route */}

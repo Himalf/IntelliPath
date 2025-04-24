@@ -20,7 +20,7 @@ export default function Sidebar() {
       path: "/dashboard",
       label: "Dashboard",
       icon: <FaHome className="w-5 h-5" />,
-      roles: ["ADMIN", "SUPERADMIN"],
+      roles: ["ADMIN", "SUPERADMIN", "USER"],
     },
     {
       path: "/dashboard/user-management",
@@ -32,32 +32,32 @@ export default function Sidebar() {
       path: "/dashboard/course",
       label: "Courses",
       icon: <FaBook className="w-5 h-5" />,
-      roles: ["STUDENT", "EXPERT", "ADMIN", "SUPERADMIN"],
+      roles: ["ADMIN", "SUPERADMIN"],
     },
     {
       path: "/dashboard/resume",
       label: "Resume Analysis",
       icon: <FaFileAlt className="w-5 h-5" />,
-      roles: ["STUDENT", "EXPERT", "SUPERADMIN"],
+      roles: ["USER", "EXPERT", "SUPERADMIN"],
     },
     {
       path: "/dashboard/career",
       label: "Career Suggestions",
       icon: <FaBriefcase className="w-5 h-5" />,
-      roles: ["STUDENT", "EXPERT", "ADMIN", "SUPERADMIN"],
+      roles: ["USER", "EXPERT", "ADMIN", "SUPERADMIN"],
     },
 
     {
       path: "/dashboard/assistant",
       label: "AI Assistant",
       icon: <FaBrain className="w-5 h-5" />,
-      roles: ["STUDENT", "EXPERT", "ADMIN", "SUPERADMIN"],
+      roles: ["USER", "EXPERT", "ADMIN", "SUPERADMIN"],
     },
     {
       path: "/dashboard/feedback",
       label: "Feedback",
       icon: <FaUser className="w-5 h-5" />,
-      roles: ["STUDENT", "EXPERT", "ADMIN", "SUPERADMIN"],
+      roles: ["USER", "EXPERT", "ADMIN", "SUPERADMIN"],
     },
   ];
 

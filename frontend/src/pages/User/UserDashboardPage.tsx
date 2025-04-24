@@ -213,65 +213,6 @@ export default function UserDashboard() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Left Column - Charts */}
         <div className="lg:col-span-2 space-y-6">
-          {/* Resume Analysis Chart */}
-          <Card className="border-none shadow-md hover:shadow-lg transition-shadow duration-300">
-            <CardHeader className="border-b border-slate-100 bg-slate-50 rounded-t-lg">
-              <div className="flex items-center justify-between">
-                <CardTitle className="flex items-center gap-2 text-lg font-semibold">
-                  <TrendingUp className="h-5 w-5 text-indigo-500" />
-                  <span>Resume Score History</span>
-                </CardTitle>
-                <div className="flex items-center gap-2">
-                  <TimeRangeSelector
-                    selectedRange={selectedTimeRange}
-                    onChange={setSelectedTimeRange}
-                  />
-                </div>
-              </div>
-            </CardHeader>
-            <CardContent className="pt-6">
-              <div className="h-64">
-                {resumes.length > 0 ? (
-                  <ResponsiveContainer width="100%" height="100%">
-                    <BarChart data={resumeScoreData}>
-                      <CartesianGrid strokeDasharray="3 3" opacity={0.2} />
-                      <XAxis dataKey="date" />
-                      <YAxis domain={[0, 100]} />
-                      <Tooltip
-                        formatter={(value) => [`${value}`, "Score"]}
-                        labelFormatter={(label) => `Date: ${label}`}
-                        contentStyle={{
-                          backgroundColor: "#fff",
-                          borderColor: COLORS.primary,
-                          borderRadius: "6px",
-                          boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.1)",
-                        }}
-                      />
-                      <Legend />
-                      <Bar
-                        name="Resume Score"
-                        dataKey="score"
-                        fill={COLORS.primary}
-                        radius={[4, 4, 0, 0]}
-                      />
-                    </BarChart>
-                  </ResponsiveContainer>
-                ) : (
-                  <EmptyState
-                    message="No resume analysis available"
-                    icon={<FileText className="h-12 w-12 text-slate-300" />}
-                  />
-                )}
-              </div>
-            </CardContent>
-            {resumes.length > 0 && (
-              <CardFooter className="border-t border-slate-100 bg-slate-50 rounded-b-lg text-sm text-slate-500 py-3">
-                Last updated:{" "}
-                {new Date(resumes[0].createdAt || "").toLocaleString()}
-              </CardFooter>
-            )}
-          </Card>
-
           {/* Feedback Chart */}
           <Card className="border-none shadow-md hover:shadow-lg transition-shadow duration-300">
             <CardHeader className="border-b border-slate-100 bg-slate-50 rounded-t-lg">
@@ -328,6 +269,64 @@ export default function UserDashboard() {
             {feedbacks.length > 0 && (
               <CardFooter className="border-t border-slate-100 bg-slate-50 rounded-b-lg text-sm text-slate-500 py-3">
                 Total feedback: {feedbacks.length} ratings
+              </CardFooter>
+            )}
+          </Card>
+          {/* Resume Analysis Chart */}
+          <Card className="border-none shadow-md hover:shadow-lg transition-shadow duration-300">
+            <CardHeader className="border-b border-slate-100 bg-slate-50 rounded-t-lg">
+              <div className="flex items-center justify-between">
+                <CardTitle className="flex items-center gap-2 text-lg font-semibold">
+                  <TrendingUp className="h-5 w-5 text-indigo-500" />
+                  <span>Resume Score History</span>
+                </CardTitle>
+                <div className="flex items-center gap-2">
+                  <TimeRangeSelector
+                    selectedRange={selectedTimeRange}
+                    onChange={setSelectedTimeRange}
+                  />
+                </div>
+              </div>
+            </CardHeader>
+            <CardContent className="pt-6">
+              <div className="h-64">
+                {resumes.length > 0 ? (
+                  <ResponsiveContainer width="100%" height="100%">
+                    <BarChart data={resumeScoreData}>
+                      <CartesianGrid strokeDasharray="3 3" opacity={0.2} />
+                      <XAxis dataKey="date" />
+                      <YAxis domain={[0, 100]} />
+                      <Tooltip
+                        formatter={(value) => [`${value}`, "Score"]}
+                        labelFormatter={(label) => `Date: ${label}`}
+                        contentStyle={{
+                          backgroundColor: "#fff",
+                          borderColor: COLORS.primary,
+                          borderRadius: "6px",
+                          boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.1)",
+                        }}
+                      />
+                      <Legend />
+                      <Bar
+                        name="Resume Score"
+                        dataKey="score"
+                        fill={COLORS.primary}
+                        radius={[4, 4, 0, 0]}
+                      />
+                    </BarChart>
+                  </ResponsiveContainer>
+                ) : (
+                  <EmptyState
+                    message="No resume analysis available"
+                    icon={<FileText className="h-12 w-12 text-slate-300" />}
+                  />
+                )}
+              </div>
+            </CardContent>
+            {resumes.length > 0 && (
+              <CardFooter className="border-t border-slate-100 bg-slate-50 rounded-b-lg text-sm text-slate-500 py-3">
+                Last updated:{" "}
+                {new Date(resumes[0].createdAt || "").toLocaleString()}
               </CardFooter>
             )}
           </Card>

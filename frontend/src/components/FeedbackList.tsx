@@ -80,7 +80,7 @@ export default function FeedbackList({ userId }: Props) {
             You haven't submitted any feedback yet.
           </div>
         ) : (
-          <div className="space-y-4">
+          <div className="space-y-4 max-h-[20vh] overflow-y-auto ">
             {feedbacks.map((f) => (
               <div
                 key={f._id}

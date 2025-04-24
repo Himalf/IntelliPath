@@ -39,6 +39,11 @@ class FeedbackService {
   async deleteFeedback(id: string): Promise<void> {
     await axiosInstance.delete(`/feedback/${id}`);
   }
+
+  async getAllFeedback(): Promise<Feedback[]> {
+    const res = await axiosInstance.get<Feedback[]>(`/feedback`);
+    return res.data;
+  }
 }
 
 export default new FeedbackService();

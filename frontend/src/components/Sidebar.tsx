@@ -20,7 +20,7 @@ export default function Sidebar() {
       path: "/dashboard",
       label: "Dashboard",
       icon: <FaHome className="w-5 h-5" />,
-      roles: ["STUDENT", "EXPERT", "ADMIN", "SUPERADMIN"],
+      roles: ["ADMIN", "SUPERADMIN"],
     },
     {
       path: "/dashboard/user-management",

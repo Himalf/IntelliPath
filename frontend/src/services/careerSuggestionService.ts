@@ -37,6 +37,13 @@ class CareerSuggestionService {
     );
     return response.data;
   }
+
+  async getAllSuggestions(): Promise<CareerSuggestion[]> {
+    const response = await axiosInstance.get<CareerSuggestion[]>(
+      `/career-suggestions`
+    );
+    return response.data;
+  }
 }
 
 export default new CareerSuggestionService();

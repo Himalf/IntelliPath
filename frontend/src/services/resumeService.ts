@@ -34,6 +34,14 @@ class ResumeService {
     );
     return response.data;
   }
+
+  // get all
+  async getAllAnalyses(): Promise<ResumeAnalysis[]> {
+    const response = await axiosInstance.get<ResumeAnalysis[]>(
+      `/resume-analysis`
+    );
+    return response.data;
+  }
 }
 
 export default new ResumeService();

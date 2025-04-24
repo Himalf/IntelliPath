@@ -66,7 +66,7 @@ export default function Sidebar() {
       {/* Logo */}
       <div className="flex items-center justify-center mb-10 animate-fade-in-up">
         <FaBrain className="w-8 h-8 text-gray-900 mr-2" />
-        <h2 className="text-2xl font-bold text-gray-900">CareerAI</h2>
+        <h2 className="text-2xl font-bold text-gray-900">IntelliPath AI</h2>
       </div>
 
       {/* Navigation */}

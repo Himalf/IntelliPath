@@ -30,13 +30,34 @@ export class FeedbackService {
   }
 
   async findByUser(userId: string): Promise<Feedback[]> {
-    return this.feedbackModel.find({ userId }).exec();
+    try {
+      if (Types.ObjectId.isValid(userId)) {
+        return this.feedbackModel
+          .find({ userId: new Types.ObjectId(userId) })
+          .exec();
+      } else {
+        return this.feedbackModel.find({ userId: userId }).exec();
+      }
+    } catch (error) {}
   }
 
   async update(id: string, dto: UpdateFeedbackDto): Promise<Feedback> {
-    const updated = await this.feedbackModel.findByIdAndUpdate(id, dto, {
-      new: true,
-    });
+    const feedback = await this.feedbackModel.findById(id);
+    if (!feedback) throw new NotFoundException('Feedback not found');
+
+    const updatePayload: any = {
+      ...dto,
+      userId: feedback.userId, // preserve original ObjectId
+    };
+
+    const updated = await this.feedbackModel.findByIdAndUpdate(
+      id,
+      updatePayload,
+      {
+        new: true,
+      },
+    );
+
     if (!updated) throw new NotFoundException('Feedback not found');
     return updated;
   }

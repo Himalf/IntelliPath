@@ -8,7 +8,7 @@ import {
   ChatbotQuery,
   ChatbotQueryDocument,
 } from './schemas/chatbot-query.schema';
-import { Model } from 'mongoose';
+import { Model, Types } from 'mongoose';
 import { AiService } from 'src/ai/ai.service';
 import { UsersService } from 'src/users/users.service';
 
@@ -68,6 +68,16 @@ export class ChatbotQueriesService {
   }
 
   async findByUser(userId: string): Promise<ChatbotQuery[]> {
-    return this.chatbotQueryModel.find({ user_id: userId }).exec();
+    try {
+      if (Types.ObjectId.isValid(userId)) {
+        return this.chatbotQueryModel
+          .find({ userId: new Types.ObjectId(userId) })
+          .exec();
+      } else {
+        return this.chatbotQueryModel.find({ userId: userId }).exec();
+      }
+    } catch (error) {
+      throw error;
+    }
   }
 }

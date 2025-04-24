@@ -10,6 +10,7 @@ import ResumePage from "@/pages/User/ResumePage";
 import CareerSuggestionsPage from "@/pages/User/career-suggestions";
 import CourseManagementPage from "@/pages/admin/CourseManagementPage";
 import ChatInterface from "@/components/ChatInterface";
+import FeedbackPage from "@/pages/User/feedback";
 
 export default function AppRoutes() {
   const { token } = useAuth();
@@ -47,7 +48,7 @@ export default function AppRoutes() {
         <Route path="career" element={<CareerSuggestionsPage />} />
         <Route path="course" element={<CourseManagementPage />} />
         <Route path="assistant" element={<ChatInterface />} />
-        {/* <Route path="resume" element={<ResumeAnalysis />} /> */}
+        <Route path="feedback" element={<FeedbackPage />} />
       </Route>
 
       {/* Catch-all route */}

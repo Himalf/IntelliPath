@@ -133,7 +133,9 @@ const ChatInterface = () => {
     <div className=" flex flex-col max-w-4xl mx-auto bg-gradient-to-br from-gray-50 to-gray-100 p-6 font-['Inter',-apple-system,BlinkMacSystemFont,'Segoe_UI',Roboto,sans-serif] border rounded-xl shadow-md">
       {/* Header */}
       <div className="flex justify-between items-center mb-4">
-        <h1 className="text-2xl font-bold text-gray-800">Career Chatbot</h1>
+        <h1 className="text-2xl font-bold text-gray-800">
+          IntelliPath Chatbot
+        </h1>
         <Button
           variant="outline"
           onClick={clearChatHistory}

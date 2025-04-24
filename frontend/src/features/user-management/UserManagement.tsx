@@ -11,52 +11,8 @@ import {
 import { Edit, Trash2, View } from "lucide-react";
 import UserModal from "./UserModal";
 import { formatDate } from "date-fns";
-import { Button } from "@/components/ui/button";
 import ViewUserDetailsModal from "./ViewDetailsModal";
-
-// Pagination component
-interface PaginationProps {
-  currentPage: number;
-  totalPages: number;
-  onPageChange: (page: number) => void;
-}
-
-function Pagination({
-  currentPage,
-  totalPages,
-  onPageChange,
-}: PaginationProps) {
-  const handlePageChange = (page: number) => {
-    if (page >= 1 && page <= totalPages) {
-      onPageChange(page);
-    }
-  };
-
-  return (
-    <div className="flex justify-center gap-2 py-4">
-      <Button
-        onClick={() => handlePageChange(currentPage - 1)}
-        disabled={currentPage === 1}
-        variant="outline"
-        className="px-4 py-2 text-gray-800 disabled:opacity-50"
-      >
-        Previous
-      </Button>
-      <span className="flex items-center text-sm text-gray-600">
-        Page {currentPage} of {totalPages}
-      </span>
-      <Button
-        onClick={() => handlePageChange(currentPage + 1)}
-        disabled={currentPage === totalPages}
-        variant="outline"
-        className="px-4 py-2 text-gray-800 disabled:opacity-50"
-      >
-        Next
-      </Button>
-    </div>
-  );
-}
-
+import { Pagination } from "@/components/Pagination";
 // Sortable Table Header component
 interface SortableTableHeaderProps {
   label: string;

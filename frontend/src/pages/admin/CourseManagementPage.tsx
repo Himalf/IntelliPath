@@ -30,7 +30,7 @@ export default function CourseManagementPage() {
   }, []);
 
   return (
-    <div className="p-6 max-w-5xl mx-auto">
+    <div className="p-6  mx-auto">
       <div className="flex justify-between items-center mb-4">
         <h1 className="text-2xl font-bold">Manage Courses</h1>
         <Button onClick={() => setIsModalOpen(true)}>Add Course</Button>

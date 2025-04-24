@@ -4,10 +4,19 @@ export interface Course {
   _id: string;
   title: string;
   description: string;
+  tags?: string[];
+  url?: string;
   link?: string;
   careerId?: string;
   createdAt?: string;
   updatedAt?: string;
+}
+
+export interface CourseFormData {
+  title: string;
+  description: string;
+  url: string;
+  tags: { value: string }[];
 }
 
 const courseService = {

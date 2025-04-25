@@ -41,7 +41,7 @@ export default function Sidebar() {
       path: "/dashboard/user-management",
       label: "User Management",
       icon: <FaUsersCog />,
-      roles: ["SUPERADMIN"],
+      roles: ["SUPERADMIN", "ADMIN"],
     },
     {
       path: "/dashboard/course",
@@ -53,13 +53,13 @@ export default function Sidebar() {
       path: "/dashboard/resume",
       label: "Resume Analysis",
       icon: <FaFileAlt />,
-      roles: ["USER", "EXPERT", "SUPERADMIN"],
+      roles: ["USER", "EXPERT", "ADMIN"],
     },
     {
       path: "/dashboard/career",
       label: "Career Suggestions",
       icon: <FaBriefcase />,
-      roles: ["USER", "EXPERT", "ADMIN", "SUPERADMIN"],
+      roles: ["USER", "EXPERT", "ADMIN"],
     },
     {
       path: "/dashboard/assistant",

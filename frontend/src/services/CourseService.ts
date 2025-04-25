@@ -24,6 +24,10 @@ const courseService = {
     const res = await axiosInstance.get("/courses");
     return res.data;
   },
+  async getById(id: string) {
+    const res = await axiosInstance.get(`/courses/${id}`);
+    return res.data;
+  },
   async create(course: Partial<Course>) {
     const res = await axiosInstance.post("/courses", course);
     return res.data;

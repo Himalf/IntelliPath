@@ -133,10 +133,6 @@ export default function UserDashboard() {
     name: `${rating} Star${rating !== 1 ? "s" : ""}`,
   }));
 
-  // Resume score is calculated based on:
-  // - Number of strengths (30% weight)
-  // - Number of recommendations (50% weight)
-  // - Number of weaknesses (20% weight, negative impact)
   const resumeScoreData = resumes
     .slice(0, 5)
     .map((r) => {
@@ -213,6 +209,64 @@ export default function UserDashboard() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Left Column - Charts */}
         <div className="lg:col-span-2 space-y-6">
+          {/* Resume Analysis Chart */}
+          <Card className="border-none shadow-md hover:shadow-lg transition-shadow duration-300">
+            <CardHeader className="border-b border-slate-100 bg-slate-50 rounded-t-lg">
+              <div className="flex items-center justify-between">
+                <CardTitle className="flex items-center gap-2 text-lg font-semibold">
+                  <TrendingUp className="h-5 w-5 text-indigo-500" />
+                  <span>Resume Score History</span>
+                </CardTitle>
+                <div className="flex items-center gap-2">
+                  <TimeRangeSelector
+                    selectedRange={selectedTimeRange}
+                    onChange={setSelectedTimeRange}
+                  />
+                </div>
+              </div>
+            </CardHeader>
+            <CardContent className="pt-6">
+              <div className="h-64">
+                {resumes.length > 0 ? (
+                  <ResponsiveContainer width="100%" height="100%">
+                    <BarChart data={resumeScoreData}>
+                      <CartesianGrid strokeDasharray="3 3" opacity={0.2} />
+                      <XAxis dataKey="date" />
+                      <YAxis domain={[0, 100]} />
+                      <Tooltip
+                        formatter={(value) => [`${value}`, "Score"]}
+                        labelFormatter={(label) => `Date: ${label}`}
+                        contentStyle={{
+                          backgroundColor: "#fff",
+                          borderColor: COLORS.primary,
+                          borderRadius: "6px",
+                          boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.1)",
+                        }}
+                      />
+                      <Legend />
+                      <Bar
+                        name="Resume Score"
+                        dataKey="score"
+                        fill={COLORS.primary}
+                        radius={[4, 4, 0, 0]}
+                      />
+                    </BarChart>
+                  </ResponsiveContainer>
+                ) : (
+                  <EmptyState
+                    message="No resume analysis available"
+                    icon={<FileText className="h-12 w-12 text-slate-300" />}
+                  />
+                )}
+              </div>
+            </CardContent>
+            {resumes.length > 0 && (
+              <CardFooter className="border-t border-slate-100 bg-slate-50 rounded-b-lg text-sm text-slate-500 py-3">
+                Last updated:{" "}
+                {new Date(resumes[0].createdAt || "").toLocaleString()}
+              </CardFooter>
+            )}
+          </Card>
           {/* Feedback Chart */}
           <Card className="border-none shadow-md hover:shadow-lg transition-shadow duration-300">
             <CardHeader className="border-b border-slate-100 bg-slate-50 rounded-t-lg">
@@ -272,70 +326,12 @@ export default function UserDashboard() {
               </CardFooter>
             )}
           </Card>
-          {/* Resume Analysis Chart */}
-          <Card className="border-none shadow-md hover:shadow-lg transition-shadow duration-300">
-            <CardHeader className="border-b border-slate-100 bg-slate-50 rounded-t-lg">
-              <div className="flex items-center justify-between">
-                <CardTitle className="flex items-center gap-2 text-lg font-semibold">
-                  <TrendingUp className="h-5 w-5 text-indigo-500" />
-                  <span>Resume Score History</span>
-                </CardTitle>
-                <div className="flex items-center gap-2">
-                  <TimeRangeSelector
-                    selectedRange={selectedTimeRange}
-                    onChange={setSelectedTimeRange}
-                  />
-                </div>
-              </div>
-            </CardHeader>
-            <CardContent className="pt-6">
-              <div className="h-64">
-                {resumes.length > 0 ? (
-                  <ResponsiveContainer width="100%" height="100%">
-                    <BarChart data={resumeScoreData}>
-                      <CartesianGrid strokeDasharray="3 3" opacity={0.2} />
-                      <XAxis dataKey="date" />
-                      <YAxis domain={[0, 100]} />
-                      <Tooltip
-                        formatter={(value) => [`${value}`, "Score"]}
-                        labelFormatter={(label) => `Date: ${label}`}
-                        contentStyle={{
-                          backgroundColor: "#fff",
-                          borderColor: COLORS.primary,
-                          borderRadius: "6px",
-                          boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.1)",
-                        }}
-                      />
-                      <Legend />
-                      <Bar
-                        name="Resume Score"
-                        dataKey="score"
-                        fill={COLORS.primary}
-                        radius={[4, 4, 0, 0]}
-                      />
-                    </BarChart>
-                  </ResponsiveContainer>
-                ) : (
-                  <EmptyState
-                    message="No resume analysis available"
-                    icon={<FileText className="h-12 w-12 text-slate-300" />}
-                  />
-                )}
-              </div>
-            </CardContent>
-            {resumes.length > 0 && (
-              <CardFooter className="border-t border-slate-100 bg-slate-50 rounded-b-lg text-sm text-slate-500 py-3">
-                Last updated:{" "}
-                {new Date(resumes[0].createdAt || "").toLocaleString()}
-              </CardFooter>
-            )}
-          </Card>
         </div>
 
         {/* Right Column - Activity and Recommendations */}
         <div className="space-y-6">
-          {/* Recent Activity */}
-          <Card className="border-none shadow-md hover:shadow-lg overflow-y-auto transition-shadow duration-300">
+          {/* Recent Activity - Fixed to be properly scrollable */}
+          <Card className="border-none shadow-md hover:shadow-lg transition-shadow duration-300">
             <CardHeader className="border-b border-slate-100 bg-slate-50 rounded-t-lg">
               <CardTitle className="flex items-center gap-2 text-lg font-semibold">
                 <Clock className="h-5 w-5 text-slate-500" />
@@ -343,73 +339,75 @@ export default function UserDashboard() {
               </CardTitle>
             </CardHeader>
             <CardContent className="px-0">
-              <div className="divide-y divide-slate-100">
-                {recentActivity.length > 0 ? (
-                  recentActivity.map((activity, idx) => (
-                    <div
-                      key={idx}
-                      className="flex items-start gap-3 p-4 hover:bg-slate-50 transition-colors"
-                    >
+              <div className="h-64 overflow-y-auto">
+                <div className="divide-y divide-slate-100">
+                  {recentActivity.length > 0 ? (
+                    recentActivity.map((activity, idx) => (
                       <div
-                        className="mt-1 rounded-full p-2 bg-opacity-10"
-                        style={{
-                          backgroundColor:
-                            activity.type === "resume"
-                              ? `${COLORS.primary}20`
-                              : activity.type === "feedback"
-                              ? `${COLORS.secondary}20`
-                              : `${COLORS.warning}20`,
-                        }}
+                        key={idx}
+                        className="flex items-start gap-3 p-4 hover:bg-slate-50 transition-colors"
                       >
-                        {activity.type === "resume" && (
-                          <FileText
-                            className="h-4 w-4"
-                            style={{ color: COLORS.primary }}
-                          />
-                        )}
-                        {activity.type === "feedback" && (
-                          <ThumbsUp
-                            className="h-4 w-4"
-                            style={{ color: COLORS.secondary }}
-                          />
-                        )}
-                        {activity.type === "suggestion" && (
-                          <Lightbulb
-                            className="h-4 w-4"
-                            style={{ color: COLORS.warning }}
-                          />
-                        )}
-                      </div>
-                      <div className="flex-1">
-                        <p className="font-medium">
-                          {activity.type === "resume" && activity.title}
-                          {activity.type === "feedback" && (
-                            <>
-                              Feedback:{" "}
-                              <Badge
-                                variant="outline"
-                                className="ml-1 bg-purple-50 text-purple-700 border-purple-200"
-                              >
-                                {activity.rating}★
-                              </Badge>
-                            </>
+                        <div
+                          className="mt-1 rounded-full p-2 bg-opacity-10"
+                          style={{
+                            backgroundColor:
+                              activity.type === "resume"
+                                ? `${COLORS.primary}20`
+                                : activity.type === "feedback"
+                                ? `${COLORS.secondary}20`
+                                : `${COLORS.warning}20`,
+                          }}
+                        >
+                          {activity.type === "resume" && (
+                            <FileText
+                              className="h-4 w-4"
+                              style={{ color: COLORS.primary }}
+                            />
                           )}
-                          {activity.type === "suggestion" &&
-                            `Suggested: ${activity.career}`}
-                        </p>
-                        <p className="text-xs text-slate-500 mt-1">
-                          {formatTimeAgo(new Date(activity.date))}
-                        </p>
+                          {activity.type === "feedback" && (
+                            <ThumbsUp
+                              className="h-4 w-4"
+                              style={{ color: COLORS.secondary }}
+                            />
+                          )}
+                          {activity.type === "suggestion" && (
+                            <Lightbulb
+                              className="h-4 w-4"
+                              style={{ color: COLORS.warning }}
+                            />
+                          )}
+                        </div>
+                        <div className="flex-1">
+                          <p className="font-medium">
+                            {activity.type === "resume" && activity.title}
+                            {activity.type === "feedback" && (
+                              <>
+                                Feedback:{" "}
+                                <Badge
+                                  variant="outline"
+                                  className="ml-1 bg-purple-50 text-purple-700 border-purple-200"
+                                >
+                                  {activity.rating}★
+                                </Badge>
+                              </>
+                            )}
+                            {activity.type === "suggestion" &&
+                              `Suggested: ${activity.career}`}
+                          </p>
+                          <p className="text-xs text-slate-500 mt-1">
+                            {formatTimeAgo(new Date(activity.date))}
+                          </p>
+                        </div>
                       </div>
-                    </div>
-                  ))
-                ) : (
-                  <EmptyState
-                    message="No recent activity"
-                    icon={<Clock className="h-12 w-12 text-slate-300" />}
-                    className="py-8"
-                  />
-                )}
+                    ))
+                  ) : (
+                    <EmptyState
+                      message="No recent activity"
+                      icon={<Clock className="h-12 w-12 text-slate-300" />}
+                      className="py-8"
+                    />
+                  )}
+                </div>
               </div>
             </CardContent>
           </Card>

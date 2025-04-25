@@ -11,6 +11,7 @@ import {
 import { Edit, Trash2, View } from "lucide-react";
 import { format } from "date-fns";
 import { Pagination } from "../Pagination";
+import CourseViewModal from "./CourseViewModal";
 
 // Sortable Table Header component
 interface SortableTableHeaderProps {
@@ -64,6 +65,8 @@ export default function CourseTable({
   // Pagination state
   const [currentPage, setCurrentPage] = useState(1);
   const coursesPerPage = 5;
+  const [selectedCourse, setSelectedCourse] = useState<Course | null>(null);
+  const [isViewModalOpen, setIsViewModalOpen] = useState(false);
 
   // Sorting state
   const [sortColumn, setSortColumn] = useState<string>("title");
@@ -253,7 +256,10 @@ export default function CourseTable({
                       >
                         <DropdownMenuItem
                           className="flex items-center gap-2 p-2 text-sm hover:bg-gray-100 rounded"
-                          onClick={() => window.open(course.url, "_blank")}
+                          onClick={() => {
+                            setSelectedCourse(course);
+                            setIsViewModalOpen(true);
+                          }}
                         >
                           <View className="w-4 h-4" /> View
                         </DropdownMenuItem>
@@ -278,6 +284,11 @@ export default function CourseTable({
             )}
           </tbody>
         </table>
+        <CourseViewModal
+          isOpen={isViewModalOpen}
+          onClose={() => setIsViewModalOpen(false)}
+          course={selectedCourse}
+        />
 
         {filteredCourses.length > 0 && (
           <Pagination

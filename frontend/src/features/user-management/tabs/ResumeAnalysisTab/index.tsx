@@ -5,6 +5,7 @@ import {
   AlertTriangle,
   Lightbulb,
   ChevronDown,
+  Trash2,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import ResumeSummaryTab from "./ResumeSummaryTab";
@@ -15,6 +16,7 @@ import {
   SelectContent,
   SelectItem,
 } from "@/components/ui/select";
+import resumeService from "@/services/resumeService";
 
 interface Props {
   analyses: ResumeAnalysis[]; // now an array
@@ -43,6 +45,14 @@ export default function ResumeAnalysisTab({ analyses }: Props) {
       </div>
     );
   }
+  const deleteResume = async (id: string) => {
+    if (window.confirm("Are you sure you want to delete?")) {
+      const res = await resumeService.deleteAnalyses(id);
+      if (res) {
+        window.location.reload();
+      }
+    }
+  };
 
   return (
     <div className="space-y-6 p-4">
@@ -80,6 +90,13 @@ export default function ResumeAnalysisTab({ analyses }: Props) {
 
       {analysis ? (
         <>
+          <button
+            onClick={() => {
+              deleteResume(analysis._id);
+            }}
+          >
+            <Trash2 className="text-red-500 cursor-pointer justify-end" />
+          </button>
           <AnalysisItem
             title="Strengths"
             items={analysis.strengths}

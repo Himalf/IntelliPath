@@ -42,6 +42,11 @@ class ResumeService {
     );
     return response.data;
   }
+
+  async deleteAnalyses(id: string) {
+    const response = await axiosInstance.delete(`/resume-analysis/${id}`);
+    return response.data;
+  }
 }
 
 export default new ResumeService();

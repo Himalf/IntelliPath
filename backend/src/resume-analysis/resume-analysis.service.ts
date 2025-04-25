@@ -120,4 +120,7 @@ export class ResumeAnalysisService {
       );
     }
   }
+  async deleteAnalyses(id: string) {
+    return this.resumeModel.findByIdAndDelete(id);
+  }
 }

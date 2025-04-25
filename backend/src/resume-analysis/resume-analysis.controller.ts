@@ -6,6 +6,7 @@ import {
   UploadedFile,
   UseInterceptors,
   UseGuards,
+  Delete,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { memoryStorage } from 'multer';
@@ -13,7 +14,7 @@ import { ResumeAnalysisService } from './resume-analysis.service';
 import { JwtAuthGuard } from 'src/auth/jwt.auth-guard';
 import { RoleGuards } from 'src/auth/guards/roles.guards';
 import { Roles } from 'src/auth/decorators/roles.decorators';
-import { UserRole } from 'src/users/schemas/user.schema';
+import { User, UserRole } from 'src/users/schemas/user.schema';
 import { ApiBearerAuth } from '@nestjs/swagger';
 
 @ApiBearerAuth()
@@ -47,5 +48,10 @@ export class ResumeAnalysisController {
   @Get()
   getAllAnalyses() {
     return this.resumeService.findAllAnalyses();
+  }
+  @Roles(UserRole.ADMIN, UserRole.SUPERADMIN, UserRole.USER)
+  @Delete(':id')
+  deleteAnalyses(@Param('id') id: string) {
+    return this.resumeService.deleteAnalyses(id);
   }
 }

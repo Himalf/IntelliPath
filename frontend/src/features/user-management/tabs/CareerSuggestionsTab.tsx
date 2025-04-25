@@ -35,7 +35,10 @@ export default function CareerSuggestionsTab({
   }
 
   const deleteSuggestions = async (id: string) => {
-    await careerSuggestionService.deleteSuggestion(id);
+    const res = await careerSuggestionService.deleteSuggestion(id);
+    if (res) {
+      window.location.reload();
+    }
   };
 
   const handleDeleteClick = (id: string) => {

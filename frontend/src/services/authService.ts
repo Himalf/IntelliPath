@@ -29,6 +29,7 @@ interface RegisterResponse {
 
 interface User {
   _id: string;
+  fullName?: string;
   email: string;
   role: string;
 }

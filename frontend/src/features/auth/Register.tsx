@@ -31,7 +31,7 @@ export default function Register() {
 
     try {
       const { confirmPassword, ...payload } = data;
-      const res = await AuthService.register(payload);
+      await AuthService.register(payload);
       navigate("/login", { replace: true });
     } catch (err: any) {
       setError("Registration failed");

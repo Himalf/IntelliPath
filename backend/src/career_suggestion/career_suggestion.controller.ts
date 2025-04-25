@@ -1,9 +1,17 @@
-import { Controller, Get, Post, Body, Param, UseGuards } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+  UseGuards,
+  Delete,
+} from '@nestjs/common';
 import { CareerSuggestionService } from './career_suggestion.service';
 import { JwtAuthGuard } from 'src/auth/jwt.auth-guard';
 import { RoleGuards } from 'src/auth/guards/roles.guards';
 import { Roles } from 'src/auth/decorators/roles.decorators';
-import { UserRole } from 'src/users/schemas/user.schema';
+import { User, UserRole } from 'src/users/schemas/user.schema';
 import { ApiBearerAuth } from '@nestjs/swagger';
 
 @ApiBearerAuth()
@@ -31,5 +39,10 @@ export class CareerSuggestionController {
   @Get()
   async getAllSuggestions() {
     return this.suggestionService.findAllSuggestions();
+  }
+  @Roles(UserRole.ADMIN, UserRole.USER, UserRole.SUPERADMIN)
+  @Delete(':id')
+  async deleteSuggestion(@Param('id') id: string) {
+    return this.suggestionService.deleteSuggestion(id);
   }
 }

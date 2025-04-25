@@ -93,4 +93,8 @@ export class CareerSuggestionService {
       );
     }
   }
+
+  async deleteSuggestion(id: string) {
+    return this.suggestionModel.findOneAndDelete({ _id: id });
+  }
 }

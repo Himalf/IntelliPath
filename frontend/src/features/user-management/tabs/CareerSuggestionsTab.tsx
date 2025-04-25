@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
-import { CareerSuggestion } from "@/services/careerSuggestionService";
-import { BookOpen } from "lucide-react";
+import careerSuggestionService, {
+  CareerSuggestion,
+} from "@/services/careerSuggestionService";
+import { BookOpen, Trash2 } from "lucide-react";
 import {
   Select,
   SelectTrigger,
@@ -31,6 +33,16 @@ export default function CareerSuggestionsTab({
       </div>
     );
   }
+
+  const deleteSuggestions = async (id: string) => {
+    await careerSuggestionService.deleteSuggestion(id);
+  };
+
+  const handleDeleteClick = (id: string) => {
+    if (window.confirm("Are you sure you want to delete this suggestion?")) {
+      deleteSuggestions(id);
+    }
+  };
 
   return (
     <div className="space-y-6 p-4">
@@ -70,6 +82,14 @@ export default function CareerSuggestionsTab({
 
       {selected && (
         <div className="space-y-8">
+          <div className="mt-4 flex justify-end">
+            <button
+              className=" text-red-500 px-4 py-2 rounded-md  cursor pointer"
+              onClick={() => handleDeleteClick(selected._id)}
+            >
+              <Trash2 />
+            </button>
+          </div>
           <section className="bg-blue-50 p-6 rounded-lg border border-blue-100">
             <h3 className="text-lg font-semibold text-blue-800 mb-3">
               Suggested Career Paths

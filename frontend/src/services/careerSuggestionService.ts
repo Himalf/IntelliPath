@@ -44,6 +44,11 @@ class CareerSuggestionService {
     );
     return response.data;
   }
+
+  async deleteSuggestion(id: string) {
+    const response = await axiosInstance.delete(`/career-suggestions/${id}`);
+    return response.data;
+  }
 }
 
 export default new CareerSuggestionService();

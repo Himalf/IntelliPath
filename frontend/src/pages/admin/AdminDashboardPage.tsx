@@ -570,15 +570,15 @@ export default function AdminDashboardPage() {
                 <div key={i} className="py-3 flex items-start">
                   <div
                     className={`
-                    p-2 rounded-full mr-3 ${
-                      item.type === "User"
-                        ? "bg-blue-50 text-blue-500"
-                        : item.type === "Resume"
-                        ? "bg-teal-50 text-teal-500"
-                        : item.type === "Feedback"
-                        ? "bg-sky-50 text-sky-500"
-                        : "bg-green-50 text-green-500"
-                    }`}
+                      p-2 rounded-full mr-3 ${
+                        item.type === "User"
+                          ? "bg-blue-50 text-blue-500"
+                          : item.type === "Resume"
+                          ? "bg-teal-50 text-teal-500"
+                          : item.type === "Feedback"
+                          ? "bg-sky-50 text-sky-500"
+                          : "bg-green-50 text-green-500"
+                      }`}
                   >
                     {item.type === "User" && <Users size={16} />}
                     {item.type === "Resume" && <FileText size={16} />}

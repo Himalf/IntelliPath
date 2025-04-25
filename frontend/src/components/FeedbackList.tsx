@@ -7,10 +7,12 @@ import feedbackService, {
 } from "@/services/feedbackService";
 import { Button } from "./ui/button";
 import { format } from "date-fns";
+import { useAuth } from "@/features/auth/AuthContext";
 interface Props {
   userId: string;
 }
 export default function FeedbackList({ userId }: Props) {
+  const { user } = useAuth();
   const [feedbacks, setFeedbacks] = useState<Feedback[]>([]);
   const [editId, setEditId] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -64,7 +66,7 @@ export default function FeedbackList({ userId }: Props) {
       <div className="bg-gradient-to-r from-primary/10 to-primary/5 p-6 rounded-lg shadow-sm border border-primary/10">
         <h2 className="text-xl font-semibold mb-6 flex items-center">
           <MessageSquare className="mr-2 text-primary" size={20} />
-          Your Feedback History
+          Feedback History
         </h2>
 
         {isLoading ? (
@@ -77,21 +79,25 @@ export default function FeedbackList({ userId }: Props) {
           </div>
         ) : feedbacks.length === 0 ? (
           <div className="text-center py-8 text-gray-500">
-            You haven't submitted any feedback yet.
+            No feedbacks available
           </div>
         ) : (
-          <div className="space-y-4 max-h-[20vh] overflow-y-auto ">
+          <div className="space-y-4 max-h-[30vh] overflow-y-auto ">
             {feedbacks.map((f) => (
               <div
                 key={f._id}
                 className="bg-white p-5 rounded-lg shadow-sm border border-gray-100 transition-all hover:shadow-md"
               >
                 {editId === f._id ? (
-                  <FeedbackForm
-                    userId={userId}
-                    initialData={f}
-                    onSubmit={handleUpdate}
-                  />
+                  <div>
+                    {user?.role === "USER" && (
+                      <FeedbackForm
+                        userId={userId}
+                        initialData={f}
+                        onSubmit={handleUpdate}
+                      />
+                    )}
+                  </div>
                 ) : (
                   <div className="space-y-3">
                     <div className="flex justify-between items-start">
@@ -122,15 +128,17 @@ export default function FeedbackList({ userId }: Props) {
                     <p className="text-gray-700 leading-relaxed">{f.message}</p>
 
                     <div className="flex gap-2 pt-2">
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={() => setEditId(f._id)}
-                        className="text-gray-600 hover:text-primary hover:border-primary transition-colors"
-                      >
-                        <Pencil size={14} className="mr-1" />
-                        Edit
-                      </Button>
+                      {user?.role === "USER" && (
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() => setEditId(f._id)}
+                          className="text-gray-600 hover:text-primary hover:border-primary transition-colors"
+                        >
+                          <Pencil size={14} className="mr-1" />
+                          Edit
+                        </Button>
+                      )}
                       <Button
                         variant="outline"
                         size="sm"
@@ -148,13 +156,15 @@ export default function FeedbackList({ userId }: Props) {
           </div>
         )}
       </div>
-      <div className="bg-white rounded-lg shadow-sm border border-gray-100 p-6">
-        <h3 className="text-lg font-medium mb-4 flex items-center">
-          <Star className="mr-2 text-primary" size={18} />
-          Submit New Feedback
-        </h3>
-        <FeedbackForm userId={userId} onSubmit={handleCreate} />
-      </div>
+      {user?.role === "USER" && (
+        <div className="bg-white rounded-lg shadow-sm border border-gray-100 p-6">
+          <h3 className="text-lg font-medium mb-4 flex items-center">
+            <Star className="mr-2 text-primary" size={18} />
+            Submit New Feedback
+          </h3>
+          <FeedbackForm userId={userId} onSubmit={handleCreate} />
+        </div>
+      )}
     </div>
   );
 }

@@ -3,6 +3,10 @@ import axiosInstance from "./axiosInstance";
 export interface Feedback {
   _id: string;
   userId: string;
+  user?: {
+    _id: string;
+    fullName: string;
+  };
   message: string;
   rating: number;
   createdAt?: string;

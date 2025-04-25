@@ -88,7 +88,7 @@ const ResumeUpload: React.FC<ResumeUploadProps> = ({ userId, onSuccess }) => {
   };
 
   return (
-    <div className="space-y-6 max-w-md mx-auto bg-white p-6 rounded-xl shadow-md border border-gray-200">
+    <div className="space-y-6 mx-auto bg-white p-6 rounded-xl shadow-md border border-gray-200">
       <div className="text-center">
         <h2 className="text-2xl font-bold text-gray-900">Upload Resume</h2>
         <p className="text-sm text-gray-500 mt-1">

@@ -10,6 +10,7 @@ import CareerSuggestionsTab from "./tabs/CareerSuggestionsTab";
 import UserInfoTab from "./tabs/UserInfoTab";
 import { Loader2 } from "lucide-react";
 import ResumeAnalysisTab from "@/features/user-management/tabs/ResumeAnalysisTab/";
+import FeedbackList from "@/components/FeedbackList";
 
 interface Props {
   isOpen: boolean;
@@ -83,6 +84,9 @@ export default function ViewUserDetailsModal({ isOpen, onClose, user }: Props) {
           <TabButton value="career" active={activeTab === "career"}>
             Career Suggestions
           </TabButton>
+          <TabButton value="feedback" active={activeTab === "feedback"}>
+            Feedbacks
+          </TabButton>
         </Tabs.List>
 
         {isLoading ? (
@@ -100,6 +104,9 @@ export default function ViewUserDetailsModal({ isOpen, onClose, user }: Props) {
             </Tabs.Content>
             <Tabs.Content value="career" className="focus:outline-none">
               <CareerSuggestionsTab suggestions={careerSuggestion || []} />
+            </Tabs.Content>
+            <Tabs.Content value="feedback" className="focus:outline-none">
+              <FeedbackList userId={user._id} />
             </Tabs.Content>
           </>
         )}

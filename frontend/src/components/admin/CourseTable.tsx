@@ -18,6 +18,7 @@ interface SortableTableHeaderProps {
   column: string;
   sortColumn: string;
   sortDirection: "asc" | "desc";
+  className?: string;
   onSort: (column: string) => void;
 }
 
@@ -26,11 +27,12 @@ function SortableTableHeader({
   column,
   sortColumn,
   sortDirection,
+  className = "",
   onSort,
 }: SortableTableHeaderProps) {
   return (
     <th
-      className={`px-4 py-3 cursor-pointer text-left text-xs uppercase ${
+      className={`px-4 py-3 cursor-pointer text-left text-xs uppercase ${className} ${
         sortColumn === column ? "text-blue-600 font-semibold" : "text-gray-500"
       }`}
       onClick={() => onSort(column)}
@@ -173,6 +175,7 @@ export default function CourseTable({
                 sortColumn={sortColumn}
                 sortDirection={sortDirection}
                 onSort={handleSort}
+                className="hidden lg:table-cell"
               />
               <SortableTableHeader
                 label="Tags"
@@ -180,6 +183,7 @@ export default function CourseTable({
                 sortColumn={sortColumn}
                 sortDirection={sortDirection}
                 onSort={handleSort}
+                className="hidden md:table-cell"
               />
               <SortableTableHeader
                 label="Created At"
@@ -187,6 +191,7 @@ export default function CourseTable({
                 sortColumn={sortColumn}
                 sortDirection={sortDirection}
                 onSort={handleSort}
+                className="hidden lg:table-cell"
               />
               <th className="px-4 py-3 text-center text-xs uppercase text-gray-500">
                 Actions
@@ -210,10 +215,10 @@ export default function CourseTable({
                     {indexOfFirstCourse + index + 1}
                   </td>
                   <td className="px-4 py-3 font-medium">{course.title}</td>
-                  <td className="px-4 py-3 max-w-md truncate">
+                  <td className="px-4 py-3 max-w-md truncate hidden lg:table-cell">
                     {course.description}
                   </td>
-                  <td className="px-4 py-3">
+                  <td className="px-4 py-3 hidden md:table-cell">
                     <div className="flex flex-wrap gap-1">
                       {(course.tags ?? []).slice(0, 2).map((tag) => (
                         <span
@@ -230,7 +235,7 @@ export default function CourseTable({
                       )}
                     </div>
                   </td>
-                  <td className="px-4 py-3">
+                  <td className="px-4 py-3 hidden lg:table-cell">
                     {course.createdAt
                       ? format(new Date(course.createdAt), "yyyy-MM-dd")
                       : "N/A"}

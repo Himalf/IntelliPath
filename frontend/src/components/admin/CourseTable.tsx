@@ -142,17 +142,17 @@ export default function CourseTable({
 
   return (
     <div>
-      <div className="relative mb-4 flex items-center border border-gray-300 rounded-md w-fit">
-        <span className="text-gray-400 items-center ml-3">
+      {/* <div className="relative mb-4 flex items-center border border-gray-300 rounded-lg w-full sm:w-1/2 lg:w-1/3">
+        <span className="absolute left-4 text-gray-500">
           <FaSearch />
         </span>
         <input
-          className="w-fit outline-none p-2 px-8 border-none text-sm"
+          className="w-full pl-12 pr-4 py-2 rounded-lg border border-gray-300 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300 ease-in-out"
           placeholder="Search courses..."
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />
-      </div>
+      </div> */}
 
       <div className="overflow-auto">
         <table className="w-full table-auto text-sm">

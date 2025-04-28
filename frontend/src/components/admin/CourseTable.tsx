@@ -142,7 +142,7 @@ export default function CourseTable({
 
   return (
     <div>
-      {/* <div className="relative mb-4 flex items-center border border-gray-300 rounded-lg w-full sm:w-1/2 lg:w-1/3">
+      <div className="relative mb-4 flex items-center border border-gray-300 rounded-lg w-full sm:w-1/2 lg:w-1/3">
         <span className="absolute left-4 text-gray-500">
           <FaSearch />
         </span>
@@ -152,7 +152,7 @@ export default function CourseTable({
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />
-      </div> */}
+      </div>
 
       <div className="overflow-auto">
         <table className="w-full table-auto text-sm">

@@ -24,11 +24,9 @@ export default function UserManagementTable() {
   const [viewingUser, setViewingUser] = useState<User | null>(null);
   const [viewUserModalOpen, setViewUserModalOpen] = useState(false);
 
-  // Pagination state
   const [currentPage, setCurrentPage] = useState(1);
   const usersPerPage = 5;
 
-  // Sorting state
   const [sortColumn, setSortColumn] = useState<string>("fullName");
   const [sortDirection, setSortDirection] = useState<"asc" | "desc">("asc");
 
@@ -76,10 +74,8 @@ export default function UserManagementTable() {
 
   const handleSort = (column: string) => {
     if (sortColumn === column) {
-      // Toggle direction if same column
       setSortDirection(sortDirection === "asc" ? "desc" : "asc");
     } else {
-      // Set new column and default to ascending
       setSortColumn(column);
       setSortDirection("asc");
     }
@@ -87,28 +83,25 @@ export default function UserManagementTable() {
 
   const getRoleBadgeClass = (role: string) => {
     switch (role) {
-      case "admin":
+      case "ADMIN":
         return "bg-blue-100 text-blue-800";
-      case "superadmin":
+      case "SUPERADMIN":
         return "bg-red-100 text-red-800";
       default:
         return "bg-gray-100 text-gray-800";
     }
   };
 
-  // Filter users based on search term
   const filteredUsers = users.filter(
     (user) =>
       user.fullName.toLowerCase().includes(searchTerm.toLowerCase()) ||
       user.email.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  // Sort users
   const sortedUsers = [...filteredUsers].sort((a, b) => {
     let aValue = a[sortColumn as keyof User];
     let bValue = b[sortColumn as keyof User];
 
-    // Handle date comparison
     if (sortColumn === "createdAt") {
       aValue = aValue ? new Date(aValue as any).getTime().toString() : "0";
       bValue = bValue ? new Date(bValue).getTime().toString() : "0";
@@ -121,98 +114,97 @@ export default function UserManagementTable() {
     return 0;
   });
 
-  // Calculate pagination
   const totalPages = Math.ceil(sortedUsers.length / usersPerPage);
   const indexOfLastUser = currentPage * usersPerPage;
   const indexOfFirstUser = indexOfLastUser - usersPerPage;
   const currentUsers = sortedUsers.slice(indexOfFirstUser, indexOfLastUser);
 
   return (
-    <div className="p-6">
-      <div className="flex justify-between items-center mb-4">
-        <h2 className="text-2xl font-bold">User Management</h2>
+    <div className="p-4 sm:p-6">
+      {/* Header */}
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 mb-4">
+        <h2 className="text-xl sm:text-2xl font-bold">User Management</h2>
         <button
           onClick={handleAdd}
-          className="bg-black text-white px-4 py-2 rounded flex items-center gap-2 cursor-pointer"
+          className="bg-black text-white px-4 py-2 rounded flex items-center gap-2 text-sm hover:bg-gray-800"
         >
           <FaPlus size={14} /> Add User
         </button>
       </div>
 
-      <div className="relative mb-4 flex items-center border border-gray-300 rounded-md w-fit">
-        <span className="text-gray-400 items-center ml-3">
+      {/* Search */}
+      <div className="relative mb-4 w-full sm:w-96">
+        <span className="absolute top-3 left-3 text-gray-400">
           <FaSearch />
         </span>
         <input
-          className="w-full outline-none p-2 px-8 border-none text-sm"
+          className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-md outline-none text-sm"
           placeholder="Search users..."
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />
       </div>
 
+      {/* Table */}
       {loading ? (
         <p>Loading...</p>
       ) : error ? (
         <p className="text-red-500">{error}</p>
       ) : (
-        <div className="overflow-x-auto">
-          <table className="min-w-full table-auto text-sm">
-            <thead className="bg-gray-50 text-left text-xs uppercase">
+        <div className="overflow-x-auto bg-white rounded shadow-xs">
+          <table className="min-w-full text-sm">
+            <thead className="bg-gray-100 text-gray-600">
               <tr>
                 <th
                   onClick={() => handleSort("fullName")}
-                  className="cursor-pointer px-4 py-3 text-xs font-semibold text-gray-500"
+                  className="px-4 py-3 text-left cursor-pointer"
                 >
                   Name
                 </th>
                 <th
                   onClick={() => handleSort("email")}
-                  className="cursor-pointer px-4 py-3 text-xs font-semibold text-gray-500"
+                  className="px-4 py-3 text-left cursor-pointer hidden md:table-cell"
                 >
                   Email
                 </th>
                 <th
                   onClick={() => handleSort("role")}
-                  className="cursor-pointer px-4 py-3 text-xs font-semibold text-gray-500 hidden sm:table-cell"
+                  className="px-4 py-3 text-left cursor-pointer hidden sm:table-cell"
                 >
                   Role
                 </th>
                 <th
                   onClick={() => handleSort("skills")}
-                  className="cursor-pointer px-4 py-3 text-xs font-semibold text-gray-500 hidden md:table-cell"
+                  className="px-4 py-3 text-left cursor-pointer hidden md:table-cell"
                 >
                   Skills
                 </th>
                 <th
                   onClick={() => handleSort("createdAt")}
-                  className="cursor-pointer px-4 py-3 text-xs font-semibold text-gray-500 hidden md:table-cell"
+                  className="px-4 py-3 text-left cursor-pointer hidden md:table-cell"
                 >
                   Created
                 </th>
-                <th className="px-4 py-3 text-center text-xs font-semibold text-gray-500">
-                  Actions
-                </th>
+                <th className="px-4 py-3 text-center">Actions</th>
               </tr>
             </thead>
             <tbody>
               {currentUsers.length === 0 ? (
                 <tr>
-                  <td colSpan={6} className="text-center py-4 text-gray-400">
+                  <td colSpan={6} className="text-center py-6 text-gray-400">
                     No users found.
                   </td>
                 </tr>
               ) : (
                 currentUsers.map((user) => (
-                  <tr
-                    key={user._id}
-                    className="hover:bg-gray-50 border-b border-gray-100"
-                  >
+                  <tr key={user._id} className="   hover:bg-gray-50">
                     <td className="px-4 py-3">{user.fullName}</td>
-                    <td className="px-4 py-3">{user.email}</td>
-                    <td className="px-4 py-3">
+                    <td className="px-4 py-3 hidden md:table-cell">
+                      {user.email}
+                    </td>
+                    <td className="px-4 py-3 hidden sm:table-cell">
                       <span
-                        className={`px-2 py-1 rounded text-xs hidden sm:table-cell ${getRoleBadgeClass(
+                        className={`px-2 py-1 rounded text-xs ${getRoleBadgeClass(
                           user.role
                         )}`}
                       >
@@ -220,49 +212,42 @@ export default function UserManagementTable() {
                       </span>
                     </td>
                     <td className="px-4 py-3 hidden md:table-cell">
-                      {user.skills ? (
-                        <>
-                          {user.skills}{" "}
-                          <span className="text-blue-500">+1</span>
-                        </>
-                      ) : (
-                        "—"
-                      )}
+                      {user.skills ? `${user.skills} +1` : "—"}
                     </td>
                     <td className="px-4 py-3 hidden md:table-cell">
                       {user.createdAt
                         ? formatDate(new Date(user.createdAt), "yyyy-MM-dd")
                         : "N/A"}
                     </td>
-                    <td className="px-4 py-3 text-center justify-center flex">
+                    <td className="px-4 py-3 flex justify-center">
                       <DropdownMenu>
                         <DropdownMenuTrigger asChild>
-                          <button className="text-gray-500 hover:text-gray-800 cursor-pointer">
+                          <button className="p-2 rounded-full hover:bg-gray-200">
                             <FaEllipsisV />
                           </button>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent
-                          className="bg-white shadow-lg rounded p-1 cursor-pointer"
                           align="end"
+                          className="bg-white rounded shadow-md p-1"
                         >
                           <DropdownMenuItem
-                            className="flex items-center gap-2 p-2 text-sm hover:bg-gray-100 rounded"
                             onClick={() => handleViewUser(user)}
-                          >
-                            <View className="w-4 h-4" /> View
-                          </DropdownMenuItem>
-                          <DropdownMenuItem
                             className="flex items-center gap-2 p-2 text-sm hover:bg-gray-100 rounded"
-                            onClick={() => handleEdit(user)}
                           >
-                            <Edit className="w-4 h-4" /> Edit
+                            <View size={16} /> View
                           </DropdownMenuItem>
-                          <DropdownMenuSeparator className="my-1 h-px bg-gray-200" />
                           <DropdownMenuItem
-                            className="flex items-center gap-2 p-2 text-sm text-red-600 hover:bg-gray-100 rounded"
-                            onClick={() => handleDeleteUser(user._id)}
+                            onClick={() => handleEdit(user)}
+                            className="flex items-center gap-2 p-2 text-sm hover:bg-gray-100 rounded"
                           >
-                            <Trash2 className="w-4 h-4" /> Delete
+                            <Edit size={16} /> Edit
+                          </DropdownMenuItem>
+                          <DropdownMenuSeparator />
+                          <DropdownMenuItem
+                            onClick={() => handleDeleteUser(user._id)}
+                            className="flex items-center gap-2 p-2 text-sm text-red-600 hover:bg-gray-100 rounded"
+                          >
+                            <Trash2 size={16} /> Delete
                           </DropdownMenuItem>
                         </DropdownMenuContent>
                       </DropdownMenu>
@@ -273,15 +258,20 @@ export default function UserManagementTable() {
             </tbody>
           </table>
 
+          {/* Pagination */}
           {filteredUsers.length > 0 && (
-            <Pagination
-              currentPage={currentPage}
-              totalPages={totalPages}
-              onPageChange={setCurrentPage}
-            />
+            <div className="py-4">
+              <Pagination
+                currentPage={currentPage}
+                totalPages={totalPages}
+                onPageChange={setCurrentPage}
+              />
+            </div>
           )}
         </div>
       )}
+
+      {/* Modals */}
       <ViewUserDetailsModal
         isOpen={viewUserModalOpen}
         onClose={() => setViewUserModalOpen(false)}

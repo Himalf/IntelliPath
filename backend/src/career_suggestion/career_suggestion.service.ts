@@ -45,9 +45,9 @@ export class CareerSuggestionService {
     `;
 
     let parsedResponse: {
-      recommended_courses: string;
       suggestedCareers: any;
       skillGapAnalysis: any;
+      recommended_courses: string;
     };
 
     try {

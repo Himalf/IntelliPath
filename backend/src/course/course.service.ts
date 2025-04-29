@@ -1,26 +1,43 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  InternalServerErrorException,
+} from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Course, CourseDocument } from './schemas/course.schema';
 import { CreateCourseDto } from './dto/create-course.dto';
 import { UpdateCourseDto } from './dto/update-course.dto';
+import { RedisService } from 'src/redis/redis.provider';
+import * as crypto from 'crypto';
 
 @Injectable()
 export class CourseService {
   constructor(
     @InjectModel(Course.name)
     private readonly courseModel: Model<CourseDocument>,
+    private readonly redisService: RedisService,
   ) {}
 
   // CREATE
   async createCourse(dto: CreateCourseDto): Promise<Course> {
     const course = new this.courseModel(dto);
-    return course.save();
+    const saved = await course.save();
+
+    // Invalidate cache
+    await this.redisService.setCache('courses:all', null);
+    return saved;
   }
 
-  // READ all
+  // READ all (with caching)
   async findAll(): Promise<Course[]> {
-    return this.courseModel.find();
+    const cacheKey = 'courses:all';
+    const cached = await this.redisService.getCache<Course[]>(cacheKey);
+    if (cached) return cached;
+
+    const allCourses = await this.courseModel.find();
+    await this.redisService.setCache(cacheKey, allCourses, 300);
+    return allCourses;
   }
 
   // READ by ID
@@ -36,6 +53,9 @@ export class CourseService {
       new: true,
     });
     if (!updated) throw new NotFoundException('Course not found');
+
+    // Invalidate cache
+    await this.redisService.setCache('courses:all', null);
     return updated;
   }
 
@@ -43,38 +63,44 @@ export class CourseService {
   async deleteCourse(id: string): Promise<{ message: string }> {
     const result = await this.courseModel.findByIdAndDelete(id);
     if (!result) throw new NotFoundException('Course not found');
+
+    // Invalidate cache
+    await this.redisService.setCache('courses:all', null);
     return { message: 'Course deleted successfully' };
   }
 
   // Normalize course titles to match the database titles correctly
   private normalizeCourseTitle(title: string): string {
-    return title
-      .replace(/\s+/g, ' ') // Replace multiple spaces with a single space
-      .trim() // Remove leading and trailing spaces
-      .toLowerCase(); // Convert to lowercase for case-insensitive matching
+    return title.replace(/\s+/g, ' ').trim().toLowerCase();
   }
 
-  // Find courses by a list of titles (partial and multi-word matching)
+  // Generate a hashed cache key for array of titles
+  private generateTitlesCacheKey(titles: string[]): string {
+    const normalized = titles.map(this.normalizeCourseTitle).sort().join(',');
+    const hash = crypto.createHash('md5').update(normalized).digest('hex');
+    return `courses:titles:${hash}`;
+  }
+
+  // Find courses by titles (with caching)
   async findCoursesByTitles(titles: string[]): Promise<Course[]> {
-    // Normalize all the course titles
+    const cacheKey = this.generateTitlesCacheKey(titles);
+    const cached = await this.redisService.getCache<Course[]>(cacheKey);
+    if (cached) return cached;
+
     const normalizedTitles = titles.map((title) =>
       this.normalizeCourseTitle(title),
     );
-    console.log('Normalized AI Course Titles:', normalizedTitles);
 
-    // Use regular expressions to check for partial matches
     const matchedCourses = [];
-
     for (const title of normalizedTitles) {
-      const regex = new RegExp(title.split(' ').join('|'), 'i'); // Regular expression for partial match
+      const regex = new RegExp(title.split(' ').join('|'), 'i');
       const courses = await this.courseModel.find({
         title: { $regex: regex },
       });
-
-      // Add matched courses to the array
       matchedCourses.push(...courses);
     }
 
+    await this.redisService.setCache(cacheKey, matchedCourses, 300);
     return matchedCourses;
   }
 }

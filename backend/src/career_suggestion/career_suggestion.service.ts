@@ -4,10 +4,10 @@ import {
   CareerDocument,
   CareerSuggestion,
 } from './schemas/career-suggestion.schema';
-import { Model, Types } from 'mongoose';
+import { Model } from 'mongoose';
 import { AiService } from 'src/ai/ai.service';
-import { Course } from 'src/course/schemas/course.schema';
 import { CourseService } from 'src/course/course.service';
+import { RedisService } from 'src/redis/redis.provider';
 
 @Injectable()
 export class CareerSuggestionService {
@@ -16,6 +16,7 @@ export class CareerSuggestionService {
     private readonly suggestionModel: Model<CareerDocument>,
     private readonly aiService: AiService,
     private readonly courseService: CourseService,
+    private readonly redisService: RedisService,
   ) {}
 
   async generateSuggestion(
@@ -29,11 +30,12 @@ export class CareerSuggestionService {
     if (existing) {
       return existing;
     }
+
     const prompt = `
     You are a career advisor AI.
-  
+
     A user has the following skills: ${skills}
-  
+
     Based on these, respond in the following JSON format:
     {
       "suggestedCareers": "Software Engineer, Frontend Developer",
@@ -47,6 +49,7 @@ export class CareerSuggestionService {
       suggestedCareers: any;
       skillGapAnalysis: any;
     };
+
     try {
       const suggestionText =
         await this.aiService.generateCareerSuggestion(prompt);
@@ -58,7 +61,6 @@ export class CareerSuggestionService {
       throw new InternalServerErrorException('Error parsing AI response');
     }
 
-    // Split course titles from AI and match with Course documents
     const courseTitles = parsedResponse.recommended_courses
       .split(',')
       .map((title: string) => title.trim());
@@ -66,7 +68,6 @@ export class CareerSuggestionService {
     const matchedCourses =
       await this.courseService.findCoursesByTitles(courseTitles);
 
-    // Remove duplicates by using a Set or filtering
     const uniqueCourses = Array.from(
       new Set(matchedCourses.map((course) => course['_id'].toString())),
     );
@@ -79,6 +80,11 @@ export class CareerSuggestionService {
     });
 
     const saved = await newSuggestion.save();
+
+    // Invalidate related cache
+    await this.redisService.setCache(`careerSuggestions:user:${userId}`, null);
+    await this.redisService.setCache(`careerSuggestions:all`, null);
+
     return this.suggestionModel
       .findById(saved._id)
       .populate('recommended_courses', 'title description url')
@@ -86,17 +92,34 @@ export class CareerSuggestionService {
   }
 
   async getSuggestionsByUser(userId: string) {
-    return this.suggestionModel
+    const cacheKey = `careerSuggestions:user:${userId}`;
+    const cached =
+      await this.redisService.getCache<CareerSuggestion[]>(cacheKey);
+    if (cached) return cached;
+
+    const suggestions = await this.suggestionModel
       .find({ user_id: userId })
-      .populate('recommended_courses', 'title description url') // Populate course details
+      .populate('recommended_courses', 'title description url')
       .exec();
+
+    await this.redisService.setCache(cacheKey, suggestions, 300); // 5 mins
+    return suggestions;
   }
+
   async findAllSuggestions(): Promise<CareerSuggestion[]> {
+    const cacheKey = `careerSuggestions:all`;
+    const cached =
+      await this.redisService.getCache<CareerSuggestion[]>(cacheKey);
+    if (cached) return cached;
+
     try {
-      return this.suggestionModel
+      const suggestions = await this.suggestionModel
         .find()
-        .populate('recommended_courses', 'title description url') // Populate course details
+        .populate('recommended_courses', 'title description url')
         .exec();
+
+      await this.redisService.setCache(cacheKey, suggestions, 300);
+      return suggestions;
     } catch (error) {
       console.error('Error finding all career suggestions:', error);
       throw new InternalServerErrorException(
@@ -106,6 +129,14 @@ export class CareerSuggestionService {
   }
 
   async deleteSuggestion(id: string) {
+    const suggestion = await this.suggestionModel.findById(id);
+    if (suggestion) {
+      await this.redisService.setCache(
+        `careerSuggestions:user:${suggestion.user_id}`,
+        null,
+      );
+      await this.redisService.setCache(`careerSuggestions:all`, null);
+    }
     return this.suggestionModel.findOneAndDelete({ _id: id });
   }
 }

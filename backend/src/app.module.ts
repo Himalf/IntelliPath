@@ -13,8 +13,10 @@ import { CoursesModule } from './course/course.module';
 import { FeedbackModule } from './feedback/feedback.module';
 import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 import { APP_GUARD } from '@nestjs/core';
+import { RedisModule } from './redis/redis.module';
 @Module({
   imports: [
+    RedisModule,
     ThrottlerModule.forRoot({
       throttlers: [
         {

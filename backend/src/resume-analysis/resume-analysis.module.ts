@@ -8,6 +8,7 @@ import { AiModule } from 'src/ai/ai.module';
 import { UsersModule } from 'src/users/users.module';
 import { ResumeAnalysisService } from './resume-analysis.service';
 import { ResumeAnalysisController } from './resume-analysis.controller';
+import { RedisModule } from 'src/redis/redis.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { ResumeAnalysisController } from './resume-analysis.controller';
     ]),
     AiModule,
     UsersModule,
+    RedisModule,
   ],
   providers: [ResumeAnalysisService],
   controllers: [ResumeAnalysisController],

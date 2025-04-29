@@ -60,7 +60,7 @@ export class ChatbotQueriesService {
     }
 
     const chatbotQuery = new this.chatbotQueryModel({
-      userId: user._id, // Use 'userId' as defined in your schema
+      userId: userId, // Use 'userId' as defined in your schema
       question,
       response: responseObject.response, // Store as a JSON object
     });

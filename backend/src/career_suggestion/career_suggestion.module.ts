@@ -10,6 +10,7 @@ import { AiModule } from 'src/ai/ai.module';
 import { AiService } from 'src/ai/ai.service';
 import { CoursesModule } from 'src/course/course.module';
 import { Course, CourseSchema } from 'src/course/schemas/course.schema';
+import { RedisModule } from 'src/redis/redis.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { Course, CourseSchema } from 'src/course/schemas/course.schema';
       { name: Course.name, schema: CourseSchema },
     ]),
     AiModule,
+    RedisModule,
     CoursesModule,
   ],
   providers: [CareerSuggestionService, AiService],

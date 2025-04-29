@@ -12,6 +12,8 @@ import { Model, Types } from 'mongoose';
 import { AiService } from 'src/ai/ai.service';
 import { UsersService } from 'src/users/users.service';
 import * as pdfParse from 'pdf-parse';
+import { RedisService } from 'src/redis/redis.provider';
+
 @Injectable()
 export class ResumeAnalysisService {
   constructor(
@@ -19,38 +21,39 @@ export class ResumeAnalysisService {
     private readonly resumeModel: Model<ResumeAnalysisDocument>,
     private readonly aiService: AiService,
     private readonly usersService: UsersService,
+    private readonly redisService: RedisService,
   ) {}
+
   async analyzeResume(
     userId: string,
     file: Express.Multer.File,
   ): Promise<ResumeAnalysis> {
     // 1. Verify user
     const user = await this.usersService.findOne(userId);
-    if (!user) throw new NotFoundException('User not Found');
+    if (!user) throw new NotFoundException('User not found');
 
-    // 2. Extract text from PDF
+    // 2. Extract PDF text
     const data = await pdfParse(file.buffer);
     const text = data.text;
 
-    // 3. Build the prompt
+    // 3. Prompt for AI
     const prompt = `
-  You are an AI resume analyst.
-  Analyze the following resume text and return JSON with these exact keys:
-  {
-    "strengths": ["..."],
-    "weaknesses": ["..."],
-    "recommendations": ["..."]
-  }
-  Return ONLY the JSON. No explanation or notes.
-  
-  Resume:
-  ${text}
-  `;
+      You are an AI resume analyst.
+      Analyze the following resume text and return JSON with these exact keys:
+      {
+        "strengths": ["..."],
+        "weaknesses": ["..."],
+        "recommendations": ["..."]
+      }
+      Return ONLY the JSON. No explanation or notes.
+      Resume:
+      ${text}
+    `;
 
     // 4. Get AI response
     const aiRaw = await this.aiService.generateCareerSuggestion(prompt);
 
-    // 5. Clean & Parse AI response
+    // 5. Parse response
     let parsed: {
       strengths: string[];
       weaknesses: string[];
@@ -61,7 +64,6 @@ export class ResumeAnalysisService {
       const start = aiRaw.indexOf('{');
       const end = aiRaw.lastIndexOf('}');
       const jsonString = aiRaw.slice(start, end + 1);
-
       const cleaned = jsonString
         .replace(/(\r\n|\n|\r)/gm, '')
         .replace(/\\"/g, '"')
@@ -70,7 +72,6 @@ export class ResumeAnalysisService {
 
       parsed = JSON.parse(cleaned);
 
-      // Validate keys
       if (!parsed.strengths || !parsed.weaknesses || !parsed.recommendations) {
         throw new Error('Missing keys');
       }
@@ -80,30 +81,41 @@ export class ResumeAnalysisService {
       );
     }
 
-    // 6. Save to DB
+    // 6. Save analysis
     const analysis = new this.resumeModel({
-      user_id: user._id,
+      user_id: userId,
       resumeText: text,
       strengths: parsed.strengths,
       weakness: parsed.weaknesses,
       recommendation: parsed.recommendations,
     });
 
-    return analysis.save();
+    const saved = await analysis.save();
+
+    // 7. Invalidate cache
+    await this.redisService.setCache(`resumeAnalysis:user:${userId}`, null);
+    await this.redisService.setCache(`resumeAnalysis:all`, null);
+
+    return saved;
   }
 
   async getAnalysisByUser(userId: string): Promise<ResumeAnalysis[]> {
+    const cacheKey = `resumeAnalysis:user:${userId}`;
+    const cached = await this.redisService.getCache<ResumeAnalysis[]>(cacheKey);
+    if (cached) return cached;
+
+    let result: ResumeAnalysis[];
     try {
-      // Only try to convert if it's a valid ObjectId format
       if (Types.ObjectId.isValid(userId)) {
-        return this.resumeModel
+        result = await this.resumeModel
           .find({ user_id: new Types.ObjectId(userId) })
           .exec();
       } else {
-        // If not a valid ObjectId, try searching by the string directly
-        // This assumes you might be storing user_id as a string in some documents
-        return this.resumeModel.find({ user_id: userId }).exec();
+        result = await this.resumeModel.find({ user_id: userId }).exec();
       }
+
+      await this.redisService.setCache(cacheKey, result, 300);
+      return result;
     } catch (error) {
       console.error('Error finding resume analyses:', error);
       throw error;
@@ -111,8 +123,14 @@ export class ResumeAnalysisService {
   }
 
   async findAllAnalyses(): Promise<ResumeAnalysis[]> {
+    const cacheKey = `resumeAnalysis:all`;
+    const cached = await this.redisService.getCache<ResumeAnalysis[]>(cacheKey);
+    if (cached) return cached;
+
     try {
-      return this.resumeModel.find().exec();
+      const all = await this.resumeModel.find().exec();
+      await this.redisService.setCache(cacheKey, all, 300);
+      return all;
     } catch (error) {
       console.error('Error finding all resume analyses:', error);
       throw new InternalServerErrorException(
@@ -120,7 +138,16 @@ export class ResumeAnalysisService {
       );
     }
   }
+
   async deleteAnalyses(id: string) {
+    const analysis = await this.resumeModel.findById(id);
+    if (analysis) {
+      await this.redisService.setCache(
+        `resumeAnalysis:user:${analysis.user_id}`,
+        null,
+      );
+      await this.redisService.setCache(`resumeAnalysis:all`, null);
+    }
     return this.resumeModel.findByIdAndDelete(id);
   }
 }

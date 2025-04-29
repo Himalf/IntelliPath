@@ -126,7 +126,7 @@ export default function Sidebar() {
               }
               title={collapsed ? item.label : ""}
             >
-              {item.icon}
+              <span className="">{item.icon}</span>
               {!collapsed && <span className="font-medium">{item.label}</span>}
             </NavLink>
           ))}

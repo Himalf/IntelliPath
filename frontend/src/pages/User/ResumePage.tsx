@@ -48,7 +48,7 @@ export default function ResumePage() {
   return (
     <div className="p-6 max-w-4xl mx-auto space-y-6">
       {/* Header */}
-      <div className="flex justify-between items-center">
+      <div className="flex justify-between items-center flex-wrap gap-2">
         <h1 className="text-2xl font-bold text-gray-800 flex items-center gap-2">
           <FileText className="w-6 h-6 text-blue-600" />
           Your Resumes

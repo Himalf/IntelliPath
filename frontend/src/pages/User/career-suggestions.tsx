@@ -37,8 +37,8 @@ export default function CareerSuggestionsPage() {
   return (
     <div className="p-6 max-w-3xl mx-auto space-y-6">
       {/* Page Header */}
-      <div className="flex justify-between items-center">
-        <h1 className="text-2xl font-bold text-gray-800 flex items-center gap-2">
+      <div className="flex justify-between items-center flex-wrap gap-2">
+        <h1 className="text-2xl font-bold text-gray-800 flex items-center gap-2 sm:flex-col sm:items-start">
           <Lightbulb className="w-6 h-6 text-yellow-500" />
           Career Suggestions
         </h1>

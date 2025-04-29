@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, JSX } from "react";
+import { useState, useEffect, useRef, useCallback, JSX } from "react";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -16,6 +16,8 @@ const ChatInterface = () => {
   const [chatHistory, setChatHistory] = useState<ChatMessage[]>([]);
   const [loading, setLoading] = useState(false);
   const scrollAreaRef = useRef<HTMLDivElement>(null);
+  const [typingResponse, setTypingResponse] = useState<string>(""); // For typing effect
+  const typingIntervalRef = useRef<NodeJS.Timeout | null>(null);
 
   // Fetch chat history on mount
   useEffect(() => {
@@ -32,7 +34,7 @@ const ChatInterface = () => {
     fetchChatHistory();
   }, [user]);
 
-  // Auto-scroll to bottom when new messages are added
+  // Auto-scroll when new messages are added
   useEffect(() => {
     if (scrollAreaRef.current) {
       scrollAreaRef.current.scrollTo({
@@ -40,21 +42,53 @@ const ChatInterface = () => {
         behavior: "smooth",
       });
     }
-  }, [chatHistory, loading]);
+  }, [chatHistory, typingResponse]);
 
   const handleSendMessage = async () => {
     if (!question.trim() || !user?._id) return;
 
+    const tempUserMessage: ChatMessage = {
+      _id: `temp-${Date.now()}`,
+      userId: user._id,
+      question: question.trim(),
+      response: null,
+      createdAt: new Date().toISOString(),
+      timestamp: new Date().toISOString(),
+    };
+
+    setChatHistory((prev) => [...prev, tempUserMessage]);
+    const currentQuestion = question.trim();
+    setQuestion("");
     setLoading(true);
+
     try {
       const message = await chatbotService.sendMessage(
         user._id,
-        question.trim()
+        currentQuestion
       );
-      setChatHistory((prev) => [...prev, message]);
-      setQuestion("");
+
+      setChatHistory((prev) =>
+        prev.map((msg) => (msg._id === tempUserMessage._id ? message : msg))
+      );
+
+      // Start typing animation
+      if (message.response) {
+        simulateTyping(message.response);
+      }
     } catch (error) {
       console.error("Error sending message:", error);
+      setChatHistory((prev) =>
+        prev.map((msg) =>
+          msg._id === tempUserMessage._id
+            ? {
+                ...msg,
+                response:
+                  "Sorry, I couldn't process your request. Please try again.",
+              }
+            : msg
+        )
+      );
+      toast.error("Failed to get response from AI");
     } finally {
       setLoading(false);
     }
@@ -68,7 +102,6 @@ const ChatInterface = () => {
   };
 
   const clearChatHistory = async (userId: string) => {
-    // Show a confirmation alert before proceeding with deletion
     const confirmation = window.confirm(
       "Are you sure you want to delete all chats? This action cannot be undone."
     );
@@ -76,9 +109,7 @@ const ChatInterface = () => {
     if (confirmation) {
       try {
         await chatbotService.deleteChatByUserId(userId);
-
         setChatHistory([]);
-
         toast.success("Chat history cleared successfully!");
       } catch (error) {
         toast.error("Failed to delete chat history.");
@@ -87,6 +118,24 @@ const ChatInterface = () => {
       toast.info("Chat history deletion canceled.");
     }
   };
+
+  const simulateTyping = useCallback((fullText: string) => {
+    setTypingResponse(""); // Reset previous typing
+    let index = 0;
+
+    if (typingIntervalRef.current) {
+      clearInterval(typingIntervalRef.current);
+    }
+
+    typingIntervalRef.current = setInterval(() => {
+      setTypingResponse((prev) => prev + fullText.charAt(index));
+      index++;
+
+      if (index >= fullText.length && typingIntervalRef.current) {
+        clearInterval(typingIntervalRef.current);
+      }
+    }, 30); // Typing speed (ms per character)
+  }, []);
 
   const renderMessagesWithDates = (messages: ChatMessage[]) => {
     const elements: JSX.Element[] = [];
@@ -99,7 +148,7 @@ const ChatInterface = () => {
           elements.push(
             <div
               key={`date-${index}`}
-              className="text-center text-xs text-gray-400 my-4 font-medium"
+              className="text-center text-xs text-gray-400 my-3 font-medium"
             >
               {format(createdAt, "MMMM dd, yyyy")}
             </div>
@@ -108,37 +157,48 @@ const ChatInterface = () => {
         }
       }
       elements.push(
-        <div key={msg._id} className="mb-4 flex flex-col gap-3 animate-fade-in">
+        <div key={msg._id} className="mb-3 flex flex-col gap-2">
           {/* User Message */}
           <div className="flex justify-end">
             <div className="flex items-start gap-2 max-w-[70%]">
-              <div className="bg-blue-600 text-white p-4 rounded-l-2xl rounded-br-2xl shadow-lg transition-transform hover:scale-[1.02]">
+              <div className="bg-blue-600 text-white p-3 rounded-lg">
                 <div className="text-sm whitespace-pre-wrap">
                   {msg.question}
                 </div>
               </div>
               <div className="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center text-white font-bold text-xs">
-                {user?.fullName?.toUpperCase() || "U"}
+                {user?.fullName?.charAt(0).toUpperCase() || "U"}
               </div>
             </div>
           </div>
 
           {/* AI Response */}
-          <div className="flex justify-start">
-            <div className="flex items-start gap-2 max-w-[70%]">
-              <div className="w-8 h-8 rounded-full bg-gray-700 flex items-center justify-center text-white font-bold text-xs">
-                AI
-              </div>
-              <div className="bg-white p-4 rounded-r-2xl rounded-bl-2xl shadow-lg border border-gray-100 transition-transform hover:scale-[1.02]">
-                <div className="text-sm whitespace-pre-wrap">
-                  <ReactMarkdown
-                    children={msg.response ?? "*No response yet.*"}
-                    remarkPlugins={[remarkGfm]}
-                  />
+          {(msg.response || (loading && index === messages.length - 1)) && (
+            <div className="flex justify-start">
+              <div className="flex items-start gap-2 max-w-[70%]">
+                <div className="w-8 h-8 rounded-full bg-gray-700 flex items-center justify-center text-white font-bold text-xs">
+                  AI
+                </div>
+                <div className="bg-gray-100 p-3 rounded-lg">
+                  <div className="text-sm whitespace-pre-wrap">
+                    {loading && index === messages.length - 1 ? (
+                      "Typing..."
+                    ) : index === messages.length - 1 && typingResponse ? (
+                      <ReactMarkdown
+                        children={typingResponse}
+                        remarkPlugins={[remarkGfm]}
+                      />
+                    ) : (
+                      <ReactMarkdown
+                        children={msg.response ?? "*No response yet.*"}
+                        remarkPlugins={[remarkGfm]}
+                      />
+                    )}
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
+          )}
         </div>
       );
     });
@@ -147,66 +207,55 @@ const ChatInterface = () => {
   };
 
   return (
-    <div className=" flex flex-col max-w-4xl mx-auto bg-gradient-to-br from-gray-50 to-gray-100 p-6 font-['Inter',-apple-system,BlinkMacSystemFont,'Segoe_UI',Roboto,sans-serif] border rounded-xl shadow-md">
+    <div className="flex flex-col mx-auto bg-white p-4 font-['Inter',-apple-system,BlinkMacSystemFont,'Segoe_UI',Roboto,sans-serif] border border-gray-400 rounded-md">
       {/* Header */}
-      <div className="flex justify-between items-center mb-4">
-        <h1 className="text-2xl font-bold text-gray-800">
+      <div className="flex justify-between items-center mb-3">
+        <h1 className="text-xl font-semibold text-gray-800">
           IntelliPath Chatbot
         </h1>
         <Button
           variant="outline"
           onClick={() => user?._id && clearChatHistory(user._id)}
-          className="text-sm border-gray-300 hover:bg-gray-200 transition-colors"
+          className="text-sm border-gray-300"
         >
           Clear Chat
         </Button>
       </div>
 
-      {/* Chat Messages - set fixed height and scrollable */}
+      {/* Chat Messages */}
       <ScrollArea
-        className="h-[600px]  bg-white rounded-xl shadow-inner p-6 mb-4 overflow-y-auto"
+        className="h-full  bg-gray-50 rounded-lg p-4 mb-3"
         ref={scrollAreaRef}
       >
         {chatHistory.length === 0 ? (
-          <div className="text-center text-gray-500 mt-12">
+          <div className="text-center text-gray-500 mt-10">
             Ask a career-related question to start the conversation!
           </div>
         ) : (
           renderMessagesWithDates(chatHistory)
         )}
-        {loading && (
-          <div className="flex justify-start">
-            <div className="flex items-start gap-2 max-w-[80%]">
-              <div className="w-8 h-8 rounded-full bg-gray-700 flex items-center justify-center text-white font-bold text-xs">
-                AI
-              </div>
-              <div className="bg-white p-4 rounded-r-2xl rounded-bl-2xl shadow-lg border border-gray-100">
-                <div className="text-sm animate-pulse">Typing...</div>
-              </div>
-            </div>
-          </div>
-        )}
       </ScrollArea>
 
       {/* Input */}
-      <div className="chat-input relative flex items-center gap-3 bg-white p-4 rounded-xl shadow-lg border border-gray-200">
+      <div className="relative flex items-center gap-2 bg-gray-50 p-2 rounded-lg border border-gray-200">
         <Textarea
           value={question}
           onChange={(e) => setQuestion(e.target.value)}
           onKeyDown={handleKeyDown}
           placeholder="Ask your career-related question..."
-          className="min-h-[60px] resize-none pr-12 focus:ring-2 focus:ring-white border-none bg-transparent"
+          className="min-h-12 resize-none pr-10 border-none bg-transparent focus:ring-1 focus:ring-blue-500"
           aria-label="Type your question"
+          disabled={loading}
         />
         <button
           onClick={handleSendMessage}
           disabled={loading || !question.trim()}
-          className={`absolute right-6 top-1/2 transform -translate-y-1/2 text-blue-600 hover:text-blue-800 transition-colors ${
+          className={`absolute right-4 top-1/2 transform -translate-y-1/2 text-blue-600 ${
             loading || !question.trim() ? "opacity-50 cursor-not-allowed" : ""
           }`}
           aria-label="Send message"
         >
-          <FaPaperPlane className="w-5 h-5 cursor-pointer" />
+          <FaPaperPlane className="w-4 h-4" />
         </button>
       </div>
     </div>

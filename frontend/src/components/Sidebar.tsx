@@ -85,7 +85,7 @@ export default function Sidebar({
       )}
 
       <aside
-        className={`fixed top-0 left-0 h-full z-50 bg-white border-r shadow-md transform transition-transform duration-300 delay-200 ease-in-out ${
+        className={`fixed top-0 left-0 h-full z-50 bg-white  shadow-md transform transition-transform duration-300 delay-200 ease-in-out ${
           isMobile
             ? sidebarOpen
               ? "translate-x-0 ease-in-out duration-200 delay-100"
@@ -94,7 +94,7 @@ export default function Sidebar({
         }`}
         style={{ width: isMobile ? "50%" : "256px" }}
       >
-        <div className="px-4 py-6 flex items-center justify-between border-b">
+        <div className="px-4 py-6 flex items-center justify-between border-b border-gray-300">
           <h2 className="text-lg font-bold text-indigo-600">IntelliPath AI</h2>
           {isMobile && (
             <button onClick={() => setSidebarOpen(false)} className="text-xl">

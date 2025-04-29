@@ -11,13 +11,17 @@ export class AiService {
 
   async generateCareerSuggestion(prompt: string): Promise<string> {
     try {
-      const res = await axios.post(`${this.API_URL}?key=${this.API_KEY}`, {
-        contents: [
-          {
-            parts: [{ text: prompt }],
-          },
-        ],
-      });
+      const res = await axios.post(
+        `${this.API_URL}?key=${this.API_KEY}`,
+        {
+          contents: [
+            {
+              parts: [{ text: prompt }],
+            },
+          ],
+        },
+        { timeout: 10000 },
+      );
 
       const text = res.data.candidates?.[0]?.content?.parts?.[0]?.text || '{}';
 
@@ -29,7 +33,7 @@ export class AiService {
       return jsonString;
     } catch (err) {
       console.error('Gemini AI Error:', err.message);
-      return '{}';
+      throw new Error('AI service Failed Please Try again later');
     }
   }
 }

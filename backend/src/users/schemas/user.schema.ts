@@ -8,22 +8,34 @@ export enum UserRole {
   SUPERADMIN = 'SUPERADMIN',
   GUEST = 'GUEST',
 }
+
 export type UserDocument = User & Document;
+
 @Schema({ timestamps: true })
 export class User {
   @Prop({ required: true, unique: true })
   email: string;
+
   @Prop({ required: true })
   password: string;
+
   @Prop({ required: true })
   fullName: string;
+
   @Prop({ enum: UserRole, default: UserRole.USER })
   role: UserRole;
+
   @Prop()
   education?: string;
+
   @Prop()
-  skills?: string; //comma seperated
+  skills?: string;
+
   @Prop()
   resume_url?: string;
 }
+
 export const UserSchema = SchemaFactory.createForClass(User);
+
+UserSchema.index({ email: 1 }, { unique: true });
+UserSchema.index({ role: 1 });

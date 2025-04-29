@@ -19,3 +19,9 @@ export class Course {
 }
 
 export const CourseSchema = SchemaFactory.createForClass(Course);
+
+//  Index for fast lookup by course title
+CourseSchema.index({ title: 1 });
+
+//  Optional: index for fast filtering by tags (if this is a common query)
+CourseSchema.index({ tags: 1 });

@@ -22,6 +22,13 @@ export class CareerSuggestionService {
     userId: string,
     skills: string,
   ): Promise<CareerSuggestion> {
+    const existing = await this.suggestionModel.findOne({
+      user_id: userId,
+      skills,
+    });
+    if (existing) {
+      return existing;
+    }
     const prompt = `
     You are a career advisor AI.
   
@@ -35,7 +42,11 @@ export class CareerSuggestionService {
     }
     `;
 
-    let parsedResponse;
+    let parsedResponse: {
+      recommended_courses: string;
+      suggestedCareers: any;
+      skillGapAnalysis: any;
+    };
     try {
       const suggestionText =
         await this.aiService.generateCareerSuggestion(prompt);

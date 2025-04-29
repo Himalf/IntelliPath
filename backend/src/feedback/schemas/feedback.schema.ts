@@ -16,3 +16,12 @@ export class Feedback {
 }
 
 export const FeedbackSchema = SchemaFactory.createForClass(Feedback);
+
+// 1) Speed up “get all feedback for a given user”
+FeedbackSchema.index({ userId: 1 });
+
+// 2) Speed up “filter feedback by rating” (e.g. show all 5-star feedback)
+FeedbackSchema.index({ rating: 1 });
+
+// 3) (Optional) Compound index if you often query “feedback for user sorted by rating”
+FeedbackSchema.index({ userId: 1, rating: -1 });

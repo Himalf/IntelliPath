@@ -134,7 +134,7 @@ const ChatInterface = () => {
       if (index >= fullText.length && typingIntervalRef.current) {
         clearInterval(typingIntervalRef.current);
       }
-    }, 30); // Typing speed (ms per character)
+    }, 90); // Typing speed (ms per character)
   }, []);
 
   const renderMessagesWithDates = (messages: ChatMessage[]) => {

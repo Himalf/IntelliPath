@@ -1,34 +1,29 @@
-import { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import {
-  FaBrain,
   FaHome,
-  FaUser,
+  FaUsersCog,
+  FaBook,
   FaFileAlt,
   FaBriefcase,
-  FaBook,
+  FaBrain,
+  FaUser,
   FaSignOutAlt,
-  FaUsersCog,
 } from "react-icons/fa";
 import { useAuth } from "../features/auth/AuthContext";
 
-export default function Sidebar() {
+interface SidebarProps {
+  isMobile: boolean;
+  sidebarOpen: boolean;
+  setSidebarOpen: (open: boolean) => void;
+}
+
+export default function Sidebar({
+  isMobile,
+  sidebarOpen,
+  setSidebarOpen,
+}: SidebarProps) {
   const { logout, user } = useAuth();
   const role = user?.role;
-  const [collapsed, setCollapsed] = useState(false);
-  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
-
-  useEffect(() => {
-    const handleResize = () => {
-      const mobile = window.innerWidth < 768;
-      setIsMobile(mobile);
-      if (mobile) setCollapsed(true);
-    };
-
-    handleResize();
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
 
   const navItems = [
     {
@@ -41,7 +36,7 @@ export default function Sidebar() {
       path: "/dashboard/user-management",
       label: "User Management",
       icon: <FaUsersCog />,
-      roles: ["SUPERADMIN", "ADMIN"],
+      roles: ["ADMIN", "SUPERADMIN"],
     },
     {
       path: "/dashboard/course",
@@ -78,71 +73,61 @@ export default function Sidebar() {
   const filteredNavItems = navItems.filter(
     (item) => role && item.roles.includes(role)
   );
-  const sidebarWidth = collapsed ? (isMobile ? 0 : 72) : 256;
 
   return (
     <>
-      {/* Overlay on Mobile */}
-      {isMobile && !collapsed && (
+      {/* Mobile overlay background */}
+      {isMobile && sidebarOpen && (
         <div
-          className="fixed inset-0 z-20 bg-black bg-opacity-50"
-          onClick={() => setCollapsed(true)}
+          className="fixed inset-0 bg-black bg-opacity-40 z-40"
+          onClick={() => setSidebarOpen(false)}
         />
       )}
-      {/* Sidebar */}
+
       <aside
-        className={`fixed top-0 left-0 h-full z-30 bg-white border-r border-gray-200 shadow-lg transition-all duration-300 ease-in-out`}
-        style={{ width: `${sidebarWidth}px` }}
+        className={`fixed top-0 left-0 h-full z-50 bg-white border-r shadow-md transform transition-transform duration-300 delay-200 ease-in-out ${
+          isMobile
+            ? sidebarOpen
+              ? "translate-x-0 ease-in-out duration-200 delay-100"
+              : "-translate-x-full ease-in-out duration-200 delay-100"
+            : "translate-x-0 w-64"
+        }`}
+        style={{ width: isMobile ? "50%" : "256px" }}
       >
-        {/* Header */}
-        <div
-          className={`flex items-center px-4 py-6 ${
-            collapsed ? "justify-center" : "justify-between"
-          }`}
-        >
-          <div
-            className="flex items-center cursor-pointer"
-            onClick={() => setCollapsed(!collapsed)}
-          >
-            <FaBrain className="text-indigo-600 w-8 h-8 ml-2" />
-            {!collapsed && (
-              <h2 className="ml-2 text-xl font-bold text-gray-900">
-                IntelliPath AI
-              </h2>
-            )}
-          </div>
+        <div className="px-4 py-6 flex items-center justify-between border-b">
+          <h2 className="text-lg font-bold text-indigo-600">IntelliPath AI</h2>
+          {isMobile && (
+            <button onClick={() => setSidebarOpen(false)} className="text-xl">
+              ×
+            </button>
+          )}
         </div>
 
-        {/* Navigation */}
-        <nav className="flex flex-col px-2 overflow-y-auto">
+        <nav className="p-2 space-y-1">
           {filteredNavItems.map((item) => (
             <NavLink
               key={item.path}
               to={item.path}
+              onClick={() => isMobile && setSidebarOpen(false)}
               className={({ isActive }) =>
-                `flex items-center py-3 px-4 rounded-lg text-gray-700 hover:text-indigo-600 hover:bg-indigo-50 transition-all duration-200 ${
-                  collapsed ? "justify-center" : "gap-3"
-                } ${isActive ? "bg-indigo-50 text-indigo-600 font-medium" : ""}`
+                `flex items-center px-4 py-3 rounded-lg text-gray-700 hover:bg-indigo-50 transition ${
+                  isActive ? "bg-indigo-100 font-semibold text-indigo-600" : ""
+                }`
               }
-              title={collapsed ? item.label : ""}
             >
-              <span className="">{item.icon}</span>
-              {!collapsed && <span className="font-medium">{item.label}</span>}
+              <span className="mr-3">{item.icon}</span>
+              <span>{item.label}</span>
             </NavLink>
           ))}
         </nav>
 
-        {/* Logout */}
-        <div className="mt-10 px-2 pb-6">
+        <div className="mt-auto px-4 py-4">
           <button
             onClick={logout}
-            className={`w-full flex items-center py-3 text-red-500 hover:bg-red-50 rounded-lg ${
-              collapsed ? "justify-center" : "gap-2 px-4"
-            }`}
-            title={collapsed ? "Logout" : ""}
+            className="w-full flex items-center text-red-600 hover:bg-red-50 px-4 py-3 rounded-lg"
           >
-            <FaSignOutAlt />
-            {!collapsed && <span>Logout</span>}
+            <FaSignOutAlt className="mr-2" />
+            Logout
           </button>
         </div>
       </aside>

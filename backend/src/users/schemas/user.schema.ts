@@ -16,6 +16,9 @@ export class User {
   @Prop({ required: true, unique: true })
   email: string;
 
+  @Prop()
+  phone: string;
+
   @Prop({ required: true })
   password: string;
 
@@ -33,6 +36,12 @@ export class User {
 
   @Prop()
   resume_url?: string;
+
+  @Prop()
+  resetToken?: string;
+
+  @Prop()
+  resetTokenExpiry?: Date;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

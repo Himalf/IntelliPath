@@ -10,7 +10,8 @@ import { UserRole } from '../schemas/user.schema';
 export class CreateUserDto {
   @IsEmail()
   email: string;
-
+  @IsString()
+  phone: string;
   @IsString()
   @IsNotEmpty()
   password: string;

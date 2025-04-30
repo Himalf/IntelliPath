@@ -7,10 +7,12 @@ import { AuthController } from './auth.controller';
 import { JwtModule } from '@nestjs/jwt';
 import { jwtConstants } from './constants';
 import { JwtStrategy } from './jwt.strategy';
+import { TwilioModule } from 'src/twilio/twilio.module';
 
 @Module({
   imports: [
     UsersModule,
+    TwilioModule,
     PassportModule,
     JwtModule.register({
       secret: jwtConstants.secret,

@@ -1,4 +1,4 @@
-import { Controller, Post, Req, UseGuards } from '@nestjs/common';
+import { Body, Controller, Post, Req, UseGuards } from '@nestjs/common';
 import { ApiBody, ApiTags } from '@nestjs/swagger';
 import { AuthGuard } from '@nestjs/passport';
 import { Request } from 'express';
@@ -15,5 +15,20 @@ export class AuthController {
   @ApiBody({ type: LoginDto })
   async login(@Req() req: Request) {
     return this.authService.login(req.user);
+  }
+
+  @Post('request-password-reset')
+  async requestPasswordReset(@Body() body: { phone: string }) {
+    return this.authService.requestPasswordReset(body.phone);
+  }
+  @Post('reset-password')
+  resetPassword(
+    @Body() body: { phone: string; token: string; newPassword: string },
+  ) {
+    return this.authService.resetPassword(
+      body.phone,
+      body.token,
+      body.newPassword,
+    );
   }
 }

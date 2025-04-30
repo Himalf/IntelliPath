@@ -1,12 +1,19 @@
-import { Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
+import { NotFoundError } from 'rxjs';
+import { TwilioService } from 'src/twilio/twilio.service';
 import { UsersService } from 'src/users/users.service';
-
+import { v4 as uuidv4 } from 'uuid';
 @Injectable()
 export class AuthService {
   constructor(
     private usersService: UsersService,
     private jwtService: JwtService,
+    private twilioService: TwilioService,
   ) {}
   async validateUser(email: string, password: string) {
     const user = await this.usersService.findByEmail(email);
@@ -33,5 +40,32 @@ export class AuthService {
         role: user.role,
       },
     };
+  }
+
+  async requestPasswordReset(email: string) {
+    const user = await this.usersService.findByEmail(email);
+    if (!user) throw new NotFoundException('User not Found');
+    const token = uuidv4();
+
+    user.resetToken = token;
+    user.resetTokenExpiry = new Date(Date.now() + 15 * 60 * 1000);
+    await user.save();
+    const resetLink = `${process.env.CLIENT_URL}`;
+  }
+
+  // Reset Password
+  async resetPassword(phone: string, token: string, newPassword: string) {
+    const user = await this.usersService.findByPhone(phone);
+    if (
+      !user ||
+      user.resetToken !== token ||
+      user.resetTokenExpiry < new Date()
+    ) {
+      throw new BadRequestException('Invalid or expired token');
+    }
+    user.password = newPassword;
+    user.resetToken = null;
+    user.resetTokenExpiry = null;
+    await user.save();
   }
 }

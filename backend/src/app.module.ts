@@ -14,6 +14,7 @@ import { FeedbackModule } from './feedback/feedback.module';
 import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 import { APP_GUARD } from '@nestjs/core';
 import { RedisModule } from './redis/redis.module';
+import { MailService } from './mail/mail.service';
 @Module({
   imports: [
     RedisModule,
@@ -45,6 +46,7 @@ import { RedisModule } from './redis/redis.module';
     FeedbackModule,
   ],
   providers: [
+    MailService,
     {
       provide: APP_GUARD,
       useClass: ThrottlerGuard,

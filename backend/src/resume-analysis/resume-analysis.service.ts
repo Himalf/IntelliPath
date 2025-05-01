@@ -104,15 +104,12 @@ export class ResumeAnalysisService {
     const cached = await this.redisService.getCache<ResumeAnalysis[]>(cacheKey);
     if (cached) return cached;
 
-    let result: ResumeAnalysis[];
     try {
-      if (Types.ObjectId.isValid(userId)) {
-        result = await this.resumeModel
-          .find({ user_id: new Types.ObjectId(userId) })
-          .exec();
-      } else {
-        result = await this.resumeModel.find({ user_id: userId }).exec();
-      }
+      const query = Types.ObjectId.isValid(userId)
+        ? { user_id: new Types.ObjectId(userId) }
+        : { user_id: userId };
+
+      const result = await this.resumeModel.find(query).exec();
 
       await this.redisService.setCache(cacheKey, result, 300);
       return result;

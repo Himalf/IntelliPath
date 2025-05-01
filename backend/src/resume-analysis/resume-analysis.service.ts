@@ -100,21 +100,23 @@ export class ResumeAnalysisService {
   }
 
   async getAnalysisByUser(userId: string): Promise<ResumeAnalysis[]> {
-    const cacheKey = `resumeAnalysis:user:${userId}`;
+    // Ensure userId is a string and properly formatted
+    const normalizedUserId = String(userId).trim();
+    const cacheKey = `resumeAnalysis:user:${normalizedUserId}`;
+
     const cached = await this.redisService.getCache<ResumeAnalysis[]>(cacheKey);
     if (cached) return cached;
 
     try {
-      const query = Types.ObjectId.isValid(userId)
-        ? { user_id: new Types.ObjectId(userId) }
-        : { user_id: userId };
+      const result = await this.resumeModel
+        .find({ user_id: normalizedUserId })
+        .exec();
 
-      const result = await this.resumeModel.find(query).exec();
-
-      await this.redisService.setCache(cacheKey, result, 300);
+      if (result.length > 0) {
+        await this.redisService.setCache(cacheKey, result, 300);
+      }
       return result;
     } catch (error) {
-      console.error('Error finding resume analyses:', error);
       throw error;
     }
   }

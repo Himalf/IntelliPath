@@ -54,10 +54,4 @@ export class UsersService {
     await this.redisService.setCache(`user:${id}`, null); // invalidate single user
     await this.redisService.setCache('users:all', null); // invalidate all users list
   }
-
-  async findByPhone(phone: string) {
-    const user = await this.userModel.findOne({ phone });
-    if (!user) throw new NotFoundException('User not found');
-    return user;
-  }
 }

@@ -4,6 +4,10 @@ import { AuthGuard } from '@nestjs/passport';
 import { Request } from 'express';
 import { AuthService } from './auth.service';
 import { LoginDto } from './dto/login.dto';
+import {
+  RequestPasswordResetDto,
+  ResetPasswordDto,
+} from 'src/users/dto/create-user.dto';
 
 @ApiTags('Auth')
 @Controller('auth')
@@ -18,17 +22,15 @@ export class AuthController {
   }
 
   @Post('request-password-reset')
-  async requestPasswordReset(@Body() body: { phone: string }) {
-    return this.authService.requestPasswordReset(body.phone);
+  async requestPasswordReset(@Body() dto: RequestPasswordResetDto) {
+    return this.authService.requestPasswordReset(dto.email);
   }
   @Post('reset-password')
-  resetPassword(
-    @Body() body: { phone: string; token: string; newPassword: string },
-  ) {
+  resetPassword(@Body() dto: ResetPasswordDto) {
     return this.authService.resetPassword(
-      body.phone,
-      body.token,
-      body.newPassword,
+      dto.email,
+      dto.token,
+      dto.newPassword,
     );
   }
 }

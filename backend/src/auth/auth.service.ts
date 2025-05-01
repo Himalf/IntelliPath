@@ -5,6 +5,7 @@ import {
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { NotFoundError } from 'rxjs';
+import { MailService } from 'src/mail/mail.service';
 import { TwilioService } from 'src/twilio/twilio.service';
 import { UsersService } from 'src/users/users.service';
 import { v4 as uuidv4 } from 'uuid';
@@ -13,7 +14,7 @@ export class AuthService {
   constructor(
     private usersService: UsersService,
     private jwtService: JwtService,
-    private twilioService: TwilioService,
+    private mailService: MailService,
   ) {}
   async validateUser(email: string, password: string) {
     const user = await this.usersService.findByEmail(email);
@@ -50,19 +51,21 @@ export class AuthService {
     user.resetToken = token;
     user.resetTokenExpiry = new Date(Date.now() + 15 * 60 * 1000);
     await user.save();
-    const resetLink = `${process.env.CLIENT_URL}`;
+    const resetLink = `${process.env.CLIENT_URL}/reset-password?token=${token}&email=${email}`;
+    await this.mailService.sendResetLink(email, resetLink);
   }
 
   // Reset Password
-  async resetPassword(phone: string, token: string, newPassword: string) {
-    const user = await this.usersService.findByPhone(phone);
+  async resetPassword(email: string, token: string, newPassword: string) {
+    const user = await this.usersService.findByEmail(email);
     if (
       !user ||
       user.resetToken !== token ||
       user.resetTokenExpiry < new Date()
     ) {
-      throw new BadRequestException('Invalid or expired token');
+      throw new BadRequestException('Invalid or expired reset token');
     }
+
     user.password = newPassword;
     user.resetToken = null;
     user.resetTokenExpiry = null;

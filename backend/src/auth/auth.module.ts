@@ -8,10 +8,12 @@ import { JwtModule } from '@nestjs/jwt';
 import { jwtConstants } from './constants';
 import { JwtStrategy } from './jwt.strategy';
 import { TwilioModule } from 'src/twilio/twilio.module';
+import { MailModule } from 'src/mail/mail.module';
 
 @Module({
   imports: [
     UsersModule,
+    MailModule,
     TwilioModule,
     PassportModule,
     JwtModule.register({

@@ -10,6 +10,7 @@ import { UserRole } from '../schemas/user.schema';
 export class CreateUserDto {
   @IsEmail()
   email: string;
+  @IsOptional()
   @IsString()
   phone: string;
   @IsString()
@@ -35,4 +36,15 @@ export class CreateUserDto {
   @IsOptional()
   @IsString()
   resume_url?: string;
+}
+// dto/request-password-reset.dto.ts
+export class RequestPasswordResetDto {
+  email: string;
+}
+
+// dto/reset-password.dto.ts
+export class ResetPasswordDto {
+  email: string;
+  token: string;
+  newPassword: string;
 }

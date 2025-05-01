@@ -13,6 +13,8 @@ import ChatInterface from "@/components/ChatInterface";
 import FeedbackPage from "@/pages/User/feedback";
 import AdminDashboardPage from "@/pages/admin/AdminDashboardPage";
 import UserDashboardPage from "@/pages/User/UserDashboardPage";
+import ForgotPassword from "@/features/auth/ForgetPassword";
+import ResetPassword from "@/features/auth/ResetPassword";
 
 export default function AppRoutes() {
   const { token, user } = useAuth();
@@ -23,6 +25,14 @@ export default function AppRoutes() {
       <Route
         path="/"
         element={token ? <Navigate to="/dashboard" /> : <LandingPage />}
+      />
+      <Route
+        path="/forget-password"
+        element={token ? <Navigate to="/dashboard" /> : <ForgotPassword />}
+      />
+      <Route
+        path="/reset-password"
+        element={token ? <Navigate to="/dashboard" /> : <ResetPassword />}
       />
 
       {/* Public routes */}

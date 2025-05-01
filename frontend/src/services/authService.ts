@@ -56,6 +56,24 @@ class AuthService {
     return response.data;
   }
 
+  // send reset request
+  async sendResetPasswordEmail(email: string) {
+    const response = await axiosInstance.post("/auth/request-password-reset", {
+      email,
+    });
+    return response.data;
+  }
+
+  // reset Password
+  async resetPassword(email: string, token: string, newPassword: string) {
+    const response = await axiosInstance.post("/auth/reset-password", {
+      email,
+      token,
+      newPassword,
+    });
+    return response.data;
+  }
+
   //   Logout
   logout() {
     localStorage.removeItem("token");

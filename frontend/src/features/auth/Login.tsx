@@ -115,7 +115,7 @@ export default function Login() {
                 Password
               </label>
               <a
-                href="/forgot-password"
+                href="/forget-password"
                 className="text-sm text-gray-600 hover:text-gray-900 hover:underline transition-colors"
               >
                 Forgot password?
@@ -157,7 +157,7 @@ export default function Login() {
             {isSubmitting ? (
               <span className="flex items-center justify-center">
                 <svg
-                  className="animate-spin -ml-1 mr-2 h-4 w-4 text-white"
+                  className="animate-spin -ml-  1 mr-2 h-4 w-4 text-white"
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
                   viewBox="0 0 24 24"

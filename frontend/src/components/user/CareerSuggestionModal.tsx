@@ -25,7 +25,7 @@ const CareerSuggestionModal: React.FC<CareerSuggestionModalProps> = ({
   const handleSubmit = async () => {
     if (!skills.trim()) {
       toast.warning("Please enter at least one skill.");
-      return;
+      return; 
     }
 
     setLoading(true);

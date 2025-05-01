@@ -29,56 +29,64 @@ export default function ResetPassword() {
       setError("");
       await AuthService.resetPassword(email, token, data.newPassword);
       setMessage("✅ Password reset successfully. Redirecting to login...");
-
-      setTimeout(() => {
-        navigate("/login");
-      }, 2000);
+      setTimeout(() => navigate("/login"), 2000);
     } catch (err: any) {
       setError(err.response?.data?.message || "❌ Reset failed.");
     }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-4 bg-gray-50">
-      <div className="max-w-md w-full bg-white p-8 rounded-lg shadow">
-        <h2 className="text-2xl font-bold mb-4 text-center">Reset Password</h2>
+    <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
+      <div className="w-full max-w-md bg-white shadow-xl rounded-2xl p-8">
+        <h1 className="text-3xl font-semibold text-center text-black mb-2">
+          IntelliPath
+        </h1>
+        <h2 className="text-xl text-center text-gray-700 mb-6">
+          Reset Password
+        </h2>
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-          <input
-            type="password"
-            placeholder="New password"
-            {...register("newPassword", {
-              required: "New password is required",
-              minLength: {
-                value: 6,
-                message: "Minimum 6 characters",
-              },
-            })}
-            className="w-full p-3 border border-gray-300 rounded-md"
-          />
-          {errors.newPassword && (
-            <p className="text-sm text-red-500">{errors.newPassword.message}</p>
-          )}
+          <div>
+            <input
+              type="password"
+              placeholder="New password"
+              {...register("newPassword", {
+                required: "New password is required",
+                minLength: {
+                  value: 6,
+                  message: "Minimum 6 characters",
+                },
+              })}
+              className="w-full px-4 py-3 border rounded-md focus:ring-2 focus:ring-black focus:outline-none"
+            />
+            {errors.newPassword && (
+              <p className="text-sm text-red-500 mt-1">
+                {errors.newPassword.message}
+              </p>
+            )}
+          </div>
 
-          <input
-            type="password"
-            placeholder="Confirm password"
-            {...register("confirmPassword", {
-              required: "Please confirm your password",
-              validate: (value) =>
-                value === watch("newPassword") || "Passwords do not match",
-            })}
-            className="w-full p-3 border border-gray-300 rounded-md"
-          />
-          {errors.confirmPassword && (
-            <p className="text-sm text-red-500">
-              {errors.confirmPassword.message}
-            </p>
-          )}
+          <div>
+            <input
+              type="password"
+              placeholder="Confirm password"
+              {...register("confirmPassword", {
+                required: "Please confirm your password",
+                validate: (value) =>
+                  value === watch("newPassword") || "Passwords do not match",
+              })}
+              className="w-full px-4 py-3 border rounded-md focus:ring-2 focus:ring-black focus:outline-none"
+            />
+            {errors.confirmPassword && (
+              <p className="text-sm text-red-500 mt-1">
+                {errors.confirmPassword.message}
+              </p>
+            )}
+          </div>
 
           <button
             disabled={isSubmitting}
             type="submit"
-            className="w-full bg-black text-white py-3 rounded-md disabled:opacity-50"
+            className="w-full bg-black text-white py-3 rounded-md font-medium transition-opacity hover:opacity-90 disabled:opacity-50"
           >
             {isSubmitting ? "Resetting..." : "Reset Password"}
           </button>

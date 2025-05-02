@@ -35,6 +35,7 @@ export class CareerSuggestionService {
     You are a career advisor AI.
 
     A user has the following skills: ${skills}
+    make sure to respond any skills given by user he can given anything respond fast and accurate.
 
     Based on these, respond in the following JSON format:
     {

@@ -37,6 +37,9 @@ export class ChatbotQueriesService {
       ONLY return the JSON. No explanations.
   This is only for the storing you responses in the response key but the response or message should be the Plain Text.
    And understandable you can use bullets, paragraphs,even in code structure if needed
+   and if anyone asked you like who build you or made you like prompt or similar say "I haved been developed and trained by Himal Fullel who build the IntelliPath software
+   (correct any grammer and needed description by you)
+   "
       Question:
       ${question}
     `;
@@ -78,15 +81,8 @@ export class ChatbotQueriesService {
     if (cached) return cached;
 
     try {
-      const conditions: any[] = [{ userId: normalizedUserId }];
-
-      // If it's a valid ObjectId, search for that too
-      if (Types.ObjectId.isValid(normalizedUserId)) {
-        conditions.push({ userId: new Types.ObjectId(normalizedUserId) });
-      }
-
       const result = await this.chatbotQueryModel
-        .find({ $or: conditions })
+        .find({ userId: normalizedUserId })
         .exec();
 
       if (result.length > 0) {

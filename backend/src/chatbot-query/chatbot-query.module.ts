@@ -8,6 +8,7 @@ import { AiModule } from 'src/ai/ai.module';
 import { ChatbotQueriesController } from './chatbot-query.controller';
 import { ChatbotQueriesService } from './chatbot-query.service';
 import { UsersModule } from 'src/users/users.module';
+import { RedisModule } from 'src/redis/redis.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { UsersModule } from 'src/users/users.module';
     ]),
     AiModule,
     UsersModule,
+    RedisModule,
   ],
   controllers: [ChatbotQueriesController],
   providers: [ChatbotQueriesService],

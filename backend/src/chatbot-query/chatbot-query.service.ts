@@ -11,6 +11,7 @@ import {
 import { Model, Types } from 'mongoose';
 import { AiService } from 'src/ai/ai.service';
 import { UsersService } from 'src/users/users.service';
+import { RedisService } from 'src/redis/redis.provider';
 
 @Injectable()
 export class ChatbotQueriesService {
@@ -19,6 +20,7 @@ export class ChatbotQueriesService {
     private readonly chatbotQueryModel: Model<ChatbotQueryDocument>,
     private readonly aiService: AiService,
     private readonly usersService: UsersService,
+    private readonly redisService: RedisService,
   ) {}
 
   async create(userId: string, question: string): Promise<ChatbotQuery> {
@@ -69,18 +71,34 @@ export class ChatbotQueriesService {
   }
 
   async findByUser(userId: string): Promise<ChatbotQuery[]> {
+    const normalizedUserId = String(userId).trim();
+    const cacheKey = `chatbotQueries:user:${normalizedUserId}`;
+
+    const cached = await this.redisService.getCache<ChatbotQuery[]>(cacheKey);
+    if (cached) return cached;
+
     try {
-      if (Types.ObjectId.isValid(userId)) {
-        return this.chatbotQueryModel
-          .find({ userId: new Types.ObjectId(userId) })
-          .exec();
-      } else {
-        return this.chatbotQueryModel.find({ userId: userId }).exec();
+      const conditions: any[] = [{ userId: normalizedUserId }];
+
+      // If it's a valid ObjectId, search for that too
+      if (Types.ObjectId.isValid(normalizedUserId)) {
+        conditions.push({ userId: new Types.ObjectId(normalizedUserId) });
       }
+
+      const result = await this.chatbotQueryModel
+        .find({ $or: conditions })
+        .exec();
+
+      if (result.length > 0) {
+        await this.redisService.setCache(cacheKey, result, 300);
+      }
+
+      return result;
     } catch (error) {
       throw error;
     }
   }
+
   async deleteAllByUser(userId: string): Promise<{ deletedCount: number }> {
     try {
       const result = await this.chatbotQueryModel

@@ -33,10 +33,23 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
   const decodeToken = (token: string): User | null => {
     try {
+      if (!token || token.split(".").length !== 3) {
+        console.error("Invalid JWT format");
+        return null; // Invalid token format
+      }
+
       const decoded: DecodedToken = jwtDecode(token);
 
+      // Check for expiration
       if (decoded.exp * 1000 < Date.now()) {
+        console.error("Token expired");
         return null; // Token expired
+      }
+
+      // Validate the presence of all required fields (e.g., role)
+      if (!decoded.role) {
+        console.error("Missing role in token");
+        return null; // Missing role or other required fields
       }
 
       return {
@@ -60,8 +73,10 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         setToken(savedToken);
         setUser(userFromToken);
       } else {
-        logout(); // invalid or expired token
+        logout(); // Invalid or expired token
       }
+    } else {
+      logout(); // No token in localStorage
     }
 
     setIsLoading(false);

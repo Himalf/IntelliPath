@@ -7,6 +7,7 @@ export default function Navbar({
   toggleSidebar: () => void;
 }) {
   const { user } = useAuth();
+  console.log(user, "user data");
 
   return (
     <header className="bg-white shadow px-4 sm:px-6 py-4 flex items-center justify-between sticky top-0 z-30">

@@ -39,6 +39,7 @@ export class ResumeAnalysisService {
     // 3. Prompt for AI
     const prompt = `
       You are an AI resume analyst.
+      Sometimes there may not be resume text parsed correctly in such situation provide your own message.
       Analyze the following resume text and return JSON with these exact keys:
       {
         "strengths": ["..."],

@@ -40,10 +40,7 @@ export default function Login() {
         email: data.email,
         password: data.password,
       });
-      login(res.access_token, {
-        ...res.user,
-        fullName: res.user.fullName || "Unknown", // Ensure fullName is provided
-      });
+      login(res.access_token);
 
       // Navigate to dashboard or previous attempted location
       const from = (location.state as any)?.from?.pathname || "/dashboard";

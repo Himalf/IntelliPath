@@ -22,7 +22,9 @@ export default function Navbar({
       </div>
       <div className="text-sm text-gray-500">
         Welcome Back{" "}
-        <span className="font-bold text-black ml-1">{user?.fullName}</span>
+        <span className="font-bold text-black ml-1 capitalize">
+          {user?.fullName}
+        </span>
       </div>
     </header>
   );

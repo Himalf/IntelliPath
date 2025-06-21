@@ -4,9 +4,7 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { NotFoundError } from 'rxjs';
 import { MailService } from 'src/mail/mail.service';
-import { TwilioService } from 'src/twilio/twilio.service';
 import { UsersService } from 'src/users/users.service';
 import { v4 as uuidv4 } from 'uuid';
 @Injectable()

@@ -8,7 +8,6 @@ import { CareerSuggestionModule } from './career_suggestion/career_suggestion.mo
 import { AiModule } from './ai/ai.module';
 import { ResumeAnalysisModule } from './resume-analysis/resume-analysis.module';
 import { ChatbotQueriesModule } from './chatbot-query/chatbot-query.module';
-import { CourseController } from './course/course.controller';
 import { CoursesModule } from './course/course.module';
 import { FeedbackModule } from './feedback/feedback.module';
 import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
@@ -19,12 +18,7 @@ import { MailModule } from './mail/mail.module';
   imports: [
     RedisModule,
     ThrottlerModule.forRoot({
-      throttlers: [
-        {
-          ttl: 60000,
-          limit: 20,
-        },
-      ],
+      throttlers: [],
     }),
 
     HttpModule,

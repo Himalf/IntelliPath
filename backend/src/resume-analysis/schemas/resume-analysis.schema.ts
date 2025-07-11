@@ -19,16 +19,21 @@ export class ResumeAnalysis {
 
   @Prop([String])
   recommendation: string[];
+
+  @Prop([
+    {
+      title: { type: String, required: true },
+      url: { type: String, required: true },
+    },
+  ])
+  jobRecommendations: { title: string; url: string }[];
 }
 
 export const ResumeAnalysisSchema =
   SchemaFactory.createForClass(ResumeAnalysis);
 
-//  Index to speed up user-specific lookups
+// Index to speed up user-specific lookups
 ResumeAnalysisSchema.index({ user_id: 1 });
-
-// Optional: if needed, you can index fields like strengths or weaknesses.
-// These would be useful only if you frequently query these fields.
 ResumeAnalysisSchema.index({ strengths: 1 });
 ResumeAnalysisSchema.index({ weakness: 1 });
 ResumeAnalysisSchema.index({ recommendation: 1 });

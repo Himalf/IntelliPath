@@ -8,7 +8,7 @@ import {
   ResumeAnalysis,
   ResumeAnalysisDocument,
 } from './schemas/resume-analysis.schema';
-import { Model, Types } from 'mongoose';
+import { Model } from 'mongoose';
 import { AiService } from 'src/ai/ai.service';
 import { UsersService } from 'src/users/users.service';
 import * as pdfParse from 'pdf-parse';
@@ -36,10 +36,10 @@ export class ResumeAnalysisService {
     const data = await pdfParse(file.buffer);
     const text = data.text;
 
-    // 3. Prompt for AI
-    const prompt = `
+    // 3. Prompt for AI Resume Analysis
+    const analysisPrompt = `
       You are an AI resume analyst.
-      Sometimes there may not be resume text parsed correctly in such situation provide your own message.
+      Sometimes there may not be resume text parsed correctly in such situations; provide your own message.
       Analyze the following resume text and return JSON with these exact keys:
       {
         "strengths": ["..."],
@@ -47,14 +47,14 @@ export class ResumeAnalysisService {
         "recommendations": ["..."]
       }
       Return ONLY the JSON. No explanation or notes.
+
       Resume:
       ${text}
     `;
 
-    // 4. Get AI response
-    const aiRaw = await this.aiService.generateCareerSuggestion(prompt);
+    const aiRaw = await this.aiService.generateCareerSuggestion(analysisPrompt);
 
-    // 5. Parse response
+    // 4. Parse analysis response
     let parsed: {
       strengths: string[];
       weaknesses: string[];
@@ -82,18 +82,60 @@ export class ResumeAnalysisService {
       );
     }
 
-    // 6. Save analysis
+    // 5. Prompt for AI Job Recommendations (title + link)
+    const jobPrompt = `
+      You are a career advisor AI.
+      Based on the resume text below, suggest 3 to 5 suitable job roles for the candidate.
+      For each job, generate a Google or LinkedIn search URL to help the candidate explore jobs online but the url should be valid and it is good if there is real job link and response always at any cost.
+      
+      Return ONLY a JSON array like this:
+      [
+        { "title": "Frontend Developer", "url": "https://www.linkedin.com/jobs/search?keywords=Frontend+Developer" },
+        { "title": "Software Engineer", "url": "https://www.google.com/search?q=Software+Engineer+jobs+in+Nepal" }
+      ]
+
+      Resume:
+      ${text}
+    `;
+
+    let jobRecommendations: { title: string; url: string }[] = [];
+
+    try {
+      const jobRaw = await this.aiService.generateCareerSuggestion(jobPrompt);
+      const start = jobRaw.indexOf('[');
+      const end = jobRaw.lastIndexOf(']');
+      const jsonString = jobRaw.slice(start, end + 1).trim();
+
+      jobRecommendations = JSON.parse(jsonString);
+
+      if (!Array.isArray(jobRecommendations)) throw new Error('Invalid format');
+    } catch (err) {
+      // fallback jobs
+      jobRecommendations = [
+        {
+          title: 'Software Developer',
+          url: 'https://www.google.com/search?q=Software+Developer+jobs+in+Nepal',
+        },
+        {
+          title: 'Frontend Developer',
+          url: 'https://www.linkedin.com/jobs/search?keywords=Frontend+Developer',
+        },
+      ];
+    }
+
+    // 6. Save analysis with job recommendations
     const analysis = new this.resumeModel({
       user_id: userId,
       resumeText: text,
       strengths: parsed.strengths,
       weakness: parsed.weaknesses,
       recommendation: parsed.recommendations,
+      jobRecommendations: jobRecommendations,
     });
 
     const saved = await analysis.save();
 
-    // 7. Invalidate cache
+    // 7. Invalidate Redis cache
     await this.redisService.setCache(`resumeAnalysis:user:${userId}`, null);
     await this.redisService.setCache(`resumeAnalysis:all`, null);
 
@@ -101,25 +143,21 @@ export class ResumeAnalysisService {
   }
 
   async getAnalysisByUser(userId: string): Promise<ResumeAnalysis[]> {
-    // Ensure userId is a string and properly formatted
     const normalizedUserId = String(userId).trim();
     const cacheKey = `resumeAnalysis:user:${normalizedUserId}`;
 
     const cached = await this.redisService.getCache<ResumeAnalysis[]>(cacheKey);
     if (cached) return cached;
 
-    try {
-      const result = await this.resumeModel
-        .find({ user_id: normalizedUserId })
-        .exec();
+    const result = await this.resumeModel
+      .find({ user_id: normalizedUserId })
+      .exec();
 
-      if (result.length > 0) {
-        await this.redisService.setCache(cacheKey, result, 300);
-      }
-      return result;
-    } catch (error) {
-      throw error;
+    if (result.length > 0) {
+      await this.redisService.setCache(cacheKey, result, 300);
     }
+
+    return result;
   }
 
   async findAllAnalyses(): Promise<ResumeAnalysis[]> {

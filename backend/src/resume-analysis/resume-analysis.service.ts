@@ -84,43 +84,220 @@ export class ResumeAnalysisService {
 
     // 5. Prompt for AI Job Recommendations (title + link)
     const jobPrompt = `
-      You are a career advisor AI.
-      Based on the resume text below, suggest 3 to 5 suitable job roles for the candidate.
-      For each job, generate a Google or LinkedIn search URL to help the candidate explore jobs online but the url should be valid and it is good if there is real job link and response always at any cost.
-      
-      Return ONLY a JSON array like this:
-      [
-        { "title": "Frontend Developer", "url": "https://www.linkedin.com/jobs/search?keywords=Frontend+Developer" },
-        { "title": "Software Engineer", "url": "https://www.google.com/search?q=Software+Engineer+jobs+in+Nepal" }
-      ]
+You are a career advisor AI. Based on the resume text below, suggest 3 to 5 suitable job roles for the candidate.
 
-      Resume:
-      ${text}
+IMPORTANT: Return ONLY a valid JSON array with no additional text, explanations, or markdown formatting.
+
+Format:
+[
+  {"title": "Job Title 1", "url": "https://www.linkedin.com/jobs/search?keywords=Job+Title+1"},
+  {"title": "Job Title 2", "url": "https://www.linkedin.com/jobs/search?keywords=Job+Title+2"}
+]
+
+Resume text:
+${text}
     `;
 
     let jobRecommendations: { title: string; url: string }[] = [];
+    let jobRaw = '';
 
     try {
-      const jobRaw = await this.aiService.generateCareerSuggestion(jobPrompt);
-      const start = jobRaw.indexOf('[');
-      const end = jobRaw.lastIndexOf(']');
-      const jsonString = jobRaw.slice(start, end + 1).trim();
+      jobRaw = await this.aiService.generateCareerSuggestion(jobPrompt);
 
-      jobRecommendations = JSON.parse(jsonString);
+      // Enhanced debugging
+      console.log('=== JOB RECOMMENDATIONS DEBUG ===');
+      console.log('Raw AI response length:', jobRaw.length);
+      console.log('Raw AI response:', JSON.stringify(jobRaw));
+      console.log('First 200 chars:', jobRaw.substring(0, 200));
+      console.log('Last 200 chars:', jobRaw.substring(jobRaw.length - 200));
 
-      if (!Array.isArray(jobRecommendations)) throw new Error('Invalid format');
+      // Try multiple parsing strategies
+      let parsed: any[] = [];
+      let parseSuccess = false;
+
+      // Strategy 1: Direct JSON parse (if AI returns clean JSON)
+      try {
+        const trimmed = jobRaw.trim();
+        if (trimmed.startsWith('[') && trimmed.endsWith(']')) {
+          parsed = JSON.parse(trimmed);
+          parseSuccess = true;
+          console.log('✓ Strategy 1 succeeded: Direct JSON parse');
+        }
+      } catch (e) {
+        console.log('✗ Strategy 1 failed:', e.message);
+      }
+
+      // Strategy 2: Extract JSON from response
+      if (!parseSuccess) {
+        try {
+          const start = jobRaw.indexOf('[');
+          const end = jobRaw.lastIndexOf(']');
+
+          if (start !== -1 && end !== -1 && end > start) {
+            let jsonString = jobRaw.slice(start, end + 1);
+
+            // Multiple cleaning attempts
+            const cleaningSteps = [
+              (str: string) => str.trim(),
+              (str: string) => str.replace(/```json\s*|\s*```/g, ''),
+              (str: string) => str.replace(/(\r\n|\n|\r)/gm, ' '),
+              (str: string) => str.replace(/\s+/g, ' '),
+              (str: string) => str.replace(/,\s*]/g, ']'),
+              (str: string) => str.replace(/,\s*}/g, '}'),
+              (str: string) => str.replace(/[\u0000-\u001F\u007F-\u009F]/g, ''),
+            ];
+
+            for (const clean of cleaningSteps) {
+              jsonString = clean(jsonString);
+            }
+
+            console.log('Cleaned JSON string:', jsonString);
+
+            parsed = JSON.parse(jsonString);
+            parseSuccess = true;
+            console.log('✓ Strategy 2 succeeded: Extracted and cleaned JSON');
+          }
+        } catch (e) {
+          console.log('✗ Strategy 2 failed:', e.message);
+        }
+      }
+
+      // Strategy 3: Regex extraction for job titles and create URLs
+      if (!parseSuccess) {
+        try {
+          const titleRegex = /"title":\s*"([^"]+)"/g;
+          const titles: string[] = [];
+          let match;
+
+          while ((match = titleRegex.exec(jobRaw)) !== null) {
+            titles.push(match[1]);
+          }
+
+          if (titles.length > 0) {
+            parsed = titles.map((title) => ({
+              title: title,
+              url: `https://www.linkedin.com/jobs/search?keywords=${encodeURIComponent(title)}`,
+            }));
+            parseSuccess = true;
+            console.log('✓ Strategy 3 succeeded: Regex extraction');
+          }
+        } catch (e) {
+          console.log('✗ Strategy 3 failed:', e.message);
+        }
+      }
+
+      // Validate the parsed result
+      if (parseSuccess && Array.isArray(parsed) && parsed.length > 0) {
+        const isValid = parsed.every(
+          (job) =>
+            job &&
+            typeof job === 'object' &&
+            typeof job.title === 'string' &&
+            typeof job.url === 'string' &&
+            job.title.trim() !== '' &&
+            job.url.trim() !== '',
+        );
+
+        if (isValid) {
+          jobRecommendations = parsed;
+          console.log(
+            '✓ Successfully parsed job recommendations:',
+            jobRecommendations,
+          );
+        } else {
+          throw new Error('Invalid job recommendation structure');
+        }
+      } else {
+        throw new Error('No valid job recommendations found');
+      }
     } catch (err) {
-      // fallback jobs
-      jobRecommendations = [
-        {
-          title: 'Software Developer',
-          url: 'https://www.google.com/search?q=Software+Developer+jobs+in+Nepal',
-        },
-        {
-          title: 'Frontend Developer',
-          url: 'https://www.linkedin.com/jobs/search?keywords=Frontend+Developer',
-        },
-      ];
+      console.error('=== JOB RECOMMENDATIONS ERROR ===');
+      console.error('Error details:', err);
+      console.error('Full AI response:', jobRaw);
+
+      // Enhanced fallback - try to extract job titles from resume text
+      try {
+        const resumeText = text.toLowerCase();
+        const fallbackJobs = [];
+
+        // Common tech roles based on resume keywords
+        const roleKeywords = [
+          {
+            keywords: ['react', 'frontend', 'javascript', 'html', 'css'],
+            title: 'Frontend Developer',
+          },
+          {
+            keywords: ['node', 'backend', 'server', 'api', 'database'],
+            title: 'Backend Developer',
+          },
+          {
+            keywords: ['fullstack', 'full-stack', 'full stack'],
+            title: 'Full Stack Developer',
+          },
+          {
+            keywords: ['mobile', 'android', 'ios', 'react native', 'flutter'],
+            title: 'Mobile Developer',
+          },
+          {
+            keywords: ['devops', 'aws', 'docker', 'kubernetes', 'cloud'],
+            title: 'DevOps Engineer',
+          },
+          {
+            keywords: ['data', 'analytics', 'python', 'machine learning'],
+            title: 'Data Analyst',
+          },
+          {
+            keywords: ['ui', 'ux', 'design', 'figma', 'adobe'],
+            title: 'UI/UX Designer',
+          },
+          {
+            keywords: ['qa', 'testing', 'selenium', 'automation'],
+            title: 'QA Engineer',
+          },
+        ];
+
+        for (const role of roleKeywords) {
+          if (role.keywords.some((keyword) => resumeText.includes(keyword))) {
+            fallbackJobs.push({
+              title: role.title,
+              url: `https://www.linkedin.com/jobs/search?keywords=${encodeURIComponent(role.title)}`,
+            });
+          }
+        }
+
+        if (fallbackJobs.length > 0) {
+          jobRecommendations = fallbackJobs.slice(0, 5); // Limit to 5
+          console.log(
+            '✓ Used smart fallback based on resume keywords:',
+            jobRecommendations,
+          );
+        } else {
+          // Last resort fallback
+          jobRecommendations = [
+            {
+              title: 'Software Developer',
+              url: 'https://www.linkedin.com/jobs/search?keywords=Software+Developer',
+            },
+            {
+              title: 'Frontend Developer',
+              url: 'https://www.linkedin.com/jobs/search?keywords=Frontend+Developer',
+            },
+            {
+              title: 'Backend Developer',
+              url: 'https://www.linkedin.com/jobs/search?keywords=Backend+Developer',
+            },
+          ];
+          console.log('✓ Used default fallback jobs');
+        }
+      } catch (fallbackErr) {
+        console.error('Fallback generation failed:', fallbackErr);
+        jobRecommendations = [
+          {
+            title: 'Software Developer',
+            url: 'https://www.linkedin.com/jobs/search?keywords=Software+Developer',
+          },
+        ];
+      }
     }
 
     // 6. Save analysis with job recommendations

@@ -1,4 +1,8 @@
 import axiosInstance from "./axiosInstance";
+export interface JobRecommendation {
+  title: string;
+  url: string;
+}
 
 export interface ResumeAnalysis {
   _id: string;
@@ -7,6 +11,7 @@ export interface ResumeAnalysis {
   strengths: string[];
   weakness: string[];
   recommendation: string[];
+  jobRecommendations?: JobRecommendation[];
   createdAt?: string;
   updatedAt?: string;
 }

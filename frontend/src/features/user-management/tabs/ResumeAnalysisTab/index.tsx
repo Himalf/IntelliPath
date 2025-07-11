@@ -1,11 +1,13 @@
+// components/ResumeAnalysisTab.tsx
 import React, { useEffect, useState } from "react";
-import type { ResumeAnalysis } from "@/services/resumeService";
 import {
   CheckCircle,
   AlertTriangle,
   Lightbulb,
   ChevronDown,
   Trash2,
+  Briefcase,
+  ExternalLink,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import ResumeSummaryTab from "./ResumeSummaryTab";
@@ -16,43 +18,43 @@ import {
   SelectContent,
   SelectItem,
 } from "@/components/ui/select";
-import resumeService from "@/services/resumeService";
+import resumeService, {
+  JobRecommendation,
+  ResumeAnalysis,
+} from "@/services/resumeService";
 
 interface Props {
-  analyses: ResumeAnalysis[]; // now an array
+  analyses: ResumeAnalysis[];
 }
 
 export default function ResumeAnalysisTab({ analyses }: Props) {
   const [openSection, setOpenSection] = useState<string | null>(null);
   const [selectedId, setSelectedId] = useState<string | null>(null);
 
-  // default to first analysis
   useEffect(() => {
     if (analyses.length > 0) {
-      setSelectedId(analyses[0]._id); // Set default selected analysis to the first one
+      setSelectedId(analyses[0]._id);
     }
   }, [analyses]);
 
   const analysis = analyses.find((a) => a._id === selectedId) ?? null;
-
   const toggle = (section: string) =>
     setOpenSection(openSection === section ? null : section);
 
-  if (analyses.length === 0) {
+  const deleteResume = async (id: string) => {
+    if (window.confirm("Are you sure you want to delete?")) {
+      const res = await resumeService.deleteAnalyses(id);
+      if (res?.success) window.location.reload();
+    }
+  };
+
+  if (!analysis) {
     return (
-      <div className="flex flex-col items-center justify-center h-64 text-gray-500">
+      <div className="flex items-center justify-center h-64 text-gray-500">
         <p>No resume analyses available.</p>
       </div>
     );
   }
-  const deleteResume = async (id: string) => {
-    if (window.confirm("Are you sure you want to delete?")) {
-      const res = await resumeService.deleteAnalyses(id);
-      if (res) {
-        window.location.reload();
-      }
-    }
-  };
 
   return (
     <div className="space-y-6 p-4">
@@ -65,16 +67,12 @@ export default function ResumeAnalysisTab({ analyses }: Props) {
             value={selectedId ?? ""}
             onValueChange={(v) => setSelectedId(v)}
           >
-            <SelectTrigger className="w-64 h-10 px-4 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+            <SelectTrigger className="w-64 h-10 border rounded-md px-4">
               <SelectValue placeholder="Select Resume" />
             </SelectTrigger>
-            <SelectContent className="w-64 border border-gray-200 shadow-lg rounded-md bg-white">
+            <SelectContent className="w-64 border rounded-md">
               {analyses.map((a, i) => (
-                <SelectItem
-                  key={a._id}
-                  value={a._id}
-                  className="cursor-pointer px-4 py-2 hover:bg-blue-50 focus:bg-blue-100 focus:text-blue-800 rounded-sm"
-                >
+                <SelectItem key={a._id} value={a._id}>
                   <div className="flex flex-col">
                     <span className="font-medium text-sm">Resume {i + 1}</span>
                     <span className="text-xs text-gray-500">
@@ -88,46 +86,47 @@ export default function ResumeAnalysisTab({ analyses }: Props) {
         </div>
       )}
 
-      {analysis ? (
-        <>
-          <button
-            onClick={() => {
-              deleteResume(analysis._id);
-            }}
-          >
-            <Trash2 className="text-red-500 cursor-pointer justify-end" />
-          </button>
-          <AnalysisItem
-            title="Strengths"
-            items={analysis.strengths}
-            icon={<CheckCircle className="w-5 h-5" />}
-            accent="green"
-            isOpen={openSection === "Strengths"}
-            onToggle={() => toggle("Strengths")}
+      <div className="flex justify-end">
+        <button onClick={() => deleteResume(analysis._id)}>
+          <Trash2 className="text-red-500 hover:text-red-600" />
+        </button>
+      </div>
+
+      <AnalysisItem
+        title="Strengths"
+        items={analysis.strengths}
+        icon={<CheckCircle className="w-5 h-5" />}
+        accent="green"
+        isOpen={openSection === "Strengths"}
+        onToggle={() => toggle("Strengths")}
+      />
+      <AnalysisItem
+        title="Areas for Improvement"
+        items={analysis.weakness}
+        icon={<AlertTriangle className="w-5 h-5" />}
+        accent="amber"
+        isOpen={openSection === "Weaknesses"}
+        onToggle={() => toggle("Weaknesses")}
+      />
+      <AnalysisItem
+        title="Recommendations"
+        items={analysis.recommendation}
+        icon={<Lightbulb className="w-5 h-5" />}
+        accent="blue"
+        isOpen={openSection === "Recommendations"}
+        onToggle={() => toggle("Recommendations")}
+      />
+
+      {analysis.jobRecommendations &&
+        analysis.jobRecommendations.length > 0 && (
+          <JobRecommendationSection
+            jobs={analysis.jobRecommendations}
+            isOpen={openSection === "Jobs"}
+            onToggle={() => toggle("Jobs")}
           />
-          <AnalysisItem
-            title="Areas for Improvement"
-            items={analysis.weakness}
-            icon={<AlertTriangle className="w-5 h-5" />}
-            accent="amber"
-            isOpen={openSection === "Weaknesses"}
-            onToggle={() => toggle("Weaknesses")}
-          />
-          <AnalysisItem
-            title="Recommendations"
-            items={analysis.recommendation}
-            icon={<Lightbulb className="w-5 h-5" />}
-            accent="blue"
-            isOpen={openSection === "Recommendations"}
-            onToggle={() => toggle("Recommendations")}
-          />
-          <ResumeSummaryTab resumeText={analysis.resumeText} />
-        </>
-      ) : (
-        <p className="text-sm text-gray-500">
-          Select a resume to view its analysis.
-        </p>
-      )}
+        )}
+
+      <ResumeSummaryTab resumeText={analysis.resumeText} />
     </div>
   );
 }
@@ -212,6 +211,81 @@ function AnalysisItem({
               </li>
             ))}
           </ul>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+interface JobRecommendationSectionProps {
+  jobs: JobRecommendation[];
+  isOpen: boolean;
+  onToggle: () => void;
+}
+
+function JobRecommendationSection({
+  jobs,
+  isOpen,
+  onToggle,
+}: JobRecommendationSectionProps) {
+  return (
+    <div className="border rounded-lg overflow-hidden shadow-sm">
+      <button
+        onClick={onToggle}
+        className="w-full flex items-center justify-between px-5 py-4 bg-white hover:bg-gray-50 transition-colors"
+      >
+        <div className="flex items-center gap-2 text-purple-600">
+          <Briefcase className="w-5 h-5" />
+          <h3 className="text-lg font-semibold">
+            Job Recommendations
+            <span className="ml-2 text-xs font-medium text-purple-500 bg-purple-100 px-2 py-0.5 rounded-full">
+              {jobs.length}
+            </span>
+          </h3>
+        </div>
+        <ChevronDown
+          className={cn("h-5 w-5 transition-transform", isOpen && "rotate-180")}
+        />
+      </button>
+
+      <div
+        className={cn(
+          "transition-max-h overflow-hidden",
+          isOpen ? "max-h-[500px]" : "max-h-0"
+        )}
+      >
+        <div className="px-5 py-4 bg-purple-50 border-t border-purple-100">
+          {jobs.length === 0 ? (
+            <p className="text-sm text-gray-500">
+              No job recommendations found.
+            </p>
+          ) : (
+            <ul className="grid sm:grid-cols-2 gap-4">
+              {jobs.map((job, idx) => (
+                <li
+                  key={idx}
+                  className="bg-white rounded-md border border-purple-100 p-4 shadow-sm hover:shadow-md transition-all"
+                >
+                  <div className="flex flex-col gap-2">
+                    <div className="flex items-center justify-between">
+                      <h4 className="text-base font-semibold text-purple-800">
+                        {job.title}
+                      </h4>
+                      <a
+                        href={job.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-blue-600 hover:underline flex items-center text-sm gap-1"
+                      >
+                        View
+                        <ExternalLink className="w-4 h-4" />
+                      </a>
+                    </div>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          )}
         </div>
       </div>
     </div>

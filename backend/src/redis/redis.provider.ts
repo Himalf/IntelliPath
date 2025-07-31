@@ -9,8 +9,7 @@ export class RedisService {
     // Set your Redis Upstash credentials here
     const redisUrl =
       process.env.REDIS_URL ||
-      'rediss://default:AWcnAAIjcDE0NWNkMzE5MmJmZGY0MzEwYTA0NTg5OGQxNGNjYjgzM3AxMA@harmless-garfish-26407.upstash.io:6379';
-
+      'rediss://default:ARV3AAIjcDE3OWNjZjA0Zjg1NDc0MjljOWJiM2U2MGNmMjdhOGRkZXAxMA@destined-hound-5495.upstash.io:6379';
     // Connect to Upstash Redis instance
     this.redis = new Redis(redisUrl);
   }

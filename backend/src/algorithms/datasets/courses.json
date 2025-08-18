@@ -1,0 +1,7 @@
+[
+  { "title": "React Advanced", "skills": ["React", "JavaScript"] },
+  { "title": "Node.js Masterclass", "skills": ["Node.js", "Backend"] },
+  { "title": "AWS Fundamentals", "skills": ["AWS", "Cloud"] },
+  { "title": "CI/CD Essentials", "skills": ["DevOps", "CI/CD"] },
+  { "title": "Machine Learning Basics", "skills": ["Python", "ML"] }
+]

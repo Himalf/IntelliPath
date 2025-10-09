@@ -26,7 +26,7 @@ export class UsersController {
   }
 
   //  All authenticated roles can view the user list
-  @UseGuards(JwtAuthGuard, RoleGuards)
+  // @UseGuards(JwtAuthGuard, RoleGuards)
   @Roles(UserRole.ADMIN, UserRole.USER, UserRole.SUPERADMIN, UserRole.EXPERT)
   @Get()
   findAll() {

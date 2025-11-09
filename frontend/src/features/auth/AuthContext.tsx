@@ -33,23 +33,47 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
   const decodeToken = (token: string): User | null => {
     try {
-      if (!token || token.split(".").length !== 3) {
-        console.error("Invalid JWT format");
-        return null; // Invalid token format
+      // Check if token is a string
+      if (typeof token !== 'string') {
+        console.error("Token is not a string:", typeof token, token);
+        return null;
+      }
+
+      // Check if token is empty
+      if (!token || token.trim().length === 0) {
+        console.error("Token is empty");
+        return null;
+      }
+
+      // Check JWT format (should have 3 parts separated by dots)
+      const parts = token.split(".");
+      if (parts.length !== 3) {
+        console.error("Invalid JWT format - expected 3 parts, got:", parts.length, "Token preview:", token.substring(0, 20) + "...");
+        return null;
       }
 
       const decoded: DecodedToken = jwtDecode(token);
 
       // Check for expiration
-      if (decoded.exp * 1000 < Date.now()) {
+      if (decoded.exp && decoded.exp * 1000 < Date.now()) {
         console.error("Token expired");
-        return null; // Token expired
+        return null;
       }
 
-      // Validate the presence of all required fields (e.g., role)
+      // Validate the presence of required fields
+      if (!decoded.sub) {
+        console.error("Missing sub (user ID) in token");
+        return null;
+      }
+
+      if (!decoded.email) {
+        console.error("Missing email in token");
+        return null;
+      }
+
       if (!decoded.role) {
         console.error("Missing role in token");
-        return null; // Missing role or other required fields
+        return null;
       }
 
       return {
@@ -59,9 +83,36 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         role: decoded.role,
       };
     } catch (error) {
-      console.error("Failed to decode token", error);
+      console.error("Failed to decode token:", error);
+      if (error instanceof Error) {
+        console.error("Error details:", error.message);
+      }
       return null;
     }
+  };
+
+  const logout = () => {
+    localStorage.removeItem("token");
+    setToken(null);
+    setUser(null);
+  };
+
+  const login = (token: string) => {
+    // Ensure token is a string
+    if (typeof token !== 'string') {
+      console.error("Login received non-string token:", typeof token, token);
+      throw new Error("Token must be a string");
+    }
+
+    const userFromToken = decodeToken(token);
+    if (!userFromToken) {
+      console.error("Failed to decode token during login");
+      throw new Error("Invalid or expired token. Please try logging in again.");
+    }
+
+    localStorage.setItem("token", token);
+    setToken(token);
+    setUser(userFromToken);
   };
 
   useEffect(() => {
@@ -82,26 +133,18 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     setIsLoading(false);
   }, []);
 
-  const login = (token: string) => {
-    const userFromToken = decodeToken(token);
-    if (!userFromToken) {
-      throw new Error("Invalid or expired token");
-    }
-
-    localStorage.setItem("token", token);
-    setToken(token);
-    setUser(userFromToken);
-  };
-
-  const logout = () => {
-    localStorage.removeItem("token");
-    setToken(null);
-    setUser(null);
+  // Always provide the context value, even during loading
+  const contextValue: AuthContextType = {
+    user,
+    token,
+    login,
+    logout,
+    isLoading,
   };
 
   return (
-    <AuthContext.Provider value={{ user, token, login, logout, isLoading }}>
-      {!isLoading && children}
+    <AuthContext.Provider value={contextValue}>
+      {children}
     </AuthContext.Provider>
   );
 };

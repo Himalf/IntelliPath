@@ -41,13 +41,11 @@ export class FeedbackController {
     return this.svc.findByUser(userId);
   }
 
-  @Roles(UserRole.ADMIN, UserRole.SUPERADMIN)
   @Patch(':id')
   update(@Param('id') id: string, @Body() dto: UpdateFeedbackDto) {
     return this.svc.update(id, dto);
   }
 
-  @Roles(UserRole.ADMIN, UserRole.SUPERADMIN)
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.svc.remove(id);

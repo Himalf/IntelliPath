@@ -26,6 +26,11 @@ export class RedisService {
     return result ? JSON.parse(result) : null;
   }
 
+  // Delete a key from Redis cache
+  async deleteCache(key: string): Promise<void> {
+    await this.redis.del(key);
+  }
+
   // Optionally, you can close the Redis connection when your app stops
   async close(): Promise<void> {
     await this.redis.quit();

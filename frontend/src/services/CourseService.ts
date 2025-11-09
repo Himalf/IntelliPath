@@ -1,4 +1,5 @@
 import axiosInstance from "./axiosInstance";
+import { unwrapResponse, unwrapArrayResponse } from "../utils/apiResponse";
 
 export interface Course {
   _id: string;
@@ -22,23 +23,23 @@ export interface CourseFormData {
 const courseService = {
   async getAll(): Promise<Course[]> {
     const res = await axiosInstance.get("/courses");
-    return res.data;
+    return unwrapArrayResponse<Course>(res.data);
   },
   async getById(id: string) {
     const res = await axiosInstance.get(`/courses/${id}`);
-    return res.data;
+    return unwrapResponse(res.data);
   },
   async create(course: Partial<Course>) {
     const res = await axiosInstance.post("/courses", course);
-    return res.data;
+    return unwrapResponse(res.data);
   },
   async update(id: string, course: Partial<Course>) {
     const res = await axiosInstance.patch(`/courses/${id}`, course);
-    return res.data;
+    return unwrapResponse(res.data);
   },
   async delete(id: string) {
     const res = await axiosInstance.delete(`/courses/${id}`);
-    return res.data;
+    return unwrapResponse(res.data);
   },
 };
 

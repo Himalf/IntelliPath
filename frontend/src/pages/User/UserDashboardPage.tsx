@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useAuth } from "@/features/auth/AuthContext";
+import { Link } from "react-router-dom";
 import {
   FileText,
   ThumbsUp,
@@ -28,6 +29,12 @@ import feedbackService, { Feedback } from "@/services/feedbackService";
 import careerSuggestionService, {
   CareerSuggestion,
 } from "@/services/careerSuggestionService";
+import LoadingSpinner from "@/components/LoadingSpinner";
+import ErrorDisplay from "@/components/ErrorDisplay";
+import ResumeTable from "@/components/ResumeTable";
+import CareerSuggestionsTable from "@/components/CareerSuggestionsTable";
+import FeedbackTable from "@/components/FeedbackTable";
+import { toast } from "sonner";
 import {
   Card,
   CardHeader,
@@ -36,7 +43,8 @@ import {
   CardFooter,
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Skeleton } from "@/components/ui/skeleton";
+// import { Skeleton } from "@/components/ui/skeleton"; // Unused - commented out
+import { calculateResumeScore, getScoreLabel } from "@/utils/resumeScore";
 
 // Enhanced color palette for charts and UI elements
 const COLORS = {
@@ -69,8 +77,12 @@ export default function UserDashboard() {
   const [resumes, setResumes] = useState<ResumeAnalysis[]>([]);
   const [feedbacks, setFeedbacks] = useState<Feedback[]>([]);
   const [suggestions, setSuggestions] = useState<CareerSuggestion[]>([]);
+
+  // Ensure feedbacks is always an array
+  const safeFeedbacks = Array.isArray(feedbacks) ? feedbacks : [];
   const [recentActivity, setRecentActivity] = useState<ActivityItem[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const [selectedTimeRange, setSelectedTimeRange] = useState<
     "week" | "month" | "all"
   >("month");
@@ -81,6 +93,7 @@ export default function UserDashboard() {
 
     const loadData = async () => {
       setIsLoading(true);
+      setError(null);
       try {
         const [resumeData, feedbackData, suggestionData] = await Promise.all([
           resumeService.getResumeAnalysis(user._id),
@@ -88,23 +101,23 @@ export default function UserDashboard() {
           careerSuggestionService.getSuggestions(user._id),
         ]);
 
-        setResumes(resumeData);
-        setFeedbacks(feedbackData);
-        setSuggestions(suggestionData);
+        setResumes(Array.isArray(resumeData) ? resumeData : []);
+        setFeedbacks(Array.isArray(feedbackData) ? feedbackData : []);
+        setSuggestions(Array.isArray(suggestionData) ? suggestionData : []);
 
         // Create combined activity timeline
         const activities: ActivityItem[] = [
-          ...resumeData.map((r) => ({
+          ...(Array.isArray(resumeData) ? resumeData : []).map((r) => ({
             type: "resume" as const,
             date: r.createdAt || new Date().toISOString(),
             title: "Resume Analyzed",
           })),
-          ...feedbackData.map((f) => ({
+          ...(Array.isArray(feedbackData) ? feedbackData : []).map((f) => ({
             type: "feedback" as const,
             date: f.createdAt || new Date().toISOString(),
             rating: f.rating,
           })),
-          ...suggestionData.map((s) => ({
+          ...(Array.isArray(suggestionData) ? suggestionData : []).map((s) => ({
             type: "suggestion" as const,
             date: s.createdAt || new Date().toISOString(),
             career: s.suggestedCareers.split(",")[0],
@@ -116,8 +129,12 @@ export default function UserDashboard() {
           .slice(0, 5);
 
         setRecentActivity(activities);
-      } catch (error) {
+      } catch (error: any) {
         console.error("Error loading dashboard data:", error);
+        setError(
+          error?.message || "Failed to load dashboard data. Please try again."
+        );
+        toast.error("Failed to load dashboard data");
       } finally {
         setIsLoading(false);
       }
@@ -129,20 +146,14 @@ export default function UserDashboard() {
   // Process data for charts
   const feedbackData = [1, 2, 3, 4, 5].map((rating) => ({
     rating: rating.toString(),
-    value: feedbacks.filter((f) => f.rating === rating).length || 0,
+    value: safeFeedbacks.filter((f) => f.rating === rating).length || 0,
     name: `${rating} Star${rating !== 1 ? "s" : ""}`,
   }));
 
   const resumeScoreData = resumes
     .slice(0, 5)
     .map((r) => {
-      const strengthScore = (r.strengths?.length || 0) * 3;
-      const recommendationScore = (r.recommendation?.length || 0) * 5;
-      const weaknessPenalty = (r.weakness?.length || 0) * 2;
-      const totalScore = Math.min(
-        100,
-        strengthScore + recommendationScore - weaknessPenalty
-      );
+      const totalScore = calculateResumeScore(r);
 
       return {
         name: `Analysis ${resumes.length > 1 ? resumes.indexOf(r) + 1 : ""}`,
@@ -167,16 +178,67 @@ export default function UserDashboard() {
   const scoreTrend = getScoreTrend();
 
   if (isLoading) {
-    return <DashboardSkeleton />;
+    return (
+      <div className="flex items-center justify-center min-h-screen bg-slate-50">
+        <LoadingSpinner size="lg" text="Loading your dashboard..." />
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="bg-slate-50 min-h-screen p-4 md:p-8">
+        <ErrorDisplay
+          title="Failed to Load Dashboard"
+          message={error}
+          onRetry={() => window.location.reload()}
+        />
+      </div>
+    );
   }
 
   return (
     <div className="bg-slate-50 min-h-screen p-4 md:p-8">
+      {/* Welcome Section */}
+      <div className="mb-8 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-lg p-6 text-white shadow-lg">
+        <div className="flex items-center justify-between flex-wrap gap-4">
+          <div>
+            <h1 className="text-2xl font-bold mb-2">
+              Welcome back,{" "}
+              {user?.fullName || user?.email?.split("@")[0] || "User"}! 👋
+            </h1>
+            <p className="text-blue-100">
+              Here's your career development overview
+            </p>
+          </div>
+          <div className="flex gap-3">
+            <Link
+              to="/dashboard/resume"
+              className="px-4 py-2 bg-white/20 hover:bg-white/30 rounded-lg transition-colors text-sm font-medium"
+            >
+              View Resumes
+            </Link>
+            <Link
+              to="/dashboard/career"
+              className="px-4 py-2 bg-white/20 hover:bg-white/30 rounded-lg transition-colors text-sm font-medium"
+            >
+              Career Suggestions
+            </Link>
+          </div>
+        </div>
+      </div>
+
       {/* Stats Overview */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
         <StatsCard
           title="Resume Score"
-          value={resumes[0] ? `${calculateResumeScore(resumes[0])}/100` : "N/A"}
+          value={
+            resumes[0]
+              ? `${calculateResumeScore(resumes[0])}/100 (${getScoreLabel(
+                  calculateResumeScore(resumes[0])
+                )})`
+              : "N/A"
+          }
           icon={<FileText className="h-5 w-5" />}
           description="Based on latest analysis"
           trend={scoreTrend}
@@ -185,15 +247,15 @@ export default function UserDashboard() {
         <StatsCard
           title="Avg. Feedback"
           value={
-            feedbacks.length
+            safeFeedbacks.length
               ? `${(
-                  feedbacks.reduce((acc, f) => acc + f.rating, 0) /
-                  feedbacks.length
+                  safeFeedbacks.reduce((acc, f) => acc + f.rating, 0) /
+                  safeFeedbacks.length
                 ).toFixed(1)}/5`
               : "N/A"
           }
           icon={<ThumbsUp className="h-5 w-5" />}
-          description={`${feedbacks.length} ratings`}
+          description={`${safeFeedbacks.length} ratings`}
           color={COLORS.secondary}
         />
         <StatsCard
@@ -203,12 +265,19 @@ export default function UserDashboard() {
           description="Suggested for you"
           color={COLORS.accent}
         />
+        <StatsCard
+          title="Resume Analyses"
+          value={resumes.length}
+          icon={<FileText className="h-5 w-5" />}
+          description="Total uploaded"
+          color="#8B5CF6"
+        />
       </div>
 
-      {/* Main Content Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Left Column - Charts */}
-        <div className="lg:col-span-2 space-y-6">
+      {/* Main Content Grid - Improved Layout */}
+      <div className="grid grid-cols-1 xl:grid-cols-12 gap-6">
+        {/* Left Column - Charts and Main Content (8 columns) */}
+        <div className="xl:col-span-8 space-y-6">
           {/* Resume Analysis Chart */}
           <Card className="border-none shadow-md hover:shadow-lg transition-shadow duration-300">
             <CardHeader className="border-b border-slate-100 bg-slate-50 rounded-t-lg">
@@ -277,7 +346,7 @@ export default function UserDashboard() {
             </CardHeader>
             <CardContent className="pt-6">
               <div className="h-64">
-                {feedbacks.length > 0 ? (
+                {safeFeedbacks.length > 0 ? (
                   <ResponsiveContainer width="100%" height="100%">
                     <PieChart>
                       <Pie
@@ -320,16 +389,66 @@ export default function UserDashboard() {
                 )}
               </div>
             </CardContent>
-            {feedbacks.length > 0 && (
+            {safeFeedbacks.length > 0 && (
               <CardFooter className="border-t border-slate-100 bg-slate-50 rounded-b-lg text-sm text-slate-500 py-3">
-                Total feedback: {feedbacks.length} ratings
+                Total feedback: {safeFeedbacks.length} ratings
               </CardFooter>
             )}
           </Card>
         </div>
 
-        {/* Right Column - Activity and Recommendations */}
-        <div className="space-y-6">
+        {/* Right Column - Activity and Recommendations (4 columns) */}
+        <div className="xl:col-span-4 space-y-6">
+          {/* Quick Actions */}
+          <Card className="border-none shadow-md hover:shadow-lg transition-shadow duration-300 bg-gradient-to-br from-indigo-50 to-purple-50">
+            <CardHeader className="border-b border-indigo-100 bg-white/50 rounded-t-lg">
+              <CardTitle className="flex items-center gap-2 text-lg font-semibold text-indigo-800">
+                <Lightbulb className="h-5 w-5" />
+                <span>Quick Actions</span>
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="pt-6">
+              <div className="grid grid-cols-2 gap-3">
+                <Link
+                  to="/dashboard/resume"
+                  className="flex flex-col items-center justify-center p-4 bg-white rounded-lg border-2 border-indigo-200 hover:border-indigo-400 hover:shadow-md transition-all group"
+                >
+                  <FileText className="h-8 w-8 text-indigo-600 mb-2 group-hover:scale-110 transition-transform" />
+                  <span className="text-sm font-semibold text-gray-700">
+                    Upload Resume
+                  </span>
+                </Link>
+                <Link
+                  to="/dashboard/career"
+                  className="flex flex-col items-center justify-center p-4 bg-white rounded-lg border-2 border-purple-200 hover:border-purple-400 hover:shadow-md transition-all group"
+                >
+                  <Briefcase className="h-8 w-8 text-purple-600 mb-2 group-hover:scale-110 transition-transform" />
+                  <span className="text-sm font-semibold text-gray-700">
+                    Get Suggestions
+                  </span>
+                </Link>
+                <Link
+                  to="/dashboard/assistant"
+                  className="flex flex-col items-center justify-center p-4 bg-white rounded-lg border-2 border-blue-200 hover:border-blue-400 hover:shadow-md transition-all group"
+                >
+                  <Lightbulb className="h-8 w-8 text-blue-600 mb-2 group-hover:scale-110 transition-transform" />
+                  <span className="text-sm font-semibold text-gray-700">
+                    AI Assistant
+                  </span>
+                </Link>
+                <Link
+                  to="/dashboard/feedback"
+                  className="flex flex-col items-center justify-center p-4 bg-white rounded-lg border-2 border-green-200 hover:border-green-400 hover:shadow-md transition-all group"
+                >
+                  <ThumbsUp className="h-8 w-8 text-green-600 mb-2 group-hover:scale-110 transition-transform" />
+                  <span className="text-sm font-semibold text-gray-700">
+                    Give Feedback
+                  </span>
+                </Link>
+              </div>
+            </CardContent>
+          </Card>
+
           {/* Recent Activity - Fixed to be properly scrollable */}
           <Card className="border-none shadow-md hover:shadow-lg transition-shadow duration-300">
             <CardHeader className="border-b border-slate-100 bg-slate-50 rounded-t-lg">
@@ -412,6 +531,95 @@ export default function UserDashboard() {
             </CardContent>
           </Card>
 
+          {/* Data Tables Section */}
+          {(resumes.length > 0 ||
+            suggestions.length > 0 ||
+            safeFeedbacks.length > 0) && (
+            <Card className="border-none shadow-md hover:shadow-lg transition-shadow duration-300">
+              <CardHeader className="border-b border-slate-100 bg-slate-50 rounded-t-lg">
+                <CardTitle className="flex items-center gap-2 text-lg font-semibold">
+                  <FileText className="h-5 w-5 text-indigo-500" />
+                  <span>Data Overview Tables</span>
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="pt-6">
+                <div className="space-y-6">
+                  {/* Resumes Table */}
+                  {resumes.length > 0 && (
+                    <div>
+                      <h3 className="text-md font-semibold text-gray-700 mb-3 flex items-center gap-2">
+                        <FileText className="w-4 h-4 text-blue-600" />
+                        Resume Analyses ({resumes.length})
+                      </h3>
+                      <p className="text-xs text-gray-500 mb-2">
+                        Click a row to view details
+                      </p>
+                      <div className="max-h-64 overflow-auto border rounded-lg">
+                        <ResumeTable
+                          analyses={resumes}
+                          selectedId={null}
+                          onSelect={() => {
+                            // Navigate to resume page
+                            window.location.href = "/dashboard/resume";
+                          }}
+                          onDelete={() => {}}
+                        />
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Career Suggestions Table */}
+                  {suggestions.length > 0 && (
+                    <div>
+                      <h3 className="text-md font-semibold text-gray-700 mb-3 flex items-center gap-2">
+                        <Lightbulb className="w-4 h-4 text-yellow-600" />
+                        Career Suggestions ({suggestions.length})
+                      </h3>
+                      <p className="text-xs text-gray-500 mb-2">
+                        Click a row to view details
+                      </p>
+                      <div className="max-h-64 overflow-auto border rounded-lg">
+                        <CareerSuggestionsTable
+                          suggestions={suggestions}
+                          selectedId={null}
+                          onSelect={() => {
+                            // Navigate to career page
+                            window.location.href = "/dashboard/career";
+                          }}
+                          onDelete={() => {}}
+                        />
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Feedback Table */}
+                  {safeFeedbacks.length > 0 && (
+                    <div>
+                      <h3 className="text-md font-semibold text-gray-700 mb-3 flex items-center gap-2">
+                        <ThumbsUp className="w-4 h-4 text-purple-600" />
+                        Recent Feedback ({safeFeedbacks.length})
+                      </h3>
+                      <p className="text-xs text-gray-500 mb-2">
+                        Click a row to expand details
+                      </p>
+                      <div className="max-h-64 overflow-auto border rounded-lg">
+                        <FeedbackTable feedbacks={safeFeedbacks.slice(0, 5)} />
+                      </div>
+                      {safeFeedbacks.length > 5 && (
+                        <Link
+                          to="/dashboard/feedback"
+                          className="text-xs text-blue-600 hover:underline mt-2 inline-block"
+                        >
+                          View all {safeFeedbacks.length} feedback entries →
+                        </Link>
+                      )}
+                    </div>
+                  )}
+                </div>
+              </CardContent>
+            </Card>
+          )}
+
           {/* Career Recommendations */}
           <Card className="border-none shadow-md hover:shadow-lg transition-shadow duration-300">
             <CardHeader className="border-b border-slate-100 bg-slate-50 rounded-t-lg">
@@ -479,21 +687,84 @@ export default function UserDashboard() {
                     Network with professionals in your target industry
                   </span>
                 </li>
+                <li className="flex items-start gap-2">
+                  <div className="mt-1 text-indigo-500">•</div>
+                  <span>
+                    Keep learning new skills relevant to your career goals
+                  </span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <div className="mt-1 text-indigo-500">•</div>
+                  <span>
+                    Use AI tools to optimize your resume and cover letters
+                  </span>
+                </li>
               </ul>
+            </CardContent>
+          </Card>
+
+          {/* Progress Summary Card */}
+          <Card className="border-none shadow-md hover:shadow-lg transition-shadow duration-300 bg-gradient-to-br from-green-50 to-emerald-50">
+            <CardHeader className="border-b border-green-100/30">
+              <CardTitle className="flex items-center gap-2 text-lg font-semibold text-green-700">
+                <TrendingUp className="h-5 w-5 text-green-500" />
+                <span>Your Progress Summary</span>
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="pt-4">
+              <div className="space-y-3">
+                <div className="flex items-center justify-between">
+                  <span className="text-sm text-gray-700">Resume Analyses</span>
+                  <Badge className="bg-green-100 text-green-700 border-green-300">
+                    {resumes.length}{" "}
+                    {resumes.length === 1 ? "resume" : "resumes"}
+                  </Badge>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-sm text-gray-700">
+                    Career Suggestions
+                  </span>
+                  <Badge className="bg-yellow-100 text-yellow-700 border-yellow-300">
+                    {suggestions.length}{" "}
+                    {suggestions.length === 1 ? "suggestion" : "suggestions"}
+                  </Badge>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-sm text-gray-700">
+                    Feedback Submitted
+                  </span>
+                  <Badge className="bg-purple-100 text-purple-700 border-purple-300">
+                    {safeFeedbacks.length}{" "}
+                    {safeFeedbacks.length === 1 ? "entry" : "entries"}
+                  </Badge>
+                </div>
+                {resumes.length > 0 && (
+                  <div className="pt-3 border-t border-green-200">
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm font-semibold text-gray-800">
+                        Latest Resume Score
+                      </span>
+                      <Badge
+                        className={`${
+                          calculateResumeScore(resumes[0]) >= 70
+                            ? "bg-green-100 text-green-700 border-green-300"
+                            : calculateResumeScore(resumes[0]) >= 50
+                            ? "bg-yellow-100 text-yellow-700 border-yellow-300"
+                            : "bg-red-100 text-red-700 border-red-300"
+                        } font-bold`}
+                      >
+                        {calculateResumeScore(resumes[0])}/100
+                      </Badge>
+                    </div>
+                  </div>
+                )}
+              </div>
             </CardContent>
           </Card>
         </div>
       </div>
     </div>
   );
-}
-
-// Helper function to calculate resume score
-function calculateResumeScore(resume: ResumeAnalysis): number {
-  const strengthScore = (resume.strengths?.length || 0) * 3;
-  const recommendationScore = (resume.recommendation?.length || 0) * 5;
-  const weaknessPenalty = (resume.weakness?.length || 0) * 2;
-  return Math.min(100, strengthScore + recommendationScore - weaknessPenalty);
 }
 
 // Helper function to format time ago
@@ -633,11 +904,12 @@ function EmptyState({
   );
 }
 
-// Loading Skeleton
+// Loading Skeleton - Unused, keeping for potential future use
+// Commented out to avoid linter warnings
+/*
 function DashboardSkeleton() {
   return (
     <div className="bg-slate-50 min-h-screen p-8">
-      {/* Header Skeleton */}
       <div className="mb-8 bg-gradient-to-r from-slate-200 to-slate-300 rounded-xl p-6 animate-pulse">
         <Skeleton className="h-8 w-64 mb-2 bg-white/50" />
         <Skeleton className="h-4 w-80 bg-white/50" />
@@ -646,8 +918,6 @@ function DashboardSkeleton() {
           <Skeleton className="h-6 w-24 rounded-full bg-white/50" />
         </div>
       </div>
-
-      {/* Stats Skeleton */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
         {[...Array(3)].map((_, i) => (
           <Card key={i} className="border-none shadow animate-pulse">
@@ -662,68 +932,7 @@ function DashboardSkeleton() {
           </Card>
         ))}
       </div>
-
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <div className="lg:col-span-2 space-y-6">
-          <Card className="border-none shadow animate-pulse">
-            <CardHeader className="border-b border-slate-100">
-              <div className="flex justify-between">
-                <Skeleton className="h-5 w-48 bg-slate-200" />
-                <Skeleton className="h-5 w-32 bg-slate-200" />
-              </div>
-            </CardHeader>
-            <CardContent>
-              <Skeleton className="h-64 w-full bg-slate-200" />
-            </CardContent>
-          </Card>
-
-          <Card className="border-none shadow animate-pulse">
-            <CardHeader>
-              <Skeleton className="h-5 w-32 bg-slate-200" />
-            </CardHeader>
-            <CardContent>
-              <Skeleton className="h-64 w-full bg-slate-200" />
-            </CardContent>
-          </Card>
-        </div>
-
-        <div className="space-y-6">
-          <Card className="border-none shadow animate-pulse">
-            <CardHeader>
-              <Skeleton className="h-5 w-32 bg-slate-200" />
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-4">
-                {[...Array(3)].map((_, j) => (
-                  <div key={j} className="flex items-center gap-3">
-                    <Skeleton className="h-8 w-8 rounded-full bg-slate-200" />
-                    <div className="space-y-2 flex-1">
-                      <Skeleton className="h-4 w-full bg-slate-200" />
-                      <Skeleton className="h-3 w-24 bg-slate-200" />
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card className="border-none shadow animate-pulse">
-            <CardHeader>
-              <Skeleton className="h-5 w-32 bg-slate-200" />
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-3">
-                {[...Array(3)].map((_, j) => (
-                  <Skeleton
-                    key={j}
-                    className="h-12 w-full rounded-lg bg-slate-200"
-                  />
-                ))}
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-      </div>
     </div>
   );
 }
+*/

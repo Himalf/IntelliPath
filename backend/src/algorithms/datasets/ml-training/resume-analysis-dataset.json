@@ -1,0 +1,248 @@
+[
+  {
+    "resume_id": "resume_001",
+    "resume_text": "John Doe\nSoftware Engineer\n5 years experience in full-stack development\nSkills: JavaScript, React, Node.js, MongoDB, AWS\nEducation: BS Computer Science, MIT\nProjects: E-commerce platform, Real-time chat application",
+    "extracted_features": {
+      "years_experience": 5,
+      "education_level": "Bachelor",
+      "skills": ["JavaScript", "React", "Node.js", "MongoDB", "AWS"],
+      "projects_count": 2,
+      "has_certifications": false
+    },
+    "ml_analysis": {
+      "strengths": [
+        "Strong full-stack development experience",
+        "Modern JavaScript frameworks (React)",
+        "Cloud platform knowledge (AWS)",
+        "Database management skills (MongoDB)"
+      ],
+      "weaknesses": [
+        "No testing frameworks mentioned",
+        "Missing CI/CD experience",
+        "No containerization tools (Docker/Kubernetes)",
+        "Limited backend framework diversity"
+      ],
+      "recommendations": [
+        "Add testing frameworks like Jest or Mocha to your skill set",
+        "Learn CI/CD practices with GitHub Actions or Jenkins",
+        "Gain experience with Docker and containerization",
+        "Explore additional backend frameworks like Express or NestJS"
+      ],
+      "overall_score": 78,
+      "job_recommendations": [
+        {
+          "title": "Full Stack Developer",
+          "url": "https://www.linkedin.com/jobs/search?keywords=Full+Stack+Developer",
+          "match_score": 0.92
+        },
+        {
+          "title": "React Developer",
+          "url": "https://www.linkedin.com/jobs/search?keywords=React+Developer",
+          "match_score": 0.88
+        },
+        {
+          "title": "Node.js Developer",
+          "url": "https://www.linkedin.com/jobs/search?keywords=Node.js+Developer",
+          "match_score": 0.85
+        }
+      ]
+    }
+  },
+  {
+    "resume_id": "resume_002",
+    "resume_text": "Sarah Chen\nData Scientist\nMaster's in Data Science, Stanford\n3 years experience in ML and analytics\nSkills: Python, TensorFlow, Pandas, SQL, Statistics\nProjects: Fraud detection system, Customer segmentation model",
+    "extracted_features": {
+      "years_experience": 3,
+      "education_level": "Master",
+      "skills": ["Python", "TensorFlow", "Pandas", "SQL", "Statistics"],
+      "projects_count": 2,
+      "has_certifications": false
+    },
+    "ml_analysis": {
+      "strengths": [
+        "Strong machine learning background",
+        "Statistical analysis expertise",
+        "Data manipulation skills (Pandas, SQL)",
+        "Real-world project experience"
+      ],
+      "weaknesses": [
+        "No MLOps experience mentioned",
+        "Missing cloud platform knowledge",
+        "Limited deep learning frameworks",
+        "No production deployment experience"
+      ],
+      "recommendations": [
+        "Learn MLOps practices for production ML systems",
+        "Gain experience with cloud platforms (AWS SageMaker, GCP)",
+        "Explore PyTorch for deep learning projects",
+        "Learn model deployment and monitoring"
+      ],
+      "overall_score": 82,
+      "job_recommendations": [
+        {
+          "title": "Data Scientist",
+          "url": "https://www.linkedin.com/jobs/search?keywords=Data+Scientist",
+          "match_score": 0.95
+        },
+        {
+          "title": "Machine Learning Engineer",
+          "url": "https://www.linkedin.com/jobs/search?keywords=Machine+Learning+Engineer",
+          "match_score": 0.88
+        },
+        {
+          "title": "ML Engineer",
+          "url": "https://www.linkedin.com/jobs/search?keywords=ML+Engineer",
+          "match_score": 0.85
+        }
+      ]
+    }
+  },
+  {
+    "resume_id": "resume_003",
+    "resume_text": "Michael Rodriguez\nDevOps Engineer\nBachelor's in Computer Engineering\n4 years in infrastructure and automation\nSkills: AWS, Docker, Kubernetes, Terraform, Jenkins, Linux\nCertifications: AWS Solutions Architect",
+    "extracted_features": {
+      "years_experience": 4,
+      "education_level": "Bachelor",
+      "skills": ["AWS", "Docker", "Kubernetes", "Terraform", "Jenkins", "Linux"],
+      "projects_count": 0,
+      "has_certifications": true
+    },
+    "ml_analysis": {
+      "strengths": [
+        "Comprehensive infrastructure knowledge",
+        "Container orchestration expertise (Kubernetes)",
+        "Infrastructure as Code (Terraform)",
+        "Cloud certification (AWS)"
+      ],
+      "weaknesses": [
+        "No programming language mentioned",
+        "Missing monitoring tools experience",
+        "Limited CI/CD pipeline diversity",
+        "No security tools knowledge"
+      ],
+      "recommendations": [
+        "Learn Python or Go for automation scripts",
+        "Master monitoring tools (Prometheus, Grafana)",
+        "Explore GitLab CI/CD and GitHub Actions",
+        "Gain security knowledge (security scanning tools)"
+      ],
+      "overall_score": 85,
+      "job_recommendations": [
+        {
+          "title": "DevOps Engineer",
+          "url": "https://www.linkedin.com/jobs/search?keywords=DevOps+Engineer",
+          "match_score": 0.93
+        },
+        {
+          "title": "Cloud Engineer",
+          "url": "https://www.linkedin.com/jobs/search?keywords=Cloud+Engineer",
+          "match_score": 0.90
+        },
+        {
+          "title": "Site Reliability Engineer",
+          "url": "https://www.linkedin.com/jobs/search?keywords=Site+Reliability+Engineer",
+          "match_score": 0.87
+        }
+      ]
+    }
+  },
+  {
+    "resume_id": "resume_004",
+    "resume_text": "Emily Watson\nUI/UX Designer\nBachelor's in Design, RISD\n6 years in product design\nSkills: Figma, Adobe XD, User Research, Prototyping, Design Systems\nPortfolio: 15+ mobile and web applications",
+    "extracted_features": {
+      "years_experience": 6,
+      "education_level": "Bachelor",
+      "skills": ["Figma", "Adobe XD", "User Research", "Prototyping", "Design Systems"],
+      "projects_count": 15,
+      "has_certifications": false
+    },
+    "ml_analysis": {
+      "strengths": [
+        "Extensive design portfolio",
+        "User research expertise",
+        "Design system knowledge",
+        "Strong prototyping skills"
+      ],
+      "weaknesses": [
+        "No frontend coding skills",
+        "Missing accessibility knowledge",
+        "Limited UX writing experience",
+        "No data analysis skills"
+      ],
+      "recommendations": [
+        "Learn basic HTML/CSS for better collaboration",
+        "Master accessibility standards (WCAG)",
+        "Gain UX writing and content strategy skills",
+        "Learn to analyze user metrics and data"
+      ],
+      "overall_score": 88,
+      "job_recommendations": [
+        {
+          "title": "UX Designer",
+          "url": "https://www.linkedin.com/jobs/search?keywords=UX+Designer",
+          "match_score": 0.94
+        },
+        {
+          "title": "Product Designer",
+          "url": "https://www.linkedin.com/jobs/search?keywords=Product+Designer",
+          "match_score": 0.91
+        },
+        {
+          "title": "Senior UX Designer",
+          "url": "https://www.linkedin.com/jobs/search?keywords=Senior+UX+Designer",
+          "match_score": 0.89
+        }
+      ]
+    }
+  },
+  {
+    "resume_id": "resume_005",
+    "resume_text": "David Kim\nBackend Developer\nComputer Science Graduate\n2 years experience\nSkills: Java, Spring Boot, PostgreSQL, Redis, REST API\nProjects: Payment processing system, API gateway",
+    "extracted_features": {
+      "years_experience": 2,
+      "education_level": "Bachelor",
+      "skills": ["Java", "Spring Boot", "PostgreSQL", "Redis", "REST API"],
+      "projects_count": 2,
+      "has_certifications": false
+    },
+    "ml_analysis": {
+      "strengths": [
+        "Strong Java ecosystem knowledge",
+        "Database management (PostgreSQL)",
+        "Caching strategies (Redis)",
+        "API design experience"
+      ],
+      "weaknesses": [
+        "Limited experience (2 years)",
+        "No cloud platform knowledge",
+        "Missing microservices experience",
+        "No testing frameworks mentioned"
+      ],
+      "recommendations": [
+        "Learn cloud platforms (AWS, GCP, Azure)",
+        "Gain microservices architecture experience",
+        "Master testing frameworks (JUnit, Mockito)",
+        "Explore containerization (Docker)"
+      ],
+      "overall_score": 72,
+      "job_recommendations": [
+        {
+          "title": "Backend Developer",
+          "url": "https://www.linkedin.com/jobs/search?keywords=Backend+Developer",
+          "match_score": 0.90
+        },
+        {
+          "title": "Java Developer",
+          "url": "https://www.linkedin.com/jobs/search?keywords=Java+Developer",
+          "match_score": 0.87
+        },
+        {
+          "title": "API Developer",
+          "url": "https://www.linkedin.com/jobs/search?keywords=API+Developer",
+          "match_score": 0.82
+        }
+      ]
+    }
+  }
+]
+

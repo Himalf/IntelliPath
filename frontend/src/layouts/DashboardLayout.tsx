@@ -25,7 +25,7 @@ export default function DashboardLayout() {
   const sidebarWidth = isMobile ? 0 : sidebarCollapsed ? 72 : 256;
 
   return (
-    <div className="flex min-h-screen">
+    <div className="flex min-h-screen bg-gray-50">
       <Sidebar
         isMobile={isMobile}
         sidebarOpen={sidebarOpen}
@@ -33,12 +33,17 @@ export default function DashboardLayout() {
       />
 
       <div
-        className="flex-1 flex flex-col transition-all duration-300 ease-in-out"
-        style={{ marginLeft: `${sidebarWidth}px` }}
+        className="flex-1 flex flex-col transition-all duration-300 ease-in-out min-w-0"
+        style={{ 
+          marginLeft: isMobile ? "0" : `${sidebarWidth}px`,
+          width: isMobile ? "100%" : `calc(100% - ${sidebarWidth}px)`
+        }}
       >
         <Navbar toggleSidebar={() => setSidebarOpen(!sidebarOpen)} />
-        <main className="flex-1 overflow-y-auto bg-gray-100 p-6">
-          <Outlet />
+        <main className="flex-1 overflow-y-auto bg-gray-50 p-4 sm:p-6 lg:p-8 max-w-full">
+          <div className="max-w-7xl mx-auto w-full">
+            <Outlet />
+          </div>
           <Toaster />
         </main>
       </div>

@@ -1,0 +1,215 @@
+[
+  {
+    "job_id": "job_001",
+    "title": "Full Stack Developer",
+    "company": "TechCorp Inc.",
+    "location": "San Francisco, CA",
+    "required_skills": ["JavaScript", "React", "Node.js", "MongoDB", "AWS"],
+    "preferred_skills": ["TypeScript", "Docker", "GraphQL"],
+    "experience_required": 3,
+    "salary_range": "$100,000 - $140,000",
+    "job_type": "Full-time",
+    "remote": true,
+    "ml_features": {
+      "skill_match_threshold": 0.7,
+      "experience_weight": 0.3,
+      "skill_diversity_bonus": 0.1
+    },
+    "matched_profiles": [
+      {
+        "user_id": "user_001",
+        "match_score": 0.92,
+        "match_reason": "Strong alignment with required skills and experience level"
+      },
+      {
+        "user_id": "user_005",
+        "match_score": 0.78,
+        "match_reason": "Good backend skills, needs frontend experience"
+      }
+    ]
+  },
+  {
+    "job_id": "job_002",
+    "title": "Data Scientist",
+    "company": "DataAnalytics Pro",
+    "location": "New York, NY",
+    "required_skills": ["Python", "Machine Learning", "SQL", "Statistics"],
+    "preferred_skills": ["TensorFlow", "PyTorch", "AWS SageMaker"],
+    "experience_required": 4,
+    "salary_range": "$120,000 - $160,000",
+    "job_type": "Full-time",
+    "remote": true,
+    "ml_features": {
+      "skill_match_threshold": 0.75,
+      "experience_weight": 0.35,
+      "skill_diversity_bonus": 0.15
+    },
+    "matched_profiles": [
+      {
+        "user_id": "user_002",
+        "match_score": 0.95,
+        "match_reason": "Excellent ML background with statistical expertise"
+      },
+      {
+        "user_id": "user_006",
+        "match_score": 0.88,
+        "match_reason": "Strong ML skills, needs more production experience"
+      }
+    ]
+  },
+  {
+    "job_id": "job_003",
+    "title": "DevOps Engineer",
+    "company": "CloudScale Systems",
+    "location": "Seattle, WA",
+    "required_skills": ["AWS", "Docker", "Kubernetes", "CI/CD", "Terraform"],
+    "preferred_skills": ["Python", "Jenkins", "Prometheus", "Grafana"],
+    "experience_required": 3,
+    "salary_range": "$110,000 - $150,000",
+    "job_type": "Full-time",
+    "remote": true,
+    "ml_features": {
+      "skill_match_threshold": 0.8,
+      "experience_weight": 0.25,
+      "skill_diversity_bonus": 0.1
+    },
+    "matched_profiles": [
+      {
+        "user_id": "user_005",
+        "match_score": 0.91,
+        "match_reason": "Strong infrastructure and CI/CD experience"
+      },
+      {
+        "user_id": "user_007",
+        "match_score": 0.96,
+        "match_reason": "Perfect match with all required skills"
+      }
+    ]
+  },
+  {
+    "job_id": "job_004",
+    "title": "UX Designer",
+    "company": "DesignStudio Co.",
+    "location": "Los Angeles, CA",
+    "required_skills": ["Figma", "User Research", "Prototyping", "Design Systems"],
+    "preferred_skills": ["Adobe XD", "UX Writing", "Accessibility", "HTML/CSS"],
+    "experience_required": 5,
+    "salary_range": "$95,000 - $130,000",
+    "job_type": "Full-time",
+    "remote": true,
+    "ml_features": {
+      "skill_match_threshold": 0.7,
+      "experience_weight": 0.4,
+      "skill_diversity_bonus": 0.1
+    },
+    "matched_profiles": [
+      {
+        "user_id": "user_004",
+        "match_score": 0.93,
+        "match_reason": "Strong design background with user research experience"
+      }
+    ]
+  },
+  {
+    "job_id": "job_005",
+    "title": "Backend Developer",
+    "company": "APIGateway Ltd.",
+    "location": "Austin, TX",
+    "required_skills": ["Java", "Spring Boot", "PostgreSQL", "REST API"],
+    "preferred_skills": ["Microservices", "Docker", "AWS", "Redis"],
+    "experience_required": 2,
+    "salary_range": "$85,000 - $115,000",
+    "job_type": "Full-time",
+    "remote": false,
+    "ml_features": {
+      "skill_match_threshold": 0.65,
+      "experience_weight": 0.2,
+      "skill_diversity_bonus": 0.15
+    },
+    "matched_profiles": [
+      {
+        "user_id": "user_003",
+        "match_score": 0.90,
+        "match_reason": "Strong Java and Spring Boot skills"
+      }
+    ]
+  },
+  {
+    "job_id": "job_006",
+    "title": "Machine Learning Engineer",
+    "company": "AI Innovations",
+    "location": "Palo Alto, CA",
+    "required_skills": ["Python", "Machine Learning", "TensorFlow", "MLOps"],
+    "preferred_skills": ["PyTorch", "AWS SageMaker", "Kubernetes", "Docker"],
+    "experience_required": 3,
+    "salary_range": "$130,000 - $170,000",
+    "job_type": "Full-time",
+    "remote": true,
+    "ml_features": {
+      "skill_match_threshold": 0.75,
+      "experience_weight": 0.3,
+      "skill_diversity_bonus": 0.2
+    },
+    "matched_profiles": [
+      {
+        "user_id": "user_002",
+        "match_score": 0.88,
+        "match_reason": "Strong ML skills, needs MLOps experience"
+      },
+      {
+        "user_id": "user_006",
+        "match_score": 0.92,
+        "match_reason": "Excellent ML background with deep learning expertise"
+      }
+    ]
+  },
+  {
+    "job_id": "job_007",
+    "title": "Mobile Developer",
+    "company": "AppWorks Mobile",
+    "location": "Boston, MA",
+    "required_skills": ["React Native", "iOS", "Android", "REST API"],
+    "preferred_skills": ["Flutter", "Firebase", "Swift", "Kotlin"],
+    "experience_required": 2,
+    "salary_range": "$90,000 - $120,000",
+    "job_type": "Full-time",
+    "remote": true,
+    "ml_features": {
+      "skill_match_threshold": 0.7,
+      "experience_weight": 0.25,
+      "skill_diversity_bonus": 0.15
+    },
+    "matched_profiles": [
+      {
+        "user_id": "user_008",
+        "match_score": 0.94,
+        "match_reason": "Perfect match with React Native and mobile experience"
+      }
+    ]
+  },
+  {
+    "job_id": "job_008",
+    "title": "Security Engineer",
+    "company": "SecureNet Systems",
+    "location": "Washington, DC",
+    "required_skills": ["Network Security", "Penetration Testing", "Python", "SIEM"],
+    "preferred_skills": ["OWASP", "Compliance", "Threat Intelligence", "AWS Security"],
+    "experience_required": 4,
+    "salary_range": "$115,000 - $150,000",
+    "job_type": "Full-time",
+    "remote": false,
+    "ml_features": {
+      "skill_match_threshold": 0.8,
+      "experience_weight": 0.35,
+      "skill_diversity_bonus": 0.1
+    },
+    "matched_profiles": [
+      {
+        "user_id": "user_009",
+        "match_score": 0.93,
+        "match_reason": "Strong security background with penetration testing skills"
+      }
+    ]
+  }
+]
+

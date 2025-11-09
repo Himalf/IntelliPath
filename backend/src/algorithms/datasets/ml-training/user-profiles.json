@@ -1,0 +1,199 @@
+[
+  {
+    "user_id": "user_001",
+    "age": 24,
+    "education_level": "Bachelor",
+    "education_field": "Computer Science",
+    "years_experience": 2,
+    "skills": ["JavaScript", "React", "Node.js", "MongoDB", "HTML", "CSS"],
+    "current_role": "Frontend Developer",
+    "target_role": "Full Stack Developer",
+    "location": "San Francisco, CA",
+    "salary_expectation": 90000,
+    "work_preference": "Remote",
+    "career_goals": ["Technical Leadership", "Startup Experience"]
+  },
+  {
+    "user_id": "user_002",
+    "age": 28,
+    "education_level": "Master",
+    "education_field": "Data Science",
+    "years_experience": 5,
+    "skills": [
+      "Python",
+      "Machine Learning",
+      "TensorFlow",
+      "Pandas",
+      "SQL",
+      "Statistics"
+    ],
+    "current_role": "Data Analyst",
+    "target_role": "Data Scientist",
+    "location": "New York, NY",
+    "salary_expectation": 120000,
+    "work_preference": "Hybrid",
+    "career_goals": ["Research", "AI Innovation"]
+  },
+  {
+    "user_id": "user_003",
+    "age": 22,
+    "education_level": "Bachelor",
+    "education_field": "Information Systems",
+    "years_experience": 0,
+    "skills": ["Java", "Spring Boot", "MySQL", "Docker", "AWS"],
+    "current_role": "Student",
+    "target_role": "Backend Developer",
+    "location": "Austin, TX",
+    "salary_expectation": 75000,
+    "work_preference": "On-site",
+    "career_goals": ["Software Engineering", "Cloud Architecture"]
+  },
+  {
+    "user_id": "user_004",
+    "age": 30,
+    "education_level": "Bachelor",
+    "education_field": "Design",
+    "years_experience": 7,
+    "skills": [
+      "Figma",
+      "Adobe XD",
+      "UI/UX Design",
+      "Prototyping",
+      "User Research",
+      "Design Systems"
+    ],
+    "current_role": "UI Designer",
+    "target_role": "UX Designer",
+    "location": "Seattle, WA",
+    "salary_expectation": 110000,
+    "work_preference": "Remote",
+    "career_goals": ["Design Leadership", "Product Design"]
+  },
+  {
+    "user_id": "user_005",
+    "age": 26,
+    "education_level": "Bachelor",
+    "education_field": "Computer Engineering",
+    "years_experience": 3,
+    "skills": [
+      "Python",
+      "Django",
+      "PostgreSQL",
+      "Redis",
+      "Kubernetes",
+      "CI/CD"
+    ],
+    "current_role": "Backend Developer",
+    "target_role": "DevOps Engineer",
+    "location": "Boston, MA",
+    "salary_expectation": 100000,
+    "work_preference": "Hybrid",
+    "career_goals": ["Infrastructure", "Cloud Engineering"]
+  },
+  {
+    "user_id": "user_006",
+    "age": 25,
+    "education_level": "Master",
+    "education_field": "Machine Learning",
+    "years_experience": 1,
+    "skills": [
+      "Python",
+      "PyTorch",
+      "Scikit-learn",
+      "NLP",
+      "Computer Vision",
+      "Deep Learning"
+    ],
+    "current_role": "ML Engineer",
+    "target_role": "Senior ML Engineer",
+    "location": "Palo Alto, CA",
+    "salary_expectation": 130000,
+    "work_preference": "Hybrid",
+    "career_goals": ["AI Research", "ML Infrastructure"]
+  },
+  {
+    "user_id": "user_007",
+    "age": 29,
+    "education_level": "Bachelor",
+    "education_field": "Information Technology",
+    "years_experience": 6,
+    "skills": [
+      "AWS",
+      "Terraform",
+      "Ansible",
+      "Jenkins",
+      "Docker",
+      "Linux",
+      "Bash"
+    ],
+    "current_role": "DevOps Engineer",
+    "target_role": "Cloud Architect",
+    "location": "Chicago, IL",
+    "salary_expectation": 140000,
+    "work_preference": "Remote",
+    "career_goals": ["Cloud Strategy", "Technical Architecture"]
+  },
+  {
+    "user_id": "user_008",
+    "age": 23,
+    "education_level": "Bachelor",
+    "education_field": "Software Engineering",
+    "years_experience": 1,
+    "skills": [
+      "React Native",
+      "Flutter",
+      "iOS",
+      "Android",
+      "Firebase",
+      "REST API"
+    ],
+    "current_role": "Mobile Developer",
+    "target_role": "Senior Mobile Developer",
+    "location": "Los Angeles, CA",
+    "salary_expectation": 85000,
+    "work_preference": "Remote",
+    "career_goals": ["Mobile Architecture", "Cross-platform Development"]
+  },
+  {
+    "user_id": "user_009",
+    "age": 27,
+    "education_level": "Master",
+    "education_field": "Cybersecurity",
+    "years_experience": 4,
+    "skills": [
+      "Penetration Testing",
+      "Network Security",
+      "Python",
+      "SIEM",
+      "OWASP",
+      "Compliance"
+    ],
+    "current_role": "Security Analyst",
+    "target_role": "Security Engineer",
+    "location": "Washington, DC",
+    "salary_expectation": 115000,
+    "work_preference": "Hybrid",
+    "career_goals": ["Security Architecture", "Threat Intelligence"]
+  },
+  {
+    "user_id": "user_010",
+    "age": 31,
+    "education_level": "PhD",
+    "education_field": "Computer Science",
+    "years_experience": 8,
+    "skills": [
+      "Distributed Systems",
+      "Go",
+      "Kubernetes",
+      "Microservices",
+      "System Design",
+      "Leadership"
+    ],
+    "current_role": "Senior Software Engineer",
+    "target_role": "Engineering Manager",
+    "location": "San Jose, CA",
+    "salary_expectation": 180000,
+    "work_preference": "Hybrid",
+    "career_goals": ["Team Leadership", "Technical Strategy"]
+  }
+]

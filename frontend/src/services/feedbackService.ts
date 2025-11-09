@@ -1,4 +1,5 @@
 import axiosInstance from "./axiosInstance";
+import { unwrapResponse, unwrapArrayResponse } from "../utils/apiResponse";
 
 export interface Feedback {
   _id: string;
@@ -26,18 +27,18 @@ export interface UpdateFeedbackDto {
 
 class FeedbackService {
   async getUserFeedback(userId: string): Promise<Feedback[]> {
-    const res = await axiosInstance.get<Feedback[]>(`/feedback/user/${userId}`);
-    return res.data;
+    const res = await axiosInstance.get(`/feedback/user/${userId}`);
+    return unwrapArrayResponse<Feedback>(res.data);
   }
 
   async createFeedback(data: CreateFeedbackDto): Promise<Feedback> {
-    const res = await axiosInstance.post<Feedback>("/feedback", data);
-    return res.data;
+    const res = await axiosInstance.post("/feedback", data);
+    return unwrapResponse<Feedback>(res.data);
   }
 
   async updateFeedback(id: string, data: UpdateFeedbackDto): Promise<Feedback> {
-    const res = await axiosInstance.patch<Feedback>(`/feedback/${id}`, data);
-    return res.data;
+    const res = await axiosInstance.patch(`/feedback/${id}`, data);
+    return unwrapResponse<Feedback>(res.data);
   }
 
   async deleteFeedback(id: string): Promise<void> {
@@ -45,8 +46,8 @@ class FeedbackService {
   }
 
   async getAllFeedback(): Promise<Feedback[]> {
-    const res = await axiosInstance.get<Feedback[]>(`/feedback`);
-    return res.data;
+    const res = await axiosInstance.get(`/feedback`);
+    return unwrapArrayResponse<Feedback>(res.data);
   }
 }
 

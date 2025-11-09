@@ -44,7 +44,7 @@ export class ChatbotQueriesService {
       ${question}
     `;
 
-    const aiRaw = await this.aiService.generateCareerSuggestion(prompt);
+    const aiRaw = await this.aiService.generateChatbotResponse(prompt);
     let responseObject: any;
 
     try {
@@ -64,8 +64,13 @@ export class ChatbotQueriesService {
       );
     }
 
+    // Ensure userId is stored as ObjectId to match schema
+    const userIdObjectId = Types.ObjectId.isValid(userId)
+      ? new Types.ObjectId(userId)
+      : userId;
+
     const chatbotQuery = new this.chatbotQueryModel({
-      userId: userId, // Use 'userId' as defined in your schema
+      userId: userIdObjectId, // Store as ObjectId to match schema
       question,
       response: responseObject.response, // Store as a JSON object
     });
@@ -81,9 +86,17 @@ export class ChatbotQueriesService {
     if (cached) return cached;
 
     try {
-      const result = await this.chatbotQueryModel
-        .find({ userId: normalizedUserId })
-        .exec();
+      // Query with both string and ObjectId to handle both cases
+      const query = Types.ObjectId.isValid(normalizedUserId)
+        ? {
+            $or: [
+              { userId: normalizedUserId },
+              { userId: new Types.ObjectId(normalizedUserId) },
+            ],
+          }
+        : { userId: normalizedUserId };
+
+      const result = await this.chatbotQueryModel.find(query).exec();
 
       if (result.length > 0) {
         await this.redisService.setCache(cacheKey, result, 300);
@@ -97,15 +110,32 @@ export class ChatbotQueriesService {
 
   async deleteAllByUser(userId: string): Promise<{ deletedCount: number }> {
     try {
-      const result = await this.chatbotQueryModel
-        .deleteMany({
-          userId: Types.ObjectId.isValid(userId)
-            ? new Types.ObjectId(userId)
-            : userId,
-        })
-        .exec();
+      const normalizedUserId = String(userId).trim();
+
+      // Try to delete with both string and ObjectId to handle both cases
+      // This ensures we delete regardless of how userId was stored
+      const query = Types.ObjectId.isValid(normalizedUserId)
+        ? {
+            $or: [
+              { userId: normalizedUserId },
+              { userId: new Types.ObjectId(normalizedUserId) },
+            ],
+          }
+        : { userId: normalizedUserId };
+
+      const result = await this.chatbotQueryModel.deleteMany(query).exec();
+
+      // Clear cache after deletion
+      const cacheKey = `chatbotQueries:user:${normalizedUserId}`;
+      await this.redisService.deleteCache(cacheKey);
+
+      console.log(
+        `Deleted ${result.deletedCount} chatbot queries for user ${normalizedUserId}`,
+      );
+
       return result;
     } catch (error) {
+      console.error('Error deleting chatbot queries:', error);
       throw new InternalServerErrorException('Failed to delete queries');
     }
   }

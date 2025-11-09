@@ -52,7 +52,7 @@ export class ResumeAnalysisService {
       ${text}
     `;
 
-    const aiRaw = await this.aiService.generateCareerSuggestion(analysisPrompt);
+    const aiRaw = await this.aiService.generateResumeAnalysis(analysisPrompt);
 
     // 4. Parse analysis response
     let parsed: {
@@ -102,7 +102,7 @@ ${text}
     let jobRaw = '';
 
     try {
-      jobRaw = await this.aiService.generateCareerSuggestion(jobPrompt);
+      jobRaw = await this.aiService.generateResumeAnalysis(jobPrompt);
 
       // Enhanced debugging
       console.log('=== JOB RECOMMENDATIONS DEBUG ===');

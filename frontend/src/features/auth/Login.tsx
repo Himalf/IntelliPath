@@ -35,21 +35,52 @@ export default function Login() {
   }, [token, navigate, location]);
 
   const onSubmit = async (data: LoginFormData) => {
+    setError(""); // Clear previous errors
     try {
       const res = await AuthService.login({
         email: data.email,
         password: data.password,
       });
+
+      // Validate response structure
+      if (!res || !res.access_token) {
+        console.error("Invalid login response:", res);
+        setError("Invalid response from server. Please try again.");
+        return;
+      }
+
+      // Ensure access_token is a string
+      if (typeof res.access_token !== 'string') {
+        console.error("Access token is not a string:", typeof res.access_token, res.access_token);
+        setError("Invalid token format received. Please try again.");
+        return;
+      }
+
+      // Login with the token
       login(res.access_token);
 
       // Navigate to dashboard or previous attempted location
       const from = (location.state as any)?.from?.pathname || "/dashboard";
       navigate(from, { replace: true });
-    } catch (error) {
-      if (error instanceof Error && (error as any).response?.data?.message) {
-        setError((error as any).response.data.message);
+    } catch (error: any) {
+      console.error("Login error:", error);
+      
+      // Handle different error types
+      if (error instanceof Error) {
+        // Error from login() function (token validation)
+        if (error.message.includes("token") || error.message.includes("Token")) {
+          setError(error.message);
+        } 
+        // Error from API response
+        else if (error.response?.data?.message) {
+          setError(error.response.data.message);
+        }
+        // Generic error message
+        else {
+          setError(error.message || "Login failed. Please check your credentials and try again.");
+        }
       } else {
-        setError("Login failed");
+        setError("An unexpected error occurred. Please try again.");
       }
     }
   };

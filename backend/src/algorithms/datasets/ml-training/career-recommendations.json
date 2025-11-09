@@ -1,0 +1,259 @@
+[
+  {
+    "user_id": "user_001",
+    "input_features": {
+      "skills": ["JavaScript", "React", "Node.js", "MongoDB", "HTML", "CSS"],
+      "education": "Bachelor in Computer Science",
+      "experience_years": 2,
+      "current_role": "Frontend Developer"
+    },
+    "recommended_careers": [
+      {
+        "career": "Full Stack Developer",
+        "confidence_score": 0.92,
+        "match_reason": "Strong frontend skills with backend experience in Node.js and MongoDB",
+        "required_skills": ["JavaScript", "React", "Node.js", "MongoDB"],
+        "missing_skills": ["PostgreSQL", "Docker"],
+        "skill_gap": 0.15
+      },
+      {
+        "career": "Frontend Developer",
+        "confidence_score": 0.88,
+        "match_reason": "Excellent frontend skills with modern frameworks",
+        "required_skills": ["JavaScript", "React", "HTML", "CSS"],
+        "missing_skills": [],
+        "skill_gap": 0.0
+      },
+      {
+        "career": "React Developer",
+        "confidence_score": 0.85,
+        "match_reason": "Strong React expertise with modern web development skills",
+        "required_skills": ["React", "JavaScript", "HTML", "CSS"],
+        "missing_skills": [],
+        "skill_gap": 0.0
+      }
+    ],
+    "skill_gap_analysis": {
+      "strengths": [
+        "Modern JavaScript",
+        "React Ecosystem",
+        "Full-stack Capability"
+      ],
+      "weaknesses": [
+        "Database Design",
+        "DevOps Practices",
+        "Testing Frameworks"
+      ],
+      "recommendations": [
+        "Learn PostgreSQL for advanced database management",
+        "Gain experience with Docker and containerization",
+        "Master testing frameworks like Jest and Cypress"
+      ]
+    }
+  },
+  {
+    "user_id": "user_002",
+    "input_features": {
+      "skills": [
+        "Python",
+        "Machine Learning",
+        "TensorFlow",
+        "Pandas",
+        "SQL",
+        "Statistics"
+      ],
+      "education": "Master in Data Science",
+      "experience_years": 5,
+      "current_role": "Data Analyst"
+    },
+    "recommended_careers": [
+      {
+        "career": "Data Scientist",
+        "confidence_score": 0.95,
+        "match_reason": "Strong ML background with statistical analysis skills",
+        "required_skills": ["Python", "Machine Learning", "Statistics", "SQL"],
+        "missing_skills": ["Deep Learning", "MLOps"],
+        "skill_gap": 0.2
+      },
+      {
+        "career": "Machine Learning Engineer",
+        "confidence_score": 0.88,
+        "match_reason": "Excellent ML skills with engineering experience",
+        "required_skills": ["Python", "Machine Learning", "TensorFlow"],
+        "missing_skills": ["MLOps", "Cloud Platforms"],
+        "skill_gap": 0.25
+      },
+      {
+        "career": "Senior Data Analyst",
+        "confidence_score": 0.82,
+        "match_reason": "Strong analytical skills with data manipulation expertise",
+        "required_skills": ["Python", "SQL", "Statistics", "Pandas"],
+        "missing_skills": [],
+        "skill_gap": 0.0
+      }
+    ],
+    "skill_gap_analysis": {
+      "strengths": ["Statistical Analysis", "ML Algorithms", "Data Processing"],
+      "weaknesses": [
+        "Production ML Systems",
+        "Cloud Deployment",
+        "Model Monitoring"
+      ],
+      "recommendations": [
+        "Learn MLOps practices for production ML systems",
+        "Gain experience with cloud platforms (AWS SageMaker, GCP AI Platform)",
+        "Master deep learning frameworks like PyTorch"
+      ]
+    }
+  },
+  {
+    "user_id": "user_003",
+    "input_features": {
+      "skills": ["Java", "Spring Boot", "MySQL", "Docker", "AWS"],
+      "education": "Bachelor in Information Systems",
+      "experience_years": 0,
+      "current_role": "Student"
+    },
+    "recommended_careers": [
+      {
+        "career": "Backend Developer",
+        "confidence_score": 0.9,
+        "match_reason": "Strong Java and Spring Boot skills with database knowledge",
+        "required_skills": ["Java", "Spring Boot", "MySQL"],
+        "missing_skills": ["REST API Design", "Microservices"],
+        "skill_gap": 0.3
+      },
+      {
+        "career": "Java Developer",
+        "confidence_score": 0.85,
+        "match_reason": "Solid Java foundation with framework experience",
+        "required_skills": ["Java", "Spring Boot"],
+        "missing_skills": ["Testing", "CI/CD"],
+        "skill_gap": 0.25
+      },
+      {
+        "career": "Cloud Developer",
+        "confidence_score": 0.75,
+        "match_reason": "AWS knowledge with containerization skills",
+        "required_skills": ["AWS", "Docker"],
+        "missing_skills": ["Kubernetes", "Terraform"],
+        "skill_gap": 0.4
+      }
+    ],
+    "skill_gap_analysis": {
+      "strengths": ["Java Ecosystem", "Database Management", "Cloud Basics"],
+      "weaknesses": ["Production Experience", "System Design", "Testing"],
+      "recommendations": [
+        "Build projects with REST API design patterns",
+        "Learn microservices architecture",
+        "Gain experience with testing frameworks (JUnit, Mockito)"
+      ]
+    }
+  },
+  {
+    "user_id": "user_004",
+    "input_features": {
+      "skills": [
+        "Figma",
+        "Adobe XD",
+        "UI/UX Design",
+        "Prototyping",
+        "User Research",
+        "Design Systems"
+      ],
+      "education": "Bachelor in Design",
+      "experience_years": 7,
+      "current_role": "UI Designer"
+    },
+    "recommended_careers": [
+      {
+        "career": "UX Designer",
+        "confidence_score": 0.93,
+        "match_reason": "Strong design background with user research experience",
+        "required_skills": ["UI/UX Design", "User Research", "Prototyping"],
+        "missing_skills": ["UX Writing", "Accessibility"],
+        "skill_gap": 0.15
+      },
+      {
+        "career": "Product Designer",
+        "confidence_score": 0.88,
+        "match_reason": "Comprehensive design skills with system thinking",
+        "required_skills": ["UI/UX Design", "Design Systems", "Prototyping"],
+        "missing_skills": ["Product Strategy", "Data Analysis"],
+        "skill_gap": 0.2
+      },
+      {
+        "career": "Design Lead",
+        "confidence_score": 0.85,
+        "match_reason": "Extensive experience with design systems and leadership potential",
+        "required_skills": ["Design Systems", "UI/UX Design"],
+        "missing_skills": ["Team Management", "Design Strategy"],
+        "skill_gap": 0.25
+      }
+    ],
+    "skill_gap_analysis": {
+      "strengths": ["Visual Design", "User Research", "Design Systems"],
+      "weaknesses": [
+        "UX Writing",
+        "Accessibility Standards",
+        "Product Metrics"
+      ],
+      "recommendations": [
+        "Learn accessibility standards (WCAG)",
+        "Gain experience with UX writing and content strategy",
+        "Understand product metrics and data-driven design"
+      ]
+    }
+  },
+  {
+    "user_id": "user_005",
+    "input_features": {
+      "skills": [
+        "Python",
+        "Django",
+        "PostgreSQL",
+        "Redis",
+        "Kubernetes",
+        "CI/CD"
+      ],
+      "education": "Bachelor in Computer Engineering",
+      "experience_years": 3,
+      "current_role": "Backend Developer"
+    },
+    "recommended_careers": [
+      {
+        "career": "DevOps Engineer",
+        "confidence_score": 0.91,
+        "match_reason": "Strong infrastructure skills with CI/CD experience",
+        "required_skills": ["Kubernetes", "CI/CD", "PostgreSQL", "Redis"],
+        "missing_skills": ["Terraform", "Monitoring Tools"],
+        "skill_gap": 0.2
+      },
+      {
+        "career": "Site Reliability Engineer",
+        "confidence_score": 0.87,
+        "match_reason": "Backend experience with infrastructure knowledge",
+        "required_skills": ["Kubernetes", "CI/CD", "PostgreSQL"],
+        "missing_skills": ["Observability", "Incident Response"],
+        "skill_gap": 0.25
+      },
+      {
+        "career": "Backend Developer",
+        "confidence_score": 0.85,
+        "match_reason": "Strong backend skills with modern stack",
+        "required_skills": ["Python", "Django", "PostgreSQL"],
+        "missing_skills": [],
+        "skill_gap": 0.0
+      }
+    ],
+    "skill_gap_analysis": {
+      "strengths": ["Infrastructure", "CI/CD", "Database Management"],
+      "weaknesses": ["Infrastructure as Code", "Monitoring", "Cloud Platforms"],
+      "recommendations": [
+        "Learn Infrastructure as Code (Terraform, CloudFormation)",
+        "Master monitoring tools (Prometheus, Grafana)",
+        "Gain AWS/GCP certification"
+      ]
+    }
+  }
+]

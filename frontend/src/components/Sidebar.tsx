@@ -85,46 +85,71 @@ export default function Sidebar({
       )}
 
       <aside
-        className={`fixed top-0 left-0 h-full z-50 bg-white  shadow-md transform transition-transform duration-300 delay-200 ease-in-out ${
+        className={`fixed top-0 left-0 h-full z-50 bg-gradient-to-b from-slate-900 via-slate-800 to-slate-900 shadow-2xl transform transition-transform duration-300 ease-in-out flex flex-col ${
           isMobile
             ? sidebarOpen
-              ? "translate-x-0 ease-in-out duration-200 delay-100"
-              : "-translate-x-full ease-in-out duration-200 delay-100"
+              ? "translate-x-0 w-72"
+              : "-translate-x-full w-0"
             : "translate-x-0 w-64"
         }`}
-        style={{ width: isMobile ? "50%" : "256px" }}
       >
-        <div className="px-4 py-6 flex items-center justify-between border-b border-gray-300">
-          <h2 className="text-lg font-bold text-indigo-600">IntelliPath AI</h2>
+        {/* Header */}
+        <div className="px-6 py-6 flex items-center justify-between border-b border-slate-700/50">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center shadow-lg">
+              <span className="text-white font-bold text-lg">IP</span>
+            </div>
+            <h2 className="text-xl font-bold text-white tracking-tight">IntelliPath</h2>
+          </div>
           {isMobile && (
-            <button onClick={() => setSidebarOpen(false)} className="text-xl">
+            <button 
+              onClick={() => setSidebarOpen(false)} 
+              className="text-slate-400 hover:text-white transition-colors text-2xl leading-none w-8 h-8 flex items-center justify-center rounded-lg hover:bg-slate-700/50"
+            >
               ×
             </button>
           )}
         </div>
 
-        <nav className="p-2 space-y-1">
+        {/* Navigation */}
+        <nav className="flex-1 px-3 py-4 space-y-1 overflow-y-auto">
           {filteredNavItems.map((item) => (
             <NavLink
               key={item.path}
               to={item.path}
               onClick={() => isMobile && setSidebarOpen(false)}
               className={({ isActive }) =>
-                `flex items-center px-4 py-3 rounded-lg text-gray-700 hover:bg-indigo-50 transition ${
-                  isActive ? "bg-indigo-100 font-semibold text-indigo-600" : ""
+                `flex items-center px-4 py-3 rounded-lg text-sm font-medium transition-all duration-200 group ${
+                  isActive
+                    ? "bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg shadow-indigo-500/30"
+                    : "text-slate-300 hover:text-white hover:bg-slate-700/50"
                 }`
               }
             >
-              <span className="mr-3">{item.icon}</span>
-              <span>{item.label}</span>
+              <span className="mr-3 text-base flex-shrink-0">
+                {item.icon}
+              </span>
+              <span className="flex-1">{item.label}</span>
             </NavLink>
           ))}
         </nav>
 
-        <div className="mt-auto px-4 py-4">
+        {/* User Info & Logout */}
+        <div className="px-3 py-4 border-t border-slate-700/50 space-y-2">
+          {user && (
+            <div className="px-4 py-2 rounded-lg bg-slate-800/50 border border-slate-700/50">
+              <p className="text-xs text-slate-400 mb-1">Signed in as</p>
+              <p className="text-sm font-semibold text-white capitalize truncate">
+                {user.fullName || user.email?.split("@")[0] || "User"}
+              </p>
+              <p className="text-xs text-slate-500 mt-1 capitalize">
+                {user.role?.toLowerCase() || "user"}
+              </p>
+            </div>
+          )}
           <button
             onClick={logout}
-            className="w-full flex items-center text-red-600 hover:bg-red-50 px-4 py-3 rounded-lg"
+            className="w-full flex items-center justify-center text-red-400 hover:text-red-300 hover:bg-red-500/10 px-4 py-3 rounded-lg border border-red-500/20 hover:border-red-500/40 transition-all duration-200 font-medium text-sm"
           >
             <FaSignOutAlt className="mr-2" />
             Logout

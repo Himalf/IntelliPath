@@ -1,4 +1,5 @@
 import axiosInstance from "./axiosInstance";
+import { unwrapResponse, unwrapArrayResponse } from "../utils/apiResponse";
 
 export interface Course {
   _id: string;
@@ -23,31 +24,27 @@ class CareerSuggestionService {
     userId: string,
     skills: string
   ): Promise<CareerSuggestion> {
-    const response = await axiosInstance.post<CareerSuggestion>(
+    const response = await axiosInstance.post(
       `/career-suggestions/${userId}`,
       { skills }
     );
-    return response.data;
+    return unwrapResponse<CareerSuggestion>(response.data);
   }
 
   // Get suggestions for a user
   async getSuggestions(userId: string): Promise<CareerSuggestion[]> {
-    const response = await axiosInstance.get<CareerSuggestion[]>(
-      `/career-suggestions/${userId}`
-    );
-    return response.data;
+    const response = await axiosInstance.get(`/career-suggestions/${userId}`);
+    return unwrapArrayResponse<CareerSuggestion>(response.data);
   }
 
   async getAllSuggestions(): Promise<CareerSuggestion[]> {
-    const response = await axiosInstance.get<CareerSuggestion[]>(
-      `/career-suggestions`
-    );
-    return response.data;
+    const response = await axiosInstance.get(`/career-suggestions`);
+    return unwrapArrayResponse<CareerSuggestion>(response.data);
   }
 
   async deleteSuggestion(id: string) {
     const response = await axiosInstance.delete(`/career-suggestions/${id}`);
-    return response.data;
+    return unwrapResponse(response.data);
   }
 }
 

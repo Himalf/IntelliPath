@@ -1,0 +1,10 @@
+job_id,title,company,location,required_skills,preferred_skills,experience_required,salary_range,job_type,remote,skill_match_threshold,experience_weight,skill_diversity_bonus,matched_user_1,match_score_1,matched_user_2,match_score_2
+job_001,Full Stack Developer,TechCorp Inc.,"San Francisco, CA","JavaScript,React,Node.js,MongoDB,AWS","TypeScript,Docker,GraphQL",3,"$100,000 - $140,000",Full-time,true,0.7,0.3,0.1,user_001,0.92,user_005,0.78
+job_002,Data Scientist,DataAnalytics Pro,"New York, NY","Python,Machine Learning,SQL,Statistics","TensorFlow,PyTorch,AWS SageMaker",4,"$120,000 - $160,000",Full-time,true,0.75,0.35,0.15,user_002,0.95,user_006,0.88
+job_003,DevOps Engineer,CloudScale Systems,"Seattle, WA","AWS,Docker,Kubernetes,CI/CD,Terraform","Python,Jenkins,Prometheus,Grafana",3,"$110,000 - $150,000",Full-time,true,0.8,0.25,0.1,user_005,0.91,user_007,0.96
+job_004,UX Designer,DesignStudio Co.,"Los Angeles, CA","Figma,User Research,Prototyping,Design Systems","Adobe XD,UX Writing,Accessibility,HTML/CSS",5,"$95,000 - $130,000",Full-time,true,0.7,0.4,0.1,user_004,0.93,,
+job_005,Backend Developer,APIGateway Ltd.,"Austin, TX","Java,Spring Boot,PostgreSQL,REST API","Microservices,Docker,AWS,Redis",2,"$85,000 - $115,000",Full-time,false,0.65,0.2,0.15,user_003,0.90,,
+job_006,Machine Learning Engineer,AI Innovations,"Palo Alto, CA","Python,Machine Learning,TensorFlow,MLOps","PyTorch,AWS SageMaker,Kubernetes,Docker",3,"$130,000 - $170,000",Full-time,true,0.75,0.3,0.2,user_002,0.88,user_006,0.92
+job_007,Mobile Developer,AppWorks Mobile,"Boston, MA","React Native,iOS,Android,REST API","Flutter,Firebase,Swift,Kotlin",2,"$90,000 - $120,000",Full-time,true,0.7,0.25,0.15,user_008,0.94,,
+job_008,Security Engineer,SecureNet Systems,"Washington, DC","Network Security,Penetration Testing,Python,SIEM","OWASP,Compliance,Threat Intelligence,AWS Security",4,"$115,000 - $150,000",Full-time,false,0.8,0.35,0.1,user_009,0.93,,
+

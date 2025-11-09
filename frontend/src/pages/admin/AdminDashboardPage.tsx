@@ -25,12 +25,17 @@ import {
   BarChart as BarChartIcon,
 } from "lucide-react";
 import ChartCard from "@/components/analytics/ChartCard";
+import DataExport from "@/components/admin/DataExport";
+import LoadingSpinner from "@/components/LoadingSpinner";
+import ErrorDisplay from "@/components/ErrorDisplay";
 import userService, { User } from "@/services/userService";
 import resumeService, { ResumeAnalysis } from "@/services/resumeService";
 import FeedbackService, { Feedback } from "@/services/feedbackService";
 import careerSuggestionService, {
   CareerSuggestion,
 } from "@/services/careerSuggestionService";
+import { Badge } from "@/components/ui/badge";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 interface Metrics {
   totalUsers: number;
@@ -69,6 +74,10 @@ export default function AdminDashboardPage() {
   >([]);
   const [recentActivity, setRecentActivity] = useState<ActivityItem[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [avgFeedbackRating, setAvgFeedbackRating] = useState<number>(0);
+  const [topSkills, setTopSkills] = useState<{ skill: string; count: number }[]>([]);
+  const [careerDistribution, setCareerDistribution] = useState<{ career: string; count: number }[]>([]);
 
   // Classic, light color palette
   const COLORS = ["#4682B4", "#87CEFA", "#20B2AA", "#90EE90", "#F0E68C"];
@@ -84,6 +93,7 @@ export default function AdminDashboardPage() {
   useEffect(() => {
     async function fetchData() {
       setIsLoading(true);
+      setError(null);
       try {
         // Fetch data from all services
         const users: User[] = await userService.getAllUsers();
@@ -92,8 +102,14 @@ export default function AdminDashboardPage() {
         const suggestions: CareerSuggestion[] =
           await careerSuggestionService.getAllSuggestions();
 
+        // Ensure all are arrays
+        const safeUsers = Array.isArray(users) ? users : [];
+        const safeResumes = Array.isArray(resumes) ? resumes : [];
+        const safeFeedbacks = Array.isArray(feedbacks) ? feedbacks : [];
+        const safeSuggestions = Array.isArray(suggestions) ? suggestions : [];
+
         // Calculate growth rates
-        const previousMonthUsers = users.filter((u) => {
+        const previousMonthUsers = safeUsers.filter((u) => {
           const date = new Date(u.createdAt || "");
           const now = new Date();
           return (
@@ -102,7 +118,7 @@ export default function AdminDashboardPage() {
           );
         }).length;
 
-        const currentMonthUsers = users.filter((u) => {
+        const currentMonthUsers = safeUsers.filter((u) => {
           const date = new Date(u.createdAt || "");
           const now = new Date();
           return date >= new Date(now.setMonth(now.getMonth() - 1));
@@ -114,7 +130,7 @@ export default function AdminDashboardPage() {
           : 100;
 
         // Similar calculation for resumes
-        const previousMonthResumes = resumes.filter((r) => {
+        const previousMonthResumes = safeResumes.filter((r) => {
           const date = new Date(r.createdAt || "");
           const now = new Date();
           return (
@@ -123,7 +139,7 @@ export default function AdminDashboardPage() {
           );
         }).length;
 
-        const currentMonthResumes = resumes.filter((r) => {
+        const currentMonthResumes = safeResumes.filter((r) => {
           const date = new Date(r.createdAt || "");
           const now = new Date();
           return date >= new Date(now.setMonth(now.getMonth() - 1));
@@ -136,17 +152,17 @@ export default function AdminDashboardPage() {
           : 100;
 
         setMetrics({
-          totalUsers: users.length,
-          totalResumes: resumes.length,
-          totalFeedback: feedbacks.length,
-          totalSuggestions: suggestions.length,
+          totalUsers: safeUsers.length,
+          totalResumes: safeResumes.length,
+          totalFeedback: safeFeedbacks.length,
+          totalSuggestions: safeSuggestions.length,
           userGrowth: Math.round(userGrowth),
           resumeGrowth: Math.round(resumeGrowth),
         });
 
         // Role distribution
         const counts: Record<string, number> = {};
-        users.forEach((u) => (counts[u.role] = (counts[u.role] || 0) + 1));
+        safeUsers.forEach((u) => (counts[u.role] = (counts[u.role] || 0) + 1));
         setRoleData(
           Object.entries(counts).map(([name, value]) => ({
             name: name.charAt(0).toUpperCase() + name.slice(1),
@@ -165,7 +181,7 @@ export default function AdminDashboardPage() {
           });
           m[key] = 0;
         }
-        users.forEach((u) => {
+        safeUsers.forEach((u) => {
           if (u.createdAt) {
             const date = new Date(u.createdAt);
             // Only count users from the last 6 months
@@ -186,7 +202,7 @@ export default function AdminDashboardPage() {
 
         // Feedback Ratings
         const ratings: Record<number, number> = {};
-        feedbacks.forEach((f) => {
+        safeFeedbacks.forEach((f) => {
           ratings[f.rating] = (ratings[f.rating] || 0) + 1;
         });
         setFeedbackRating(
@@ -202,7 +218,7 @@ export default function AdminDashboardPage() {
         const activity: ActivityItem[] = [];
 
         // Add recent users
-        users.slice(0, 10).forEach((user) => {
+        safeUsers.slice(0, 10).forEach((user) => {
           if (user.createdAt) {
             activity.push({
               type: "User",
@@ -215,9 +231,9 @@ export default function AdminDashboardPage() {
         });
 
         // Add recent resume analyses
-        resumes.slice(0, 10).forEach((resume) => {
+        safeResumes.slice(0, 10).forEach((resume) => {
           if (resume.createdAt) {
-            const user = users.find((u) => u._id === resume.user_id);
+            const user = safeUsers.find((u) => u._id === resume.user_id);
             activity.push({
               type: "Resume",
               action: `${
@@ -231,9 +247,9 @@ export default function AdminDashboardPage() {
         });
 
         // Add recent feedback
-        feedbacks.slice(0, 10).forEach((feedback) => {
+        safeFeedbacks.slice(0, 10).forEach((feedback) => {
           if (feedback.createdAt) {
-            const user = users.find((u) => u._id === feedback.userId);
+            const user = safeUsers.find((u) => u._id === feedback.userId);
             activity.push({
               type: "Feedback",
               action: `${user?.fullName || "A user"} provided ${
@@ -247,9 +263,9 @@ export default function AdminDashboardPage() {
         });
 
         // Add recent career suggestions
-        suggestions.slice(0, 10).forEach((suggestion) => {
+        safeSuggestions.slice(0, 10).forEach((suggestion) => {
           if (suggestion.createdAt) {
-            const user = users.find((u) => u._id === suggestion.user_id);
+            const user = safeUsers.find((u) => u._id === suggestion.user_id);
             activity.push({
               type: "Suggestion",
               action: `Career path suggestion generated for ${
@@ -267,8 +283,49 @@ export default function AdminDashboardPage() {
 
         // Take the 10 most recent activities
         setRecentActivity(activity.slice(0, 10));
-      } catch (error) {
+
+        // Calculate average feedback rating
+        if (safeFeedbacks.length > 0) {
+          const avg = safeFeedbacks.reduce((sum, f) => sum + f.rating, 0) / safeFeedbacks.length;
+          setAvgFeedbackRating(Number(avg.toFixed(2)));
+        }
+
+        // Extract top skills from users
+        const skillCounts: Record<string, number> = {};
+        safeUsers.forEach((u) => {
+          if (u.skills) {
+            u.skills.split(',').forEach((skill) => {
+              const trimmed = skill.trim();
+              if (trimmed) skillCounts[trimmed] = (skillCounts[trimmed] || 0) + 1;
+            });
+          }
+        });
+        setTopSkills(
+          Object.entries(skillCounts)
+            .map(([skill, count]) => ({ skill, count }))
+            .sort((a, b) => b.count - a.count)
+            .slice(0, 5)
+        );
+
+        // Career distribution from suggestions
+        const careerCounts: Record<string, number> = {};
+        safeSuggestions.forEach((s) => {
+          if (s.suggestedCareers) {
+            s.suggestedCareers.split(',').forEach((career) => {
+              const trimmed = career.trim();
+              if (trimmed) careerCounts[trimmed] = (careerCounts[trimmed] || 0) + 1;
+            });
+          }
+        });
+        setCareerDistribution(
+          Object.entries(careerCounts)
+            .map(([career, count]) => ({ career, count }))
+            .sort((a, b) => b.count - a.count)
+            .slice(0, 5)
+        );
+      } catch (error: any) {
         console.error("Error fetching dashboard data:", error);
+        setError(error?.message || "Failed to load dashboard data. Please try again.");
       } finally {
         setIsLoading(false);
       }
@@ -320,10 +377,19 @@ export default function AdminDashboardPage() {
   if (isLoading) {
     return (
       <div className="flex items-center justify-center min-h-screen bg-gray-50">
-        <div className="text-center">
-          <div className="w-16 h-16 border-4 border-t-blue-400 border-gray-200 rounded-full animate-spin mx-auto"></div>
-          <p className="mt-4 text-gray-600">Loading dashboard data...</p>
-        </div>
+        <LoadingSpinner size="lg" text="Loading dashboard data..." />
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="bg-gray-50 min-h-screen pb-10">
+        <ErrorDisplay
+          title="Failed to Load Dashboard"
+          message={error}
+          onRetry={() => window.location.reload()}
+        />
       </div>
     );
   }
@@ -379,11 +445,18 @@ export default function AdminDashboardPage() {
             <div className="p-3 bg-sky-50 rounded-full mr-4">
               <MessageSquare size={24} className="text-sky-500" />
             </div>
-            <div>
+            <div className="flex-1">
               <p className="text-sm text-gray-500 font-medium">
                 Feedback Received
               </p>
-              <p className="text-2xl font-bold">{metrics.totalFeedback}</p>
+              <div className="flex items-baseline gap-2">
+                <p className="text-2xl font-bold">{metrics.totalFeedback}</p>
+                {avgFeedbackRating > 0 && (
+                  <Badge variant="outline" className="text-xs">
+                    Avg: {avgFeedbackRating}/5 ⭐
+                  </Badge>
+                )}
+              </div>
             </div>
           </div>
 
@@ -557,6 +630,65 @@ export default function AdminDashboardPage() {
               </BarChart>
             </ResponsiveContainer>
           </div>
+        </ChartCard>
+
+        {/* Top Skills Distribution */}
+        <ChartCard
+          title="Top Skills in Platform"
+          icon={<Activity size={20} className="text-indigo-500" />}
+        >
+          <div className="space-y-3">
+            {topSkills.length > 0 ? (
+              topSkills.map((item, idx) => (
+                <div key={idx} className="flex items-center justify-between">
+                  <span className="text-sm font-medium text-gray-700">{item.skill}</span>
+                  <div className="flex items-center gap-2">
+                    <div className="w-24 h-2 bg-gray-200 rounded-full overflow-hidden">
+                      <div
+                        className="h-full bg-indigo-500 rounded-full transition-all"
+                        style={{
+                          width: `${(item.count / topSkills[0].count) * 100}%`,
+                        }}
+                      />
+                    </div>
+                    <span className="text-sm text-gray-600 w-8 text-right">{item.count}</span>
+                  </div>
+                </div>
+              ))
+            ) : (
+              <p className="text-sm text-gray-500 text-center py-4">No skills data available</p>
+            )}
+          </div>
+        </ChartCard>
+
+        {/* Career Distribution */}
+        <ChartCard
+          title="Popular Career Paths"
+          icon={<Lightbulb size={20} className="text-amber-500" />}
+        >
+          <div className="space-y-3">
+            {careerDistribution.length > 0 ? (
+              careerDistribution.map((item, idx) => (
+                <div key={idx} className="flex items-center justify-between p-2 rounded-lg hover:bg-gray-50 transition-colors">
+                  <span className="text-sm font-medium text-gray-700 flex-1">{item.career}</span>
+                  <Badge variant="outline" className="ml-2">
+                    {item.count}
+                  </Badge>
+                </div>
+              ))
+            ) : (
+              <p className="text-sm text-gray-500 text-center py-4">No career data available</p>
+            )}
+          </div>
+        </ChartCard>
+
+        {/* Data Export Section */}
+        <ChartCard
+          title="ML Datasets Export"
+          icon={<Activity size={20} className="text-purple-500" />}
+          className="xl:col-span-3"
+        >
+          <DataExport />
         </ChartCard>
 
         {/* Activity Timeline with Real Data */}

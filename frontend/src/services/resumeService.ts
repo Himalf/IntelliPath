@@ -1,4 +1,6 @@
 import axiosInstance from "./axiosInstance";
+import { unwrapResponse, unwrapArrayResponse } from "../utils/apiResponse";
+
 export interface JobRecommendation {
   title: string;
   url: string;
@@ -22,35 +24,31 @@ class ResumeService {
     const formData = new FormData();
     formData.append("file", file);
 
-    const response = await axiosInstance.post<ResumeAnalysis>(
+    const response = await axiosInstance.post(
       `/resume-analysis/analyze/${userId}`,
       formData,
       {
         headers: { "Content-Type": "multipart/form-data" },
       }
     );
-    return response.data;
+    return unwrapResponse<ResumeAnalysis>(response.data);
   }
 
   // Get analysis results for a user
   async getResumeAnalysis(userId: string): Promise<ResumeAnalysis[]> {
-    const response = await axiosInstance.get<ResumeAnalysis[]>(
-      `/resume-analysis/${userId}`
-    );
-    return response.data;
+    const response = await axiosInstance.get(`/resume-analysis/${userId}`);
+    return unwrapArrayResponse<ResumeAnalysis>(response.data);
   }
 
   // get all
   async getAllAnalyses(): Promise<ResumeAnalysis[]> {
-    const response = await axiosInstance.get<ResumeAnalysis[]>(
-      `/resume-analysis`
-    );
-    return response.data;
+    const response = await axiosInstance.get(`/resume-analysis`);
+    return unwrapArrayResponse<ResumeAnalysis>(response.data);
   }
 
   async deleteAnalyses(id: string) {
     const response = await axiosInstance.delete(`/resume-analysis/${id}`);
-    return response.data;
+    return unwrapResponse(response.data);
   }
 }
 

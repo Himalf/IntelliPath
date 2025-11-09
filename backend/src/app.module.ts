@@ -14,8 +14,10 @@ import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 import { APP_GUARD } from '@nestjs/core';
 import { RedisModule } from './redis/redis.module';
 import { MailModule } from './mail/mail.module';
+import { SeedModule } from './seed/seed.module';
 @Module({
   imports: [
+    SeedModule,
     RedisModule,
     ThrottlerModule.forRoot({
       throttlers: [],

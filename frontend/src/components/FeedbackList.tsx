@@ -1,29 +1,36 @@
 import { useEffect, useState } from "react";
 import FeedbackForm from "./FeedbackForm";
-import { Pencil, Trash2, Star, MessageSquare, Calendar } from "lucide-react";
+import { Star, MessageSquare } from "lucide-react";
 import feedbackService, {
   type CreateFeedbackDto,
   type Feedback,
 } from "@/services/feedbackService";
-import { Button } from "./ui/button";
-import { format } from "date-fns";
 import { useAuth } from "@/features/auth/AuthContext";
+import LoadingSpinner from "./LoadingSpinner";
+import ErrorDisplay from "./ErrorDisplay";
+import { toast } from "sonner";
+import { Card, CardContent } from "./ui/card";
+
 interface Props {
   userId: string;
 }
+
 export default function FeedbackList({ userId }: Props) {
   const { user } = useAuth();
   const [feedbacks, setFeedbacks] = useState<Feedback[]>([]);
-  const [editId, setEditId] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   const loadFeedback = async () => {
     setIsLoading(true);
+    setError(null);
     try {
       const data = await feedbackService.getUserFeedback(userId);
-      setFeedbacks(data);
-    } catch (error) {
+      setFeedbacks(Array.isArray(data) ? data : []);
+    } catch (error: any) {
       console.error("Failed to load feedback:", error);
+      setError(error?.message || "Failed to load feedback. Please try again.");
+      toast.error("Failed to load feedback");
     } finally {
       setIsLoading(false);
     }
@@ -32,138 +39,43 @@ export default function FeedbackList({ userId }: Props) {
   const handleCreate = async (data: CreateFeedbackDto) => {
     try {
       await feedbackService.createFeedback(data);
+      toast.success("Feedback submitted successfully!");
       await loadFeedback();
-    } catch (error) {
+    } catch (error: any) {
       console.error("Failed to create feedback:", error);
+      toast.error(error?.message || "Failed to submit feedback");
     }
   };
 
-  const handleUpdate = async (data: CreateFeedbackDto) => {
-    if (editId) {
-      try {
-        await feedbackService.updateFeedback(editId, data);
-        setEditId(null);
-        await loadFeedback();
-      } catch (error) {
-        console.error("Failed to update feedback:", error);
-      }
-    }
-  };
-
-  const handleDelete = async (id: string) => {
-    try {
-      await feedbackService.deleteFeedback(id);
-      await loadFeedback();
-    } catch (error) {
-      console.error("Failed to delete feedback:", error);
-    }
-  };
   useEffect(() => {
     loadFeedback();
-  }, []);
+  }, [userId]);
+
   return (
     <div className="space-y-8">
-      <div className="bg-gradient-to-r from-primary/10 to-primary/5 p-6 rounded-lg shadow-sm border border-primary/10">
-        <h2 className="text-xl font-semibold mb-6 flex items-center">
-          <MessageSquare className="mr-2 text-primary" size={20} />
-          Feedback History
-        </h2>
-
-        {isLoading ? (
-          <div className="flex justify-center py-8">
-            <div className="animate-pulse flex space-x-2">
-              <div className="h-2 w-2 bg-primary rounded-full"></div>
-              <div className="h-2 w-2 bg-primary rounded-full"></div>
-              <div className="h-2 w-2 bg-primary rounded-full"></div>
-            </div>
-          </div>
-        ) : feedbacks.length === 0 ? (
-          <div className="text-center py-8 text-gray-500">
-            No feedbacks available
-          </div>
-        ) : (
-          <div className="space-y-4 max-h-[30vh] overflow-y-auto ">
-            {feedbacks.map((f) => (
-              <div
-                key={f._id}
-                className="bg-white p-5 rounded-lg shadow-sm border border-gray-100 transition-all hover:shadow-md"
-              >
-                {editId === f._id ? (
-                  <div>
-                    {user?.role === "USER" && (
-                      <FeedbackForm
-                        userId={userId}
-                        initialData={f}
-                        onSubmit={handleUpdate}
-                      />
-                    )}
-                  </div>
-                ) : (
-                  <div className="space-y-3">
-                    <div className="flex justify-between items-start">
-                      <div className="flex items-center space-x-1">
-                        {Array.from({ length: 5 }).map((_, i) => (
-                          <Star
-                            key={i}
-                            size={16}
-                            className={`${
-                              i < f.rating
-                                ? "fill-yellow-400 text-yellow-400"
-                                : "text-gray-300"
-                            }`}
-                          />
-                        ))}
-                        <span className="ml-1 text-sm text-gray-500">
-                          ({f.rating}/5)
-                        </span>
-                      </div>
-                      {f.createdAt && (
-                        <div className="text-xs text-gray-400 flex items-center">
-                          <Calendar size={12} className="mr-1" />
-                          {format(new Date(f.createdAt), "MMM d, yyyy")}
-                        </div>
-                      )}
-                    </div>
-
-                    <p className="text-gray-700 leading-relaxed">{f.message}</p>
-
-                    <div className="flex gap-2 pt-2">
-                      {user?.role === "USER" && (
-                        <Button
-                          variant="outline"
-                          size="sm"
-                          onClick={() => setEditId(f._id)}
-                          className="text-gray-600 hover:text-primary hover:border-primary transition-colors"
-                        >
-                          <Pencil size={14} className="mr-1" />
-                          Edit
-                        </Button>
-                      )}
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={() => handleDelete(f._id)}
-                        className="text-red-600 hover:text-white hover:bg-red-600 hover:border-red-600 transition-colors"
-                      >
-                        <Trash2 size={14} className="mr-1" />
-                        Delete
-                      </Button>
-                    </div>
-                  </div>
-                )}
-              </div>
-            ))}
-          </div>
-        )}
-      </div>
+      {/* Only show form - table view is in FeedbackPage */}
       {user?.role === "USER" && (
-        <div className="bg-white rounded-lg shadow-sm border border-gray-100 p-6">
-          <h3 className="text-lg font-medium mb-4 flex items-center">
-            <Star className="mr-2 text-primary" size={18} />
-            Submit New Feedback
-          </h3>
-          <FeedbackForm userId={userId} onSubmit={handleCreate} />
-        </div>
+        <Card className="border-2 border-blue-200 bg-blue-50/50">
+          <CardContent className="pt-6">
+            <h3 className="text-lg font-medium mb-4 flex items-center">
+              <Star className="mr-2 text-blue-600" size={18} />
+              Submit New Feedback
+            </h3>
+            <p className="text-sm text-gray-600 mb-4">
+              Help us improve by sharing your experience with IntelliPath
+            </p>
+            <FeedbackForm userId={userId} onSubmit={handleCreate} />
+          </CardContent>
+        </Card>
+      )}
+
+      {/* Show error if any */}
+      {error && (
+        <ErrorDisplay
+          title="Failed to Load Feedback"
+          message={error}
+          onRetry={loadFeedback}
+        />
       )}
     </div>
   );

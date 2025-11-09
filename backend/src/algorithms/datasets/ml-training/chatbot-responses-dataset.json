@@ -1,0 +1,99 @@
+[
+  {
+    "query_id": "query_001",
+    "question_pattern": "what career should I choose",
+    "question_keywords": ["career", "choose", "path", "direction"],
+    "ml_classification": {
+      "intent": "career_guidance",
+      "confidence": 0.95,
+      "entities": ["career_selection"]
+    },
+    "response_template": "Based on your skills and interests, I can help you explore suitable career paths. Here are some recommendations:\n\n1. **Assess Your Skills**: Identify your technical and soft skills\n2. **Explore Industries**: Research industries that align with your interests\n3. **Consider Growth**: Look for careers with strong growth potential\n4. **Network**: Connect with professionals in your target field\n\nWould you like me to analyze your specific skills and provide personalized career suggestions?",
+    "context": "general_career_advice"
+  },
+  {
+    "query_id": "query_002",
+    "question_pattern": "how to improve my resume",
+    "question_keywords": ["resume", "improve", "better", "enhance"],
+    "ml_classification": {
+      "intent": "resume_improvement",
+      "confidence": 0.92,
+      "entities": ["resume_optimization"]
+    },
+    "response_template": "Here are key strategies to improve your resume:\n\n**Structure & Format:**\n- Use a clean, ATS-friendly format\n- Keep it to 1-2 pages maximum\n- Use consistent formatting and fonts\n\n**Content Tips:**\n- Use action verbs (e.g., 'Developed', 'Implemented', 'Led')\n- Quantify achievements with numbers and metrics\n- Tailor your resume to each job application\n- Include relevant keywords from job descriptions\n\n**Key Sections:**\n- Professional summary (2-3 lines)\n- Work experience with achievements\n- Skills section (technical and soft skills)\n- Education and certifications\n\nWould you like to upload your resume for a detailed analysis?",
+    "context": "resume_advice"
+  },
+  {
+    "query_id": "query_003",
+    "question_pattern": "what skills do I need for",
+    "question_keywords": ["skills", "need", "required", "learn"],
+    "ml_classification": {
+      "intent": "skill_requirements",
+      "confidence": 0.90,
+      "entities": ["skill_gap_analysis"]
+    },
+    "response_template": "To succeed in [CAREER_FIELD], you'll typically need:\n\n**Technical Skills:**\n- [List relevant technical skills]\n- [Programming languages/frameworks]\n- [Tools and technologies]\n\n**Soft Skills:**\n- Problem-solving\n- Communication\n- Team collaboration\n- Adaptability\n\n**Recommended Learning Path:**\n1. Start with fundamentals\n2. Build projects to practice\n3. Get certified (if applicable)\n4. Contribute to open source\n5. Network with professionals\n\nWould you like me to analyze your current skills and create a personalized learning plan?",
+    "context": "skill_development"
+  },
+  {
+    "query_id": "query_004",
+    "question_pattern": "job interview tips",
+    "question_keywords": ["interview", "tips", "prepare", "advice"],
+    "ml_classification": {
+      "intent": "interview_preparation",
+      "confidence": 0.88,
+      "entities": ["interview_guidance"]
+    },
+    "response_template": "Here are essential interview preparation tips:\n\n**Before the Interview:**\n- Research the company and role thoroughly\n- Prepare STAR method examples (Situation, Task, Action, Result)\n- Practice common interview questions\n- Prepare questions to ask the interviewer\n\n**During the Interview:**\n- Arrive 10-15 minutes early\n- Dress professionally\n- Maintain eye contact and positive body language\n- Listen carefully and answer concisely\n- Show enthusiasm for the role\n\n**Common Questions to Prepare:**\n- 'Tell me about yourself'\n- 'Why do you want this job?'\n- 'What are your strengths/weaknesses?'\n- 'Where do you see yourself in 5 years?'\n\n**After the Interview:**\n- Send a thank-you email within 24 hours\n- Follow up if you don't hear back in a week\n\nGood luck with your interview!",
+    "context": "interview_advice"
+  },
+  {
+    "query_id": "query_005",
+    "question_pattern": "salary negotiation",
+    "question_keywords": ["salary", "negotiate", "compensation", "pay"],
+    "ml_classification": {
+      "intent": "salary_negotiation",
+      "confidence": 0.85,
+      "entities": ["compensation_discussion"]
+    },
+    "response_template": "Effective salary negotiation strategies:\n\n**Research First:**\n- Research market rates for your role and location\n- Use sites like Glassdoor, PayScale, LinkedIn Salary\n- Consider your experience level and skills\n\n**Timing:**\n- Wait for the job offer before negotiating\n- Don't discuss salary too early in the process\n- Be prepared to walk away if needed\n\n**Negotiation Tips:**\n- Start with a range, not a specific number\n- Highlight your value and achievements\n- Consider total compensation (benefits, equity, etc.)\n- Be professional and respectful\n- Practice your pitch beforehand\n\n**What to Say:**\n- 'Based on my research and experience, I was expecting a range of [X-Y]'\n- 'I'm excited about this opportunity, and I'd like to discuss the compensation package'\n\nRemember: Negotiation is a normal part of the hiring process!",
+    "context": "career_advice"
+  },
+  {
+    "query_id": "query_006",
+    "question_pattern": "who built you",
+    "question_keywords": ["who", "built", "made", "created", "developer"],
+    "ml_classification": {
+      "intent": "about_creator",
+      "confidence": 0.98,
+      "entities": ["creator_information"]
+    },
+    "response_template": "I have been developed and trained by Himal Fullel, who built the IntelliPath software. IntelliPath is a comprehensive career guidance platform designed to help individuals make informed career decisions through AI-powered analysis, resume evaluation, and personalized career recommendations.\n\nThe platform combines machine learning algorithms with expert career guidance to provide users with actionable insights for their professional development journey.",
+    "context": "about_platform"
+  },
+  {
+    "query_id": "query_007",
+    "question_pattern": "career change advice",
+    "question_keywords": ["career", "change", "switch", "transition"],
+    "ml_classification": {
+      "intent": "career_transition",
+      "confidence": 0.90,
+      "entities": ["career_change"]
+    },
+    "response_template": "Making a successful career change requires careful planning:\n\n**Self-Assessment:**\n- Identify transferable skills from your current role\n- Assess your interests and values\n- Consider your financial situation and timeline\n\n**Research:**\n- Explore target industries and roles\n- Network with professionals in your desired field\n- Understand required qualifications and skills\n\n**Skill Development:**\n- Take relevant courses or certifications\n- Build a portfolio or side projects\n- Gain experience through internships or volunteering\n\n**Transition Strategy:**\n- Update your resume to highlight transferable skills\n- Leverage your network for opportunities\n- Consider a gradual transition (part-time, freelance)\n- Be patient - career changes take time\n\nWould you like personalized advice based on your current situation?",
+    "context": "career_transition"
+  },
+  {
+    "query_id": "query_008",
+    "question_pattern": "networking tips",
+    "question_keywords": ["network", "connect", "professional", "relationships"],
+    "ml_classification": {
+      "intent": "networking_advice",
+      "confidence": 0.87,
+      "entities": ["professional_networking"]
+    },
+    "response_template": "Effective networking strategies:\n\n**Online Networking:**\n- Optimize your LinkedIn profile\n- Join relevant professional groups\n- Share valuable content and insights\n- Engage with others' posts meaningfully\n\n**In-Person Networking:**\n- Attend industry events and conferences\n- Join professional associations\n- Participate in meetups and workshops\n- Volunteer for relevant organizations\n\n**Building Relationships:**\n- Offer value before asking for help\n- Follow up after meetings\n- Maintain regular contact (not just when you need something)\n- Be genuine and authentic\n\n**Networking Etiquette:**\n- Respect people's time\n- Personalize your outreach\n- Be clear about your goals\n- Show appreciation for help received\n\nRemember: Networking is about building long-term relationships, not just collecting contacts!",
+    "context": "professional_development"
+  }
+]
+

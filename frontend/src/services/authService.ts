@@ -1,4 +1,6 @@
 import axiosInstance from "./axiosInstance";
+import { unwrapResponse } from "../utils/apiResponse";
+
 export interface RegisterFormData {
   fullName: string;
   email: string;
@@ -44,7 +46,8 @@ class AuthService {
       "/auth/login",
       payload
     );
-    return response.data;
+    // Unwrap the response from TransformInterceptor
+    return unwrapResponse<LoginResponse>(response.data);
   }
 
   // Register
@@ -53,7 +56,8 @@ class AuthService {
       "/users",
       payload
     );
-    return response.data;
+    // Unwrap the response from TransformInterceptor
+    return unwrapResponse<RegisterResponse>(response.data);
   }
 
   // send reset request

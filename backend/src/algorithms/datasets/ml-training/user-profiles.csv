@@ -1,0 +1,12 @@
+user_id,age,education_level,education_field,years_experience,skills,current_role,target_role,location,salary_expectation,work_preference,career_goals
+user_001,24,Bachelor,Computer Science,2,"JavaScript,React,Node.js,MongoDB,HTML,CSS",Frontend Developer,Full Stack Developer,"San Francisco, CA",90000,Remote,"Technical Leadership,Startup Experience"
+user_002,28,Master,Data Science,5,"Python,Machine Learning,TensorFlow,Pandas,SQL,Statistics",Data Analyst,Data Scientist,"New York, NY",120000,Hybrid,"Research,AI Innovation"
+user_003,22,Bachelor,Information Systems,0,"Java,Spring Boot,MySQL,Docker,AWS",Student,Backend Developer,"Austin, TX",75000,On-site,"Software Engineering,Cloud Architecture"
+user_004,30,Bachelor,Design,7,"Figma,Adobe XD,UI/UX Design,Prototyping,User Research,Design Systems",UI Designer,UX Designer,"Seattle, WA",110000,Remote,"Design Leadership,Product Design"
+user_005,26,Bachelor,Computer Engineering,3,"Python,Django,PostgreSQL,Redis,Kubernetes,CI/CD",Backend Developer,DevOps Engineer,"Boston, MA",100000,Hybrid,"Infrastructure,Cloud Engineering"
+user_006,25,Master,Machine Learning,1,"Python,PyTorch,Scikit-learn,NLP,Computer Vision,Deep Learning",ML Engineer,Senior ML Engineer,"Palo Alto, CA",130000,Hybrid,"AI Research,ML Infrastructure"
+user_007,29,Bachelor,Information Technology,6,"AWS,Terraform,Ansible,Jenkins,Docker,Linux,Bash",DevOps Engineer,Cloud Architect,"Chicago, IL",140000,Remote,"Cloud Strategy,Technical Architecture"
+user_008,23,Bachelor,Software Engineering,1,"React Native,Flutter,iOS,Android,Firebase,REST API",Mobile Developer,Senior Mobile Developer,"Los Angeles, CA",85000,Remote,"Mobile Architecture,Cross-platform Development"
+user_009,27,Master,Cybersecurity,4,"Penetration Testing,Network Security,Python,SIEM,OWASP,Compliance",Security Analyst,Security Engineer,"Washington, DC",115000,Hybrid,"Security Architecture,Threat Intelligence"
+user_010,31,PhD,Computer Science,8,"Distributed Systems,Go,Kubernetes,Microservices,System Design,Leadership",Senior Software Engineer,Engineering Manager,"San Jose, CA",180000,Hybrid,"Team Leadership,Technical Strategy"
+

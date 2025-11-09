@@ -1,4 +1,5 @@
 import axiosInstance from "./axiosInstance";
+import { unwrapResponse, unwrapArrayResponse } from "../utils/apiResponse";
 
 export interface User {
   _id: string;
@@ -35,26 +36,26 @@ export interface UpdateUserDto {
 class UserService {
   // Get all users
   async getAllUsers(): Promise<User[]> {
-    const response = await axiosInstance.get<User[]>("/users");
-    return response.data;
+    const response = await axiosInstance.get("/users");
+    return unwrapArrayResponse<User>(response.data);
   }
 
   // Get single user by ID
   async getUser(id: string): Promise<User> {
-    const response = await axiosInstance.get<User>(`/users/${id}`);
-    return response.data;
+    const response = await axiosInstance.get(`/users/${id}`);
+    return unwrapResponse<User>(response.data);
   }
 
   // Create a new user
   async createUser(payload: CreateUserDto): Promise<User> {
-    const response = await axiosInstance.post<User>("/users", payload);
-    return response.data;
+    const response = await axiosInstance.post("/users", payload);
+    return unwrapResponse<User>(response.data);
   }
 
   // Update user by ID
   async updateUser(id: string, payload: UpdateUserDto): Promise<User> {
-    const response = await axiosInstance.patch<User>(`/users/${id}`, payload);
-    return response.data;
+    const response = await axiosInstance.patch(`/users/${id}`, payload);
+    return unwrapResponse<User>(response.data);
   }
 
   // Delete user by ID

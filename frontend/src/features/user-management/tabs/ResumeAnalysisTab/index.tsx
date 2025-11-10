@@ -66,7 +66,7 @@ export default function ResumeAnalysisTab({ analyses, selectedId, onDelete }: Pr
   return (
     <div className="space-y-6">
       {/* Header with Score - No dropdown needed, selection from table */}
-      <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg p-6 border-2 border-blue-200">
+      <div className="bg-blue-50 rounded-lg p-6 border border-blue-200">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
           <div className="flex items-center gap-3">
             <FileText className="w-6 h-6 text-blue-600" />
@@ -275,7 +275,7 @@ function JobRecommendationSection({
     <div className="border-2 border-purple-200 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow">
       <button
         onClick={onToggle}
-        className="w-full flex items-center justify-between px-6 py-4 bg-gradient-to-r from-purple-100 to-indigo-100 hover:from-purple-200 hover:to-indigo-200 transition-colors"
+        className="w-full flex items-center justify-between px-6 py-4 bg-purple-100 hover:bg-purple-200 transition-colors"
       >
         <div className="flex items-center gap-3">
           <div className="p-2 rounded-lg bg-white text-purple-600">
@@ -302,7 +302,7 @@ function JobRecommendationSection({
           isOpen ? "max-h-[600px] opacity-100" : "max-h-0 opacity-0"
         )}
       >
-        <div className="px-6 py-5 bg-gradient-to-br from-purple-50 to-indigo-50 border-t-2 border-purple-200">
+        <div className="px-6 py-5 bg-purple-50 border-t border-purple-200">
           {jobs.length === 0 ? (
             <div className="text-center py-8">
               <Briefcase className="w-12 h-12 text-gray-300 mx-auto mb-3" />

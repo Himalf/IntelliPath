@@ -85,7 +85,7 @@ export default function Sidebar({
       )}
 
       <aside
-        className={`fixed top-0 left-0 h-full z-50 bg-gradient-to-b from-slate-900 via-slate-800 to-slate-900 shadow-2xl transform transition-transform duration-300 ease-in-out flex flex-col ${
+        className={`fixed top-0 left-0 h-full z-50 bg-slate-900 shadow-xl transform transition-transform duration-300 ease-in-out flex flex-col ${
           isMobile
             ? sidebarOpen
               ? "translate-x-0 w-72"
@@ -96,7 +96,7 @@ export default function Sidebar({
         {/* Header */}
         <div className="px-6 py-6 flex items-center justify-between border-b border-slate-700/50">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center shadow-lg">
+            <div className="w-10 h-10 rounded-lg bg-indigo-600 flex items-center justify-center shadow-md">
               <span className="text-white font-bold text-lg">IP</span>
             </div>
             <h2 className="text-xl font-bold text-white tracking-tight">IntelliPath</h2>
@@ -121,8 +121,8 @@ export default function Sidebar({
               className={({ isActive }) =>
                 `flex items-center px-4 py-3 rounded-lg text-sm font-medium transition-all duration-200 group ${
                   isActive
-                    ? "bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg shadow-indigo-500/30"
-                    : "text-slate-300 hover:text-white hover:bg-slate-700/50"
+                    ? "bg-indigo-600 text-white shadow-md"
+                    : "text-slate-300 hover:text-white hover:bg-slate-800"
                 }`
               }
             >

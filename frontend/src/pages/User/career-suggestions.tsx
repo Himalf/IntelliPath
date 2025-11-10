@@ -88,7 +88,7 @@ export default function CareerSuggestionsPage() {
 
       {/* Stats Card */}
       {latestSuggestion && (
-        <Card className="border-2 border-yellow-200 bg-gradient-to-br from-yellow-50 to-amber-50">
+        <Card className="border border-gray-200 bg-white shadow-sm">
           <CardHeader>
             <CardTitle className="flex items-center justify-between">
               <span className="flex items-center gap-2">
@@ -136,7 +136,7 @@ export default function CareerSuggestionsPage() {
       )}
 
       {/* Info Card */}
-      <div className="bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-lg p-5 shadow-sm">
+      <div className="bg-blue-50 border border-blue-200 rounded-lg p-5 shadow-sm">
         <div className="flex items-start gap-3">
           <FileText className="text-blue-500 mt-1 flex-shrink-0" />
           <div className="flex-1">

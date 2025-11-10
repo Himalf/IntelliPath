@@ -199,7 +199,7 @@ const ChatInterface = () => {
           {(msg.response || (loading && index === safeMessages.length - 1)) && (
             <div className="flex justify-start">
               <div className="flex items-start gap-3 max-w-[75%]">
-                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-purple-600 to-indigo-600 flex items-center justify-center text-white font-bold text-xs flex-shrink-0">
+                <div className="w-8 h-8 rounded-full bg-indigo-600 flex items-center justify-center text-white font-bold text-xs flex-shrink-0">
                   <Bot className="w-5 h-5" />
                 </div>
                 <div className="bg-gray-100 p-4 rounded-2xl rounded-tl-sm shadow-md">
@@ -238,7 +238,7 @@ const ChatInterface = () => {
   return (
     <div className="flex flex-col h-[calc(100vh-8rem)] max-w-5xl mx-auto w-full bg-white rounded-lg shadow-lg border border-gray-200 overflow-hidden">
       {/* Header */}
-      <div className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white p-4 flex justify-between items-center flex-shrink-0">
+      <div className="bg-indigo-600 text-white p-4 flex justify-between items-center flex-shrink-0">
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center">
             <Bot className="w-6 h-6" />
@@ -305,8 +305,8 @@ const ChatInterface = () => {
       >
         {chatHistory.length === 0 ? (
           <div className="flex flex-col items-center justify-center h-full text-center py-12">
-            <div className="w-20 h-20 rounded-full bg-gradient-to-br from-blue-100 to-indigo-100 flex items-center justify-center mb-4">
-              <MessageSquare className="w-10 h-10 text-blue-600" />
+            <div className="w-20 h-20 rounded-full bg-indigo-100 flex items-center justify-center mb-4">
+              <MessageSquare className="w-10 h-10 text-indigo-600" />
             </div>
             <h3 className="text-lg font-semibold text-gray-800 mb-2">
               Start a Conversation

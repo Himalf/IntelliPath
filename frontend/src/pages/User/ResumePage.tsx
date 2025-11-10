@@ -105,7 +105,7 @@ export default function ResumePage() {
 
       {/* Resume Score Card */}
       {latestAnalysis && (
-        <Card className="border-2 border-blue-200 bg-gradient-to-br from-blue-50 to-indigo-50">
+        <Card className="border border-gray-200 bg-white shadow-sm">
           <CardHeader>
             <CardTitle className="flex items-center justify-between">
               <span className="flex items-center gap-2">
@@ -163,7 +163,7 @@ export default function ResumePage() {
       )}
 
       {/* Link to Career Suggestions */}
-      <div className="bg-gradient-to-r from-yellow-50 to-amber-50 border border-yellow-200 rounded-lg p-4 shadow-sm">
+      <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 shadow-sm">
         <div className="flex items-start gap-3">
           <Lightbulb className="text-yellow-500 mt-1 flex-shrink-0" />
           <div className="flex-1">

@@ -41,8 +41,8 @@ export default function ResumeTable({
   };
 
   return (
-    <Card className="border-2 shadow-lg">
-      <CardHeader className="bg-gradient-to-r from-blue-50 to-indigo-50 border-b-2">
+    <Card className="border border-gray-200 shadow-sm">
+      <CardHeader className="bg-gray-50 border-b border-gray-200">
         <CardTitle className="flex items-center gap-2 text-xl">
           <FileText className="w-6 h-6 text-blue-600" />
           Resume Analyses Overview

@@ -51,7 +51,7 @@ export default function Navbar({
               {user?.role?.toLowerCase() || "user"}
             </p>
           </div>
-          <div className="w-10 h-10 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center shadow-md ring-2 ring-white">
+          <div className="w-10 h-10 rounded-full bg-indigo-600 flex items-center justify-center shadow-md ring-2 ring-white">
             <span className="text-white font-semibold text-sm">
               {user?.fullName?.charAt(0).toUpperCase() || user?.email?.charAt(0).toUpperCase() || "U"}
             </span>

@@ -179,7 +179,7 @@ export default function UserDashboard() {
 
   if (isLoading) {
     return (
-      <div className="flex items-center justify-center min-h-screen bg-slate-50">
+      <div className="flex items-center justify-center min-h-screen bg-gray-50">
         <LoadingSpinner size="lg" text="Loading your dashboard..." />
       </div>
     );
@@ -187,7 +187,7 @@ export default function UserDashboard() {
 
   if (error) {
     return (
-      <div className="bg-slate-50 min-h-screen p-4 md:p-8">
+      <div className="bg-gray-50 min-h-screen p-4 md:p-8">
         <ErrorDisplay
           title="Failed to Load Dashboard"
           message={error}
@@ -198,29 +198,29 @@ export default function UserDashboard() {
   }
 
   return (
-    <div className="bg-slate-50 min-h-screen p-4 md:p-8">
+    <div className="bg-gray-50 min-h-screen p-4 md:p-8">
       {/* Welcome Section */}
-      <div className="mb-8 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-lg p-6 text-white shadow-lg">
+      <div className="mb-8 bg-white rounded-lg border border-gray-200 p-6 shadow-sm">
         <div className="flex items-center justify-between flex-wrap gap-4">
           <div>
-            <h1 className="text-2xl font-bold mb-2">
+            <h1 className="text-2xl font-bold mb-2 text-gray-900">
               Welcome back,{" "}
               {user?.fullName || user?.email?.split("@")[0] || "User"}! 👋
             </h1>
-            <p className="text-blue-100">
+            <p className="text-gray-600">
               Here's your career development overview
             </p>
           </div>
           <div className="flex gap-3">
             <Link
               to="/dashboard/resume"
-              className="px-4 py-2 bg-white/20 hover:bg-white/30 rounded-lg transition-colors text-sm font-medium"
+              className="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg transition-colors text-sm font-medium"
             >
               View Resumes
             </Link>
             <Link
               to="/dashboard/career"
-              className="px-4 py-2 bg-white/20 hover:bg-white/30 rounded-lg transition-colors text-sm font-medium"
+              className="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg transition-colors text-sm font-medium"
             >
               Career Suggestions
             </Link>
@@ -274,16 +274,16 @@ export default function UserDashboard() {
         />
       </div>
 
-      {/* Main Content Grid - Improved Layout */}
-      <div className="grid grid-cols-1 xl:grid-cols-12 gap-6">
-        {/* Left Column - Charts and Main Content (8 columns) */}
-        <div className="xl:col-span-8 space-y-6">
+      {/* Main Content Grid - Professional Grid Layout */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        {/* Left Column - Charts and Main Content (2 columns) */}
+        <div className="lg:col-span-2 space-y-6">
           {/* Resume Analysis Chart */}
-          <Card className="border-none shadow-md hover:shadow-lg transition-shadow duration-300">
-            <CardHeader className="border-b border-slate-100 bg-slate-50 rounded-t-lg">
+          <Card className="border border-gray-200 shadow-sm hover:shadow-md transition-shadow duration-300 bg-white">
+            <CardHeader className="border-b border-gray-200 bg-gray-50 rounded-t-lg">
               <div className="flex items-center justify-between">
-                <CardTitle className="flex items-center gap-2 text-lg font-semibold">
-                  <TrendingUp className="h-5 w-5 text-indigo-500" />
+                <CardTitle className="flex items-center gap-2 text-lg font-semibold text-gray-900">
+                  <TrendingUp className="h-5 w-5 text-indigo-600" />
                   <span>Resume Score History</span>
                 </CardTitle>
                 <div className="flex items-center gap-2">
@@ -330,17 +330,17 @@ export default function UserDashboard() {
               </div>
             </CardContent>
             {resumes.length > 0 && (
-              <CardFooter className="border-t border-slate-100 bg-slate-50 rounded-b-lg text-sm text-slate-500 py-3">
+              <CardFooter className="border-t border-gray-200 bg-gray-50 rounded-b-lg text-sm text-gray-500 py-3">
                 Last updated:{" "}
                 {new Date(resumes[0].createdAt || "").toLocaleString()}
               </CardFooter>
             )}
           </Card>
           {/* Feedback Chart */}
-          <Card className="border-none shadow-md hover:shadow-lg transition-shadow duration-300">
-            <CardHeader className="border-b border-slate-100 bg-slate-50 rounded-t-lg">
-              <CardTitle className="flex items-center gap-2 text-lg font-semibold">
-                <ThumbsUp className="h-5 w-5 text-purple-500" />
+          <Card className="border border-gray-200 shadow-sm hover:shadow-md transition-shadow duration-300 bg-white">
+            <CardHeader className="border-b border-gray-200 bg-gray-50 rounded-t-lg">
+              <CardTitle className="flex items-center gap-2 text-lg font-semibold text-gray-900">
+                <ThumbsUp className="h-5 w-5 text-indigo-600" />
                 <span>Feedback Ratings</span>
               </CardTitle>
             </CardHeader>
@@ -390,20 +390,109 @@ export default function UserDashboard() {
               </div>
             </CardContent>
             {safeFeedbacks.length > 0 && (
-              <CardFooter className="border-t border-slate-100 bg-slate-50 rounded-b-lg text-sm text-slate-500 py-3">
+              <CardFooter className="border-t border-gray-200 bg-gray-50 rounded-b-lg text-sm text-gray-500 py-3">
                 Total feedback: {safeFeedbacks.length} ratings
               </CardFooter>
             )}
           </Card>
+
+          {/* Data Tables Section - Moved to main content area */}
+          {(resumes.length > 0 ||
+            suggestions.length > 0 ||
+            safeFeedbacks.length > 0) && (
+            <Card className="border border-gray-200 shadow-sm hover:shadow-md transition-shadow duration-300 bg-white">
+              <CardHeader className="border-b border-gray-200 bg-gray-50 rounded-t-lg">
+                <CardTitle className="flex items-center gap-2 text-lg font-semibold text-gray-900">
+                  <FileText className="h-5 w-5 text-indigo-600" />
+                  <span>Data Overview</span>
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="pt-6">
+                <div className="space-y-6">
+                  {/* Resumes Table */}
+                  {resumes.length > 0 && (
+                    <div>
+                      <h3 className="text-md font-semibold text-gray-700 mb-3 flex items-center gap-2">
+                        <FileText className="w-4 h-4 text-blue-600" />
+                        Resume Analyses ({resumes.length})
+                      </h3>
+                      <p className="text-xs text-gray-500 mb-2">
+                        Click a row to view details
+                      </p>
+                      <div className="overflow-auto border rounded-lg">
+                        <ResumeTable
+                          analyses={resumes}
+                          selectedId={null}
+                          onSelect={() => {
+                            // Navigate to resume page
+                            window.location.href = "/dashboard/resume";
+                          }}
+                          onDelete={() => {}}
+                        />
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Career Suggestions Table */}
+                  {suggestions.length > 0 && (
+                    <div>
+                      <h3 className="text-md font-semibold text-gray-700 mb-3 flex items-center gap-2">
+                        <Lightbulb className="w-4 h-4 text-yellow-600" />
+                        Career Suggestions ({suggestions.length})
+                      </h3>
+                      <p className="text-xs text-gray-500 mb-2">
+                        Click a row to view details
+                      </p>
+                      <div className="overflow-auto border rounded-lg">
+                        <CareerSuggestionsTable
+                          suggestions={suggestions}
+                          selectedId={null}
+                          onSelect={() => {
+                            // Navigate to career page
+                            window.location.href = "/dashboard/career";
+                          }}
+                          onDelete={() => {}}
+                        />
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Feedback Table */}
+                  {safeFeedbacks.length > 0 && (
+                    <div>
+                      <h3 className="text-md font-semibold text-gray-700 mb-3 flex items-center gap-2">
+                        <ThumbsUp className="w-4 h-4 text-purple-600" />
+                        Recent Feedback ({safeFeedbacks.length})
+                      </h3>
+                      <p className="text-xs text-gray-500 mb-2">
+                        Click a row to expand details
+                      </p>
+                      <div className="overflow-auto border rounded-lg">
+                        <FeedbackTable feedbacks={safeFeedbacks.slice(0, 5)} />
+                      </div>
+                      {safeFeedbacks.length > 5 && (
+                        <Link
+                          to="/dashboard/feedback"
+                          className="text-xs text-blue-600 hover:underline mt-2 inline-block"
+                        >
+                          View all {safeFeedbacks.length} feedback entries →
+                        </Link>
+                      )}
+                    </div>
+                  )}
+                </div>
+              </CardContent>
+            </Card>
+          )}
         </div>
 
-        {/* Right Column - Activity and Recommendations (4 columns) */}
-        <div className="xl:col-span-4 space-y-6">
+        {/* Right Column - Activity and Recommendations (1 column) */}
+        <div className="lg:col-span-1 space-y-6">
           {/* Quick Actions */}
-          <Card className="border-none shadow-md hover:shadow-lg transition-shadow duration-300 bg-gradient-to-br from-indigo-50 to-purple-50">
-            <CardHeader className="border-b border-indigo-100 bg-white/50 rounded-t-lg">
-              <CardTitle className="flex items-center gap-2 text-lg font-semibold text-indigo-800">
-                <Lightbulb className="h-5 w-5" />
+          <Card className="border border-gray-200 shadow-sm hover:shadow-md transition-shadow duration-300 bg-white">
+            <CardHeader className="border-b border-gray-200 bg-gray-50 rounded-t-lg">
+              <CardTitle className="flex items-center gap-2 text-lg font-semibold text-gray-900">
+                <Lightbulb className="h-5 w-5 text-indigo-600" />
                 <span>Quick Actions</span>
               </CardTitle>
             </CardHeader>
@@ -411,7 +500,7 @@ export default function UserDashboard() {
               <div className="grid grid-cols-2 gap-3">
                 <Link
                   to="/dashboard/resume"
-                  className="flex flex-col items-center justify-center p-4 bg-white rounded-lg border-2 border-indigo-200 hover:border-indigo-400 hover:shadow-md transition-all group"
+                  className="flex flex-col items-center justify-center p-4 bg-gray-50 rounded-lg border border-gray-200 hover:border-indigo-300 hover:bg-indigo-50 transition-all group"
                 >
                   <FileText className="h-8 w-8 text-indigo-600 mb-2 group-hover:scale-110 transition-transform" />
                   <span className="text-sm font-semibold text-gray-700">
@@ -420,27 +509,27 @@ export default function UserDashboard() {
                 </Link>
                 <Link
                   to="/dashboard/career"
-                  className="flex flex-col items-center justify-center p-4 bg-white rounded-lg border-2 border-purple-200 hover:border-purple-400 hover:shadow-md transition-all group"
+                  className="flex flex-col items-center justify-center p-4 bg-gray-50 rounded-lg border border-gray-200 hover:border-indigo-300 hover:bg-indigo-50 transition-all group"
                 >
-                  <Briefcase className="h-8 w-8 text-purple-600 mb-2 group-hover:scale-110 transition-transform" />
+                  <Briefcase className="h-8 w-8 text-indigo-600 mb-2 group-hover:scale-110 transition-transform" />
                   <span className="text-sm font-semibold text-gray-700">
                     Get Suggestions
                   </span>
                 </Link>
                 <Link
                   to="/dashboard/assistant"
-                  className="flex flex-col items-center justify-center p-4 bg-white rounded-lg border-2 border-blue-200 hover:border-blue-400 hover:shadow-md transition-all group"
+                  className="flex flex-col items-center justify-center p-4 bg-gray-50 rounded-lg border border-gray-200 hover:border-indigo-300 hover:bg-indigo-50 transition-all group"
                 >
-                  <Lightbulb className="h-8 w-8 text-blue-600 mb-2 group-hover:scale-110 transition-transform" />
+                  <Lightbulb className="h-8 w-8 text-indigo-600 mb-2 group-hover:scale-110 transition-transform" />
                   <span className="text-sm font-semibold text-gray-700">
                     AI Assistant
                   </span>
                 </Link>
                 <Link
                   to="/dashboard/feedback"
-                  className="flex flex-col items-center justify-center p-4 bg-white rounded-lg border-2 border-green-200 hover:border-green-400 hover:shadow-md transition-all group"
+                  className="flex flex-col items-center justify-center p-4 bg-gray-50 rounded-lg border border-gray-200 hover:border-indigo-300 hover:bg-indigo-50 transition-all group"
                 >
-                  <ThumbsUp className="h-8 w-8 text-green-600 mb-2 group-hover:scale-110 transition-transform" />
+                  <ThumbsUp className="h-8 w-8 text-indigo-600 mb-2 group-hover:scale-110 transition-transform" />
                   <span className="text-sm font-semibold text-gray-700">
                     Give Feedback
                   </span>
@@ -450,21 +539,21 @@ export default function UserDashboard() {
           </Card>
 
           {/* Recent Activity - Fixed to be properly scrollable */}
-          <Card className="border-none shadow-md hover:shadow-lg transition-shadow duration-300">
-            <CardHeader className="border-b border-slate-100 bg-slate-50 rounded-t-lg">
-              <CardTitle className="flex items-center gap-2 text-lg font-semibold">
-                <Clock className="h-5 w-5 text-slate-500" />
+          <Card className="border border-gray-200 shadow-sm hover:shadow-md transition-shadow duration-300 bg-white">
+            <CardHeader className="border-b border-gray-200 bg-gray-50 rounded-t-lg">
+              <CardTitle className="flex items-center gap-2 text-lg font-semibold text-gray-900">
+                <Clock className="h-5 w-5 text-gray-600" />
                 <span>Recent Activity</span>
               </CardTitle>
             </CardHeader>
             <CardContent className="px-0">
               <div className="h-64 overflow-y-auto">
-                <div className="divide-y divide-slate-100">
+                <div className="divide-y divide-gray-100">
                   {recentActivity.length > 0 ? (
                     recentActivity.map((activity, idx) => (
                       <div
                         key={idx}
-                        className="flex items-start gap-3 p-4 hover:bg-slate-50 transition-colors"
+                        className="flex items-start gap-3 p-4 hover:bg-gray-50 transition-colors"
                       >
                         <div
                           className="mt-1 rounded-full p-2 bg-opacity-10"
@@ -513,7 +602,7 @@ export default function UserDashboard() {
                             {activity.type === "suggestion" &&
                               `Suggested: ${activity.career}`}
                           </p>
-                          <p className="text-xs text-slate-500 mt-1">
+                          <p className="text-xs text-gray-500 mt-1">
                             {formatTimeAgo(new Date(activity.date))}
                           </p>
                         </div>
@@ -522,7 +611,7 @@ export default function UserDashboard() {
                   ) : (
                     <EmptyState
                       message="No recent activity"
-                      icon={<Clock className="h-12 w-12 text-slate-300" />}
+                      icon={<Clock className="h-12 w-12 text-gray-300" />}
                       className="py-8"
                     />
                   )}
@@ -531,100 +620,11 @@ export default function UserDashboard() {
             </CardContent>
           </Card>
 
-          {/* Data Tables Section */}
-          {(resumes.length > 0 ||
-            suggestions.length > 0 ||
-            safeFeedbacks.length > 0) && (
-            <Card className="border-none shadow-md hover:shadow-lg transition-shadow duration-300">
-              <CardHeader className="border-b border-slate-100 bg-slate-50 rounded-t-lg">
-                <CardTitle className="flex items-center gap-2 text-lg font-semibold">
-                  <FileText className="h-5 w-5 text-indigo-500" />
-                  <span>Data Overview Tables</span>
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="pt-6">
-                <div className="space-y-6">
-                  {/* Resumes Table */}
-                  {resumes.length > 0 && (
-                    <div>
-                      <h3 className="text-md font-semibold text-gray-700 mb-3 flex items-center gap-2">
-                        <FileText className="w-4 h-4 text-blue-600" />
-                        Resume Analyses ({resumes.length})
-                      </h3>
-                      <p className="text-xs text-gray-500 mb-2">
-                        Click a row to view details
-                      </p>
-                      <div className="max-h-64 overflow-auto border rounded-lg">
-                        <ResumeTable
-                          analyses={resumes}
-                          selectedId={null}
-                          onSelect={() => {
-                            // Navigate to resume page
-                            window.location.href = "/dashboard/resume";
-                          }}
-                          onDelete={() => {}}
-                        />
-                      </div>
-                    </div>
-                  )}
-
-                  {/* Career Suggestions Table */}
-                  {suggestions.length > 0 && (
-                    <div>
-                      <h3 className="text-md font-semibold text-gray-700 mb-3 flex items-center gap-2">
-                        <Lightbulb className="w-4 h-4 text-yellow-600" />
-                        Career Suggestions ({suggestions.length})
-                      </h3>
-                      <p className="text-xs text-gray-500 mb-2">
-                        Click a row to view details
-                      </p>
-                      <div className="max-h-64 overflow-auto border rounded-lg">
-                        <CareerSuggestionsTable
-                          suggestions={suggestions}
-                          selectedId={null}
-                          onSelect={() => {
-                            // Navigate to career page
-                            window.location.href = "/dashboard/career";
-                          }}
-                          onDelete={() => {}}
-                        />
-                      </div>
-                    </div>
-                  )}
-
-                  {/* Feedback Table */}
-                  {safeFeedbacks.length > 0 && (
-                    <div>
-                      <h3 className="text-md font-semibold text-gray-700 mb-3 flex items-center gap-2">
-                        <ThumbsUp className="w-4 h-4 text-purple-600" />
-                        Recent Feedback ({safeFeedbacks.length})
-                      </h3>
-                      <p className="text-xs text-gray-500 mb-2">
-                        Click a row to expand details
-                      </p>
-                      <div className="max-h-64 overflow-auto border rounded-lg">
-                        <FeedbackTable feedbacks={safeFeedbacks.slice(0, 5)} />
-                      </div>
-                      {safeFeedbacks.length > 5 && (
-                        <Link
-                          to="/dashboard/feedback"
-                          className="text-xs text-blue-600 hover:underline mt-2 inline-block"
-                        >
-                          View all {safeFeedbacks.length} feedback entries →
-                        </Link>
-                      )}
-                    </div>
-                  )}
-                </div>
-              </CardContent>
-            </Card>
-          )}
-
           {/* Career Recommendations */}
-          <Card className="border-none shadow-md hover:shadow-lg transition-shadow duration-300">
-            <CardHeader className="border-b border-slate-100 bg-slate-50 rounded-t-lg">
-              <CardTitle className="flex items-center gap-2 text-lg font-semibold">
-                <Lightbulb className="h-5 w-5 text-amber-500" />
+          <Card className="border border-gray-200 shadow-sm hover:shadow-md transition-shadow duration-300 bg-white">
+            <CardHeader className="border-b border-gray-200 bg-gray-50 rounded-t-lg">
+              <CardTitle className="flex items-center gap-2 text-lg font-semibold text-gray-900">
+                <Lightbulb className="h-5 w-5 text-indigo-600" />
                 <span> Top Career Suggestions</span>
               </CardTitle>
             </CardHeader>
@@ -655,7 +655,7 @@ export default function UserDashboard() {
                 ) : (
                   <EmptyState
                     message="No career suggestions yet"
-                    icon={<Briefcase className="h-12 w-12 text-slate-300" />}
+                    icon={<Briefcase className="h-12 w-12 text-gray-300" />}
                     className="py-8"
                   />
                 )}
@@ -664,37 +664,37 @@ export default function UserDashboard() {
           </Card>
 
           {/* Quick Tips Card */}
-          <Card className="border-none shadow-md hover:shadow-lg transition-shadow duration-300 bg-gradient-to-br from-indigo-50 to-purple-50">
-            <CardHeader className="border-b border-indigo-100/30">
-              <CardTitle className="flex items-center gap-2 text-lg font-semibold text-indigo-700">
-                <AlertCircle className="h-5 w-5 text-indigo-500" />
+          <Card className="border border-gray-200 shadow-sm hover:shadow-md transition-shadow duration-300 bg-white">
+            <CardHeader className="border-b border-gray-200 bg-gray-50">
+              <CardTitle className="flex items-center gap-2 text-lg font-semibold text-gray-900">
+                <AlertCircle className="h-5 w-5 text-indigo-600" />
                 <span>Top Career Tips</span>
               </CardTitle>
             </CardHeader>
             <CardContent className="pt-4">
-              <ul className="space-y-2 text-sm">
+              <ul className="space-y-2 text-sm text-gray-700">
                 <li className="flex items-start gap-2">
-                  <div className="mt-1 text-indigo-500">•</div>
+                  <div className="mt-1 text-indigo-600">•</div>
                   <span>Update your resume every 3-6 months</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <div className="mt-1 text-indigo-500">•</div>
+                  <div className="mt-1 text-indigo-600">•</div>
                   <span>Add quantifiable achievements to showcase impact</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <div className="mt-1 text-indigo-500">•</div>
+                  <div className="mt-1 text-indigo-600">•</div>
                   <span>
                     Network with professionals in your target industry
                   </span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <div className="mt-1 text-indigo-500">•</div>
+                  <div className="mt-1 text-indigo-600">•</div>
                   <span>
                     Keep learning new skills relevant to your career goals
                   </span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <div className="mt-1 text-indigo-500">•</div>
+                  <div className="mt-1 text-indigo-600">•</div>
                   <span>
                     Use AI tools to optimize your resume and cover letters
                   </span>
@@ -704,10 +704,10 @@ export default function UserDashboard() {
           </Card>
 
           {/* Progress Summary Card */}
-          <Card className="border-none shadow-md hover:shadow-lg transition-shadow duration-300 bg-gradient-to-br from-green-50 to-emerald-50">
-            <CardHeader className="border-b border-green-100/30">
-              <CardTitle className="flex items-center gap-2 text-lg font-semibold text-green-700">
-                <TrendingUp className="h-5 w-5 text-green-500" />
+          <Card className="border border-gray-200 shadow-sm hover:shadow-md transition-shadow duration-300 bg-white">
+            <CardHeader className="border-b border-gray-200 bg-gray-50">
+              <CardTitle className="flex items-center gap-2 text-lg font-semibold text-gray-900">
+                <TrendingUp className="h-5 w-5 text-indigo-600" />
                 <span>Your Progress Summary</span>
               </CardTitle>
             </CardHeader>
@@ -739,7 +739,7 @@ export default function UserDashboard() {
                   </Badge>
                 </div>
                 {resumes.length > 0 && (
-                  <div className="pt-3 border-t border-green-200">
+                  <div className="pt-3 border-t border-gray-200">
                     <div className="flex items-center justify-between">
                       <span className="text-sm font-semibold text-gray-800">
                         Latest Resume Score
@@ -806,9 +806,9 @@ function StatsCard({
   color: string;
 }) {
   return (
-    <Card className="border-none shadow-md hover:shadow-lg transition-shadow duration-300">
+    <Card className="border border-gray-200 shadow-sm hover:shadow-md transition-shadow duration-300 bg-white">
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-        <CardTitle className="text-sm font-medium text-slate-500">
+        <CardTitle className="text-sm font-medium text-gray-600">
           {title}
         </CardTitle>
         <div className="h-5 w-5" style={{ color }}>
@@ -817,7 +817,7 @@ function StatsCard({
       </CardHeader>
       <CardContent>
         <div className="flex items-baseline">
-          <div className="text-2xl font-bold">{value}</div>
+          <div className="text-2xl font-bold text-gray-900">{value}</div>
 
           {trend && (
             <div
@@ -834,7 +834,7 @@ function StatsCard({
             </div>
           )}
         </div>
-        <p className="text-xs text-slate-500 mt-1">{description}</p>
+        <p className="text-xs text-gray-500 mt-1">{description}</p>
       </CardContent>
     </Card>
   );
@@ -896,7 +896,7 @@ function EmptyState({
 }) {
   return (
     <div
-      className={`flex flex-col items-center justify-center text-slate-400 h-full ${className}`}
+      className={`flex flex-col items-center justify-center text-gray-400 h-full ${className}`}
     >
       {icon}
       <p className="mt-2 text-sm">{message}</p>

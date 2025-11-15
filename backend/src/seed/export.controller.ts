@@ -13,9 +13,21 @@ export class ExportController {
     try {
       const datasetName = dataset || 'career-recommendations';
       const possiblePaths = [
-        path.join(process.cwd(), 'src/algorithms/datasets/ml-training', `${datasetName}.csv`),
-        path.join(__dirname, '../algorithms/datasets/ml-training', `${datasetName}.csv`),
-        path.join(__dirname, '../../algorithms/datasets/ml-training', `${datasetName}.csv`),
+        path.join(
+          process.cwd(),
+          'src/algorithms/datasets/ml-training',
+          `${datasetName}.csv`,
+        ),
+        path.join(
+          __dirname,
+          '../algorithms/datasets/ml-training',
+          `${datasetName}.csv`,
+        ),
+        path.join(
+          __dirname,
+          '../../algorithms/datasets/ml-training',
+          `${datasetName}.csv`,
+        ),
       ];
 
       let csvPath: string | null = null;
@@ -31,12 +43,17 @@ export class ExportController {
       }
 
       const csvContent = fs.readFileSync(csvPath, 'utf-8');
-      
+
       res.setHeader('Content-Type', 'text/csv');
-      res.setHeader('Content-Disposition', `attachment; filename="${datasetName}.csv"`);
+      res.setHeader(
+        'Content-Disposition',
+        `attachment; filename="${datasetName}.csv"`,
+      );
       res.send(csvContent);
     } catch (error) {
-      res.status(500).json({ error: 'Failed to export CSV', message: error.message });
+      res
+        .status(500)
+        .json({ error: 'Failed to export CSV', message: error.message });
     }
   }
 
@@ -45,22 +62,22 @@ export class ExportController {
     try {
       const datasets = [
         'career-recommendations',
-        'user-profiles',
         'resume-analysis-dataset',
         'job-recommendations-dataset',
         'chatbot-responses-dataset',
       ];
 
       res.json({
-        datasets: datasets.map(name => ({
+        datasets: datasets.map((name) => ({
           name,
           formats: ['json', 'csv'],
           downloadUrl: `/export/csv/${name}`,
         })),
       });
     } catch (error) {
-      res.status(500).json({ error: 'Failed to list datasets', message: error.message });
+      res
+        .status(500)
+        .json({ error: 'Failed to list datasets', message: error.message });
     }
   }
 }
-

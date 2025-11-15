@@ -255,5 +255,1999 @@
         "Gain AWS/GCP certification"
       ]
     }
+  },
+  {
+    "user_id": "user_006",
+    "input_features": {
+      "skills": ["C#", ".NET Core", "Azure", "SQL Server", "Entity Framework"],
+      "education": "Master in Software Engineering",
+      "experience_years": 6,
+      "current_role": "Software Engineer"
+    },
+    "recommended_careers": [
+      {
+        "career": "Cloud Solutions Architect",
+        "confidence_score": 0.89,
+        "match_reason": "Strong .NET and Azure cloud experience",
+        "required_skills": ["Azure", "Cloud Architecture", ".NET Core"],
+        "missing_skills": ["Azure DevOps", "Microservices"],
+        "skill_gap": 0.25
+      },
+      {
+        "career": "Senior .NET Developer",
+        "confidence_score": 0.86,
+        "match_reason": "Extensive .NET experience with cloud integration",
+        "required_skills": [".NET Core", "C#", "SQL Server"],
+        "missing_skills": ["Advanced Patterns", "Performance Tuning"],
+        "skill_gap": 0.2
+      },
+      {
+        "career": "Azure Developer",
+        "confidence_score": 0.83,
+        "match_reason": "Strong Azure platform knowledge with development skills",
+        "required_skills": ["Azure", ".NET Core", "C#"],
+        "missing_skills": ["Azure Functions", "Cosmos DB"],
+        "skill_gap": 0.22
+      }
+    ],
+    "skill_gap_analysis": {
+      "strengths": [
+        "Microsoft Stack",
+        "Cloud Services",
+        "Enterprise Development"
+      ],
+      "weaknesses": [
+        "Microservices Design",
+        "Container Orchestration",
+        "Cost Optimization"
+      ],
+      "recommendations": [
+        "Learn Azure architecture patterns and best practices",
+        "Master microservices with Azure Service Fabric",
+        "Gain Azure Solutions Architect certification"
+      ]
+    }
+  },
+  {
+    "user_id": "user_007",
+    "input_features": {
+      "skills": ["Ruby", "Rails", "PostgreSQL", "Heroku", "Git"],
+      "education": "Bachelor in Computer Science",
+      "experience_years": 4,
+      "current_role": "Backend Developer"
+    },
+    "recommended_careers": [
+      {
+        "career": "Full Stack Developer",
+        "confidence_score": 0.87,
+        "match_reason": "Solid backend with Ruby on Rails expertise",
+        "required_skills": ["Ruby", "Rails", "PostgreSQL", "JavaScript"],
+        "missing_skills": ["React", "TypeScript"],
+        "skill_gap": 0.3
+      },
+      {
+        "career": "Ruby Developer",
+        "confidence_score": 0.84,
+        "match_reason": "Strong Rails framework and backend experience",
+        "required_skills": ["Ruby", "Rails", "PostgreSQL"],
+        "missing_skills": ["Advanced Rails", "Testing"],
+        "skill_gap": 0.2
+      },
+      {
+        "career": "Web Developer",
+        "confidence_score": 0.8,
+        "match_reason": "Comprehensive web development skills",
+        "required_skills": ["Ruby", "Rails", "Git"],
+        "missing_skills": ["Frontend Frameworks", "DevOps"],
+        "skill_gap": 0.35
+      }
+    ],
+    "skill_gap_analysis": {
+      "strengths": ["Ruby on Rails", "Database Design", "MVC Architecture"],
+      "weaknesses": [
+        "Frontend Frameworks",
+        "Modern JavaScript",
+        "UI Development"
+      ],
+      "recommendations": [
+        "Learn React or Vue.js for frontend development",
+        "Master TypeScript for type-safe JavaScript",
+        "Build full-stack projects with modern frontend frameworks"
+      ]
+    }
+  },
+  {
+    "user_id": "user_008",
+    "input_features": {
+      "skills": [
+        "Tableau",
+        "Power BI",
+        "SQL",
+        "Excel",
+        "Data Visualization",
+        "Python"
+      ],
+      "education": "Bachelor in Business Analytics",
+      "experience_years": 3,
+      "current_role": "Business Analyst"
+    },
+    "recommended_careers": [
+      {
+        "career": "Data Analyst",
+        "confidence_score": 0.94,
+        "match_reason": "Strong analytics and visualization skills",
+        "required_skills": [
+          "SQL",
+          "Data Visualization",
+          "Python",
+          "Statistics"
+        ],
+        "missing_skills": ["Machine Learning", "Advanced Analytics"],
+        "skill_gap": 0.25
+      },
+      {
+        "career": "Business Intelligence Developer",
+        "confidence_score": 0.89,
+        "match_reason": "Excellent BI tools expertise with SQL knowledge",
+        "required_skills": ["Tableau", "Power BI", "SQL"],
+        "missing_skills": ["ETL", "Data Warehousing"],
+        "skill_gap": 0.28
+      },
+      {
+        "career": "Analytics Consultant",
+        "confidence_score": 0.85,
+        "match_reason": "Strong business analytics with visualization skills",
+        "required_skills": ["Tableau", "Power BI", "Excel"],
+        "missing_skills": ["Consulting Skills", "Domain Expertise"],
+        "skill_gap": 0.3
+      }
+    ],
+    "skill_gap_analysis": {
+      "strengths": [
+        "Data Visualization",
+        "Business Intelligence",
+        "SQL Queries"
+      ],
+      "weaknesses": [
+        "Predictive Analytics",
+        "Statistical Modeling",
+        "Programming"
+      ],
+      "recommendations": [
+        "Learn Python for data science (Pandas, NumPy)",
+        "Study statistical modeling and hypothesis testing",
+        "Gain experience with predictive analytics and forecasting"
+      ]
+    }
+  },
+  {
+    "user_id": "user_009",
+    "input_features": {
+      "skills": [
+        "Swift",
+        "iOS Development",
+        "UIKit",
+        "SwiftUI",
+        "Firebase",
+        "Git"
+      ],
+      "education": "Bachelor in Computer Science",
+      "experience_years": 2,
+      "current_role": "iOS Developer"
+    },
+    "recommended_careers": [
+      {
+        "career": "Senior iOS Developer",
+        "confidence_score": 0.92,
+        "match_reason": "Strong iOS development with modern frameworks",
+        "required_skills": ["Swift", "SwiftUI", "iOS SDK"],
+        "missing_skills": ["Core Data", "Combine Framework"],
+        "skill_gap": 0.18
+      },
+      {
+        "career": "Mobile Developer",
+        "confidence_score": 0.86,
+        "match_reason": "Solid mobile development foundation",
+        "required_skills": ["Swift", "iOS Development", "Git"],
+        "missing_skills": ["Cross-platform", "Android"],
+        "skill_gap": 0.35
+      },
+      {
+        "career": "iOS Architect",
+        "confidence_score": 0.82,
+        "match_reason": "Strong technical skills with growth potential",
+        "required_skills": [
+          "Swift",
+          "iOS Development",
+          "Architecture Patterns"
+        ],
+        "missing_skills": ["System Design", "Leadership"],
+        "skill_gap": 0.3
+      }
+    ],
+    "skill_gap_analysis": {
+      "strengths": ["iOS Development", "Modern Swift", "UI Implementation"],
+      "weaknesses": [
+        "Advanced iOS Architecture",
+        "Performance Optimization",
+        "Testing"
+      ],
+      "recommendations": [
+        "Master iOS architecture patterns (MVVM, Clean Architecture)",
+        "Learn Combine framework for reactive programming",
+        "Gain experience with Core Data and local storage"
+      ]
+    }
+  },
+  {
+    "user_id": "user_010",
+    "input_features": {
+      "skills": [
+        "Kotlin",
+        "Android",
+        "Jetpack Compose",
+        "Room",
+        "Retrofit",
+        "MVVM"
+      ],
+      "education": "Master in Mobile Computing",
+      "experience_years": 5,
+      "current_role": "Android Developer"
+    },
+    "recommended_careers": [
+      {
+        "career": "Android Architect",
+        "confidence_score": 0.91,
+        "match_reason": "Strong Android expertise with modern architecture",
+        "required_skills": [
+          "Android",
+          "Kotlin",
+          "Jetpack Compose",
+          "Architecture Patterns"
+        ],
+        "missing_skills": ["Kotlin Multiplatform", "CI/CD"],
+        "skill_gap": 0.2
+      },
+      {
+        "career": "Senior Android Developer",
+        "confidence_score": 0.88,
+        "match_reason": "Excellent modern Android development skills",
+        "required_skills": ["Kotlin", "Android", "Jetpack Compose"],
+        "missing_skills": ["Advanced Performance", "Security"],
+        "skill_gap": 0.18
+      },
+      {
+        "career": "Mobile Tech Lead",
+        "confidence_score": 0.84,
+        "match_reason": "Strong technical foundation with leadership potential",
+        "required_skills": ["Android", "Kotlin", "Architecture"],
+        "missing_skills": ["Team Leadership", "Mentoring"],
+        "skill_gap": 0.25
+      }
+    ],
+    "skill_gap_analysis": {
+      "strengths": [
+        "Modern Android Development",
+        "Architecture Patterns",
+        "Jetpack Libraries"
+      ],
+      "weaknesses": [
+        "Cross-platform Development",
+        "Team Leadership",
+        "Performance Tuning"
+      ],
+      "recommendations": [
+        "Learn Kotlin Multiplatform for cross-platform development",
+        "Master Android performance optimization techniques",
+        "Develop leadership and mentoring skills"
+      ]
+    }
+  },
+  {
+    "user_id": "user_011",
+    "input_features": {
+      "skills": [
+        "Go",
+        "Microservices",
+        "Docker",
+        "Kubernetes",
+        "gRPC",
+        "MongoDB"
+      ],
+      "education": "Bachelor in Computer Engineering",
+      "experience_years": 4,
+      "current_role": "Backend Developer"
+    },
+    "recommended_careers": [
+      {
+        "career": "Microservices Architect",
+        "confidence_score": 0.9,
+        "match_reason": "Strong microservices and containerization experience",
+        "required_skills": ["Go", "Microservices", "Kubernetes", "Docker"],
+        "missing_skills": ["Service Mesh", "Event-driven Architecture"],
+        "skill_gap": 0.22
+      },
+      {
+        "career": "Senior Backend Developer",
+        "confidence_score": 0.87,
+        "match_reason": "Excellent backend skills with modern stack",
+        "required_skills": ["Go", "Microservices", "gRPC"],
+        "missing_skills": ["System Design", "Scalability"],
+        "skill_gap": 0.2
+      },
+      {
+        "career": "DevOps Engineer",
+        "confidence_score": 0.83,
+        "match_reason": "Strong container orchestration and deployment skills",
+        "required_skills": ["Docker", "Kubernetes", "CI/CD"],
+        "missing_skills": ["Infrastructure as Code", "Monitoring"],
+        "skill_gap": 0.28
+      }
+    ],
+    "skill_gap_analysis": {
+      "strengths": [
+        "Microservices",
+        "Container Orchestration",
+        "Distributed Systems"
+      ],
+      "weaknesses": [
+        "Service Mesh Technologies",
+        "Event Sourcing",
+        "Observability"
+      ],
+      "recommendations": [
+        "Learn service mesh technologies (Istio, Linkerd)",
+        "Master event-driven architecture patterns",
+        "Implement comprehensive observability practices"
+      ]
+    }
+  },
+  {
+    "user_id": "user_012",
+    "input_features": {
+      "skills": [
+        "Photoshop",
+        "Illustrator",
+        "InDesign",
+        "Branding",
+        "Typography",
+        "Print Design"
+      ],
+      "education": "Bachelor in Graphic Design",
+      "experience_years": 6,
+      "current_role": "Graphic Designer"
+    },
+    "recommended_careers": [
+      {
+        "career": "Senior Graphic Designer",
+        "confidence_score": 0.88,
+        "match_reason": "Strong visual design and branding experience",
+        "required_skills": ["Graphic Design", "Branding", "Typography"],
+        "missing_skills": ["Motion Graphics", "UI Design"],
+        "skill_gap": 0.28
+      },
+      {
+        "career": "Art Director",
+        "confidence_score": 0.85,
+        "match_reason": "Extensive design experience with creative vision",
+        "required_skills": ["Graphic Design", "Branding", "Typography"],
+        "missing_skills": ["Team Leadership", "Creative Direction"],
+        "skill_gap": 0.3
+      },
+      {
+        "career": "Brand Designer",
+        "confidence_score": 0.82,
+        "match_reason": "Strong branding and visual identity skills",
+        "required_skills": ["Branding", "Graphic Design", "Typography"],
+        "missing_skills": ["Brand Strategy", "Digital Branding"],
+        "skill_gap": 0.32
+      }
+    ],
+    "skill_gap_analysis": {
+      "strengths": ["Visual Communication", "Branding", "Print Design"],
+      "weaknesses": ["Digital Design", "Animation", "Web Design"],
+      "recommendations": [
+        "Learn motion graphics with After Effects",
+        "Expand into UI/UX design principles",
+        "Master digital design tools and web design basics"
+      ]
+    }
+  },
+  {
+    "user_id": "user_013",
+    "input_features": {
+      "skills": ["Scala", "Spark", "Hadoop", "Kafka", "AWS", "SQL"],
+      "education": "Master in Data Engineering",
+      "experience_years": 7,
+      "current_role": "Data Engineer"
+    },
+    "recommended_careers": [
+      {
+        "career": "Big Data Architect",
+        "confidence_score": 0.93,
+        "match_reason": "Extensive big data and distributed systems expertise",
+        "required_skills": ["Scala", "Spark", "Distributed Systems", "AWS"],
+        "missing_skills": ["Streaming Architecture", "Data Governance"],
+        "skill_gap": 0.18
+      },
+      {
+        "career": "Senior Data Engineer",
+        "confidence_score": 0.9,
+        "match_reason": "Strong data pipeline and ETL expertise",
+        "required_skills": ["Scala", "Spark", "Hadoop", "Kafka"],
+        "missing_skills": ["Advanced Optimization", "Data Quality"],
+        "skill_gap": 0.15
+      },
+      {
+        "career": "Platform Engineer",
+        "confidence_score": 0.86,
+        "match_reason": "Excellent infrastructure and data platform skills",
+        "required_skills": ["AWS", "Spark", "Kafka"],
+        "missing_skills": ["Multi-cloud", "Platform Design"],
+        "skill_gap": 0.22
+      }
+    ],
+    "skill_gap_analysis": {
+      "strengths": [
+        "Big Data Processing",
+        "Distributed Systems",
+        "ETL Pipelines"
+      ],
+      "weaknesses": [
+        "Real-time Processing",
+        "Data Governance",
+        "Cloud Architecture"
+      ],
+      "recommendations": [
+        "Master real-time streaming architectures",
+        "Learn data governance and compliance frameworks",
+        "Gain experience with multi-cloud data platforms"
+      ]
+    }
+  },
+  {
+    "user_id": "user_014",
+    "input_features": {
+      "skills": [
+        "HTML",
+        "CSS",
+        "JavaScript",
+        "WordPress",
+        "SEO",
+        "Google Analytics"
+      ],
+      "education": "Associate in Web Design",
+      "experience_years": 2,
+      "current_role": "Web Designer"
+    },
+    "recommended_careers": [
+      {
+        "career": "Frontend Developer",
+        "confidence_score": 0.86,
+        "match_reason": "Strong web fundamentals with CMS experience",
+        "required_skills": ["HTML", "CSS", "JavaScript"],
+        "missing_skills": ["React", "Version Control"],
+        "skill_gap": 0.35
+      },
+      {
+        "career": "Digital Marketing Specialist",
+        "confidence_score": 0.81,
+        "match_reason": "Good SEO and analytics knowledge with web skills",
+        "required_skills": ["SEO", "Google Analytics", "WordPress"],
+        "missing_skills": ["Paid Advertising", "Content Strategy"],
+        "skill_gap": 0.38
+      },
+      {
+        "career": "WordPress Developer",
+        "confidence_score": 0.79,
+        "match_reason": "Strong WordPress and web fundamentals",
+        "required_skills": ["WordPress", "HTML", "CSS", "JavaScript"],
+        "missing_skills": ["PHP", "WordPress Development"],
+        "skill_gap": 0.4
+      }
+    ],
+    "skill_gap_analysis": {
+      "strengths": ["Web Design", "CMS", "Basic JavaScript"],
+      "weaknesses": ["Modern Frameworks", "Git", "Advanced JavaScript"],
+      "recommendations": [
+        "Learn React or Vue.js framework",
+        "Master Git version control and collaboration",
+        "Study advanced JavaScript and ES6+ features"
+      ]
+    }
+  },
+  {
+    "user_id": "user_015",
+    "input_features": {
+      "skills": [
+        "R",
+        "Statistics",
+        "SPSS",
+        "SAS",
+        "Data Mining",
+        "Regression Analysis"
+      ],
+      "education": "PhD in Statistics",
+      "experience_years": 8,
+      "current_role": "Statistician"
+    },
+    "recommended_careers": [
+      {
+        "career": "Senior Data Scientist",
+        "confidence_score": 0.92,
+        "match_reason": "Strong statistical foundation with research experience",
+        "required_skills": [
+          "Statistics",
+          "R",
+          "Data Mining",
+          "Machine Learning"
+        ],
+        "missing_skills": ["Python", "Production ML"],
+        "skill_gap": 0.2
+      },
+      {
+        "career": "Statistical Consultant",
+        "confidence_score": 0.88,
+        "match_reason": "Extensive statistical expertise with consulting potential",
+        "required_skills": ["Statistics", "R", "SPSS", "SAS"],
+        "missing_skills": ["Business Acumen", "Consulting Skills"],
+        "skill_gap": 0.22
+      },
+      {
+        "career": "Research Scientist",
+        "confidence_score": 0.85,
+        "match_reason": "Strong research background with statistical methods",
+        "required_skills": ["Statistics", "Research Methodology", "R"],
+        "missing_skills": ["Domain Expertise", "Publications"],
+        "skill_gap": 0.25
+      }
+    ],
+    "skill_gap_analysis": {
+      "strengths": [
+        "Statistical Modeling",
+        "Experimental Design",
+        "Research Methodology"
+      ],
+      "weaknesses": ["Programming", "Software Engineering", "Cloud Platforms"],
+      "recommendations": [
+        "Learn Python for data science and ML engineering",
+        "Gain experience with production ML systems",
+        "Study cloud platforms for scalable analytics"
+      ]
+    }
+  },
+  {
+    "user_id": "user_016",
+    "input_features": {
+      "skills": [
+        "Vue.js",
+        "Nuxt.js",
+        "JavaScript",
+        "Tailwind CSS",
+        "Firebase",
+        "Git"
+      ],
+      "education": "Bachelor in Web Development",
+      "experience_years": 3,
+      "current_role": "Frontend Developer"
+    },
+    "recommended_careers": [
+      {
+        "career": "Senior Frontend Developer",
+        "confidence_score": 0.91,
+        "match_reason": "Strong Vue.js expertise with modern tooling",
+        "required_skills": ["Vue.js", "JavaScript", "CSS Frameworks"],
+        "missing_skills": ["Testing", "Performance Optimization"],
+        "skill_gap": 0.2
+      },
+      {
+        "career": "Full Stack Developer",
+        "confidence_score": 0.86,
+        "match_reason": "Frontend expertise with backend knowledge via Firebase",
+        "required_skills": ["Vue.js", "JavaScript", "Firebase"],
+        "missing_skills": ["Node.js", "Database Design"],
+        "skill_gap": 0.28
+      },
+      {
+        "career": "Frontend Architect",
+        "confidence_score": 0.83,
+        "match_reason": "Strong technical foundation with architecture potential",
+        "required_skills": ["Vue.js", "JavaScript", "Architecture"],
+        "missing_skills": ["System Design", "Leadership"],
+        "skill_gap": 0.3
+      }
+    ],
+    "skill_gap_analysis": {
+      "strengths": ["Vue Ecosystem", "Modern JavaScript", "Responsive Design"],
+      "weaknesses": [
+        "Testing Strategies",
+        "Backend Integration",
+        "Architecture"
+      ],
+      "recommendations": [
+        "Master frontend testing (Jest, Cypress, Testing Library)",
+        "Learn backend technologies (Node.js, Express)",
+        "Study frontend architecture patterns and best practices"
+      ]
+    }
+  },
+  {
+    "user_id": "user_017",
+    "input_features": {
+      "skills": [
+        "Selenium",
+        "Cypress",
+        "Jest",
+        "JUnit",
+        "Test Automation",
+        "CI/CD"
+      ],
+      "education": "Bachelor in Computer Science",
+      "experience_years": 4,
+      "current_role": "QA Engineer"
+    },
+    "recommended_careers": [
+      {
+        "career": "Test Automation Engineer",
+        "confidence_score": 0.93,
+        "match_reason": "Strong automation and testing framework expertise",
+        "required_skills": ["Test Automation", "Selenium", "CI/CD"],
+        "missing_skills": ["Performance Testing", "Security Testing"],
+        "skill_gap": 0.2
+      },
+      {
+        "career": "Senior QA Engineer",
+        "confidence_score": 0.89,
+        "match_reason": "Comprehensive testing skills across frameworks",
+        "required_skills": ["Test Automation", "Selenium", "Cypress"],
+        "missing_skills": ["Test Strategy", "Mentoring"],
+        "skill_gap": 0.22
+      },
+      {
+        "career": "QA Lead",
+        "confidence_score": 0.85,
+        "match_reason": "Strong technical foundation with leadership potential",
+        "required_skills": ["Test Automation", "CI/CD"],
+        "missing_skills": ["Team Leadership", "Quality Strategy"],
+        "skill_gap": 0.28
+      }
+    ],
+    "skill_gap_analysis": {
+      "strengths": [
+        "Test Automation",
+        "Framework Development",
+        "Quality Assurance"
+      ],
+      "weaknesses": ["Performance Testing", "Security Testing", "Leadership"],
+      "recommendations": [
+        "Learn performance testing tools (JMeter, LoadRunner)",
+        "Study security testing methodologies and tools",
+        "Develop leadership and test strategy skills"
+      ]
+    }
+  },
+  {
+    "user_id": "user_018",
+    "input_features": {
+      "skills": [
+        "Content Writing",
+        "Copywriting",
+        "SEO",
+        "WordPress",
+        "Social Media",
+        "Google Ads"
+      ],
+      "education": "Bachelor in Marketing",
+      "experience_years": 5,
+      "current_role": "Content Writer"
+    },
+    "recommended_careers": [
+      {
+        "career": "Content Marketing Manager",
+        "confidence_score": 0.89,
+        "match_reason": "Strong content creation with digital marketing skills",
+        "required_skills": ["Content Strategy", "SEO", "Copywriting"],
+        "missing_skills": ["Marketing Analytics", "Email Marketing"],
+        "skill_gap": 0.25
+      },
+      {
+        "career": "SEO Specialist",
+        "confidence_score": 0.85,
+        "match_reason": "Excellent SEO knowledge with content expertise",
+        "required_skills": ["SEO", "Content Writing", "Google Ads"],
+        "missing_skills": ["Technical SEO", "Link Building"],
+        "skill_gap": 0.28
+      },
+      {
+        "career": "Digital Marketing Manager",
+        "confidence_score": 0.82,
+        "match_reason": "Comprehensive digital marketing skills",
+        "required_skills": ["SEO", "Social Media", "Google Ads"],
+        "missing_skills": ["Analytics", "Strategy"],
+        "skill_gap": 0.3
+      }
+    ],
+    "skill_gap_analysis": {
+      "strengths": ["Content Creation", "SEO Optimization", "Social Media"],
+      "weaknesses": ["Data Analysis", "Technical SEO", "Marketing Automation"],
+      "recommendations": [
+        "Learn marketing analytics tools (Google Analytics, SEMrush)",
+        "Master email marketing platforms and automation",
+        "Study technical SEO and website optimization"
+      ]
+    }
+  },
+  {
+    "user_id": "user_019",
+    "input_features": {
+      "skills": [
+        "Rust",
+        "Systems Programming",
+        "C++",
+        "Linux",
+        "Embedded Systems",
+        "Git"
+      ],
+      "education": "Master in Computer Engineering",
+      "experience_years": 6,
+      "current_role": "Systems Engineer"
+    },
+    "recommended_careers": [
+      {
+        "career": "Senior Systems Engineer",
+        "confidence_score": 0.91,
+        "match_reason": "Strong low-level programming and systems expertise",
+        "required_skills": ["Rust", "C++", "Systems Programming", "Linux"],
+        "missing_skills": ["Distributed Systems", "Performance Optimization"],
+        "skill_gap": 0.2
+      },
+      {
+        "career": "Embedded Systems Engineer",
+        "confidence_score": 0.87,
+        "match_reason": "Excellent embedded and low-level programming skills",
+        "required_skills": ["Embedded Systems", "C++", "Linux"],
+        "missing_skills": ["RTOS", "Hardware Integration"],
+        "skill_gap": 0.25
+      },
+      {
+        "career": "Software Architect",
+        "confidence_score": 0.84,
+        "match_reason": "Strong technical foundation with architecture potential",
+        "required_skills": ["Systems Programming", "C++", "Rust"],
+        "missing_skills": ["System Design", "Cloud Architecture"],
+        "skill_gap": 0.28
+      }
+    ],
+    "skill_gap_analysis": {
+      "strengths": ["Low-level Programming", "Systems Design", "Performance"],
+      "weaknesses": [
+        "Distributed Systems",
+        "Cloud Native",
+        "Modern Architectures"
+      ],
+      "recommendations": [
+        "Learn distributed systems design patterns",
+        "Study cloud-native technologies and Kubernetes",
+        "Master performance profiling and optimization techniques"
+      ]
+    }
+  },
+  {
+    "user_id": "user_020",
+    "input_features": {
+      "skills": [
+        "Angular",
+        "TypeScript",
+        "RxJS",
+        "NgRx",
+        "Jest",
+        "Material Design"
+      ],
+      "education": "Bachelor in Computer Science",
+      "experience_years": 3,
+      "current_role": "Frontend Developer"
+    },
+    "recommended_careers": [
+      {
+        "career": "Senior Angular Developer",
+        "confidence_score": 0.92,
+        "match_reason": "Strong Angular and TypeScript expertise",
+        "required_skills": [
+          "Angular",
+          "TypeScript",
+          "RxJS",
+          "State Management"
+        ],
+        "missing_skills": ["Micro Frontends", "Performance"],
+        "skill_gap": 0.18
+      },
+      {
+        "career": "Frontend Architect",
+        "confidence_score": 0.88,
+        "match_reason": "Strong technical skills with architecture knowledge",
+        "required_skills": ["Angular", "TypeScript", "Architecture Patterns"],
+        "missing_skills": ["System Design", "Leadership"],
+        "skill_gap": 0.25
+      },
+      {
+        "career": "Full Stack Developer",
+        "confidence_score": 0.84,
+        "match_reason": "Solid frontend with potential for backend expansion",
+        "required_skills": ["Angular", "TypeScript", "JavaScript"],
+        "missing_skills": ["Backend", "Databases"],
+        "skill_gap": 0.3
+      }
+    ],
+    "skill_gap_analysis": {
+      "strengths": ["Angular Framework", "TypeScript", "State Management"],
+      "weaknesses": ["Micro Frontend Architecture", "Backend Skills", "DevOps"],
+      "recommendations": [
+        "Learn micro frontend architectures and module federation",
+        "Expand backend skills with Node.js and NestJS",
+        "Study DevOps practices for frontend deployment"
+      ]
+    }
+  },
+  {
+    "user_id": "user_021",
+    "input_features": {
+      "skills": [
+        "SQL Server",
+        "Oracle",
+        "Database Design",
+        "ETL",
+        "Data Modeling",
+        "Power BI"
+      ],
+      "education": "Bachelor in Information Systems",
+      "experience_years": 8,
+      "current_role": "Database Administrator"
+    },
+    "recommended_careers": [
+      {
+        "career": "Database Architect",
+        "confidence_score": 0.9,
+        "match_reason": "Extensive database management and design experience",
+        "required_skills": ["Database Design", "SQL", "Data Modeling"],
+        "missing_skills": ["NoSQL", "Cloud Databases"],
+        "skill_gap": 0.22
+      },
+      {
+        "career": "Senior DBA",
+        "confidence_score": 0.88,
+        "match_reason": "Strong database administration across platforms",
+        "required_skills": ["SQL Server", "Oracle", "Database Design"],
+        "missing_skills": ["Automation", "Cloud Migration"],
+        "skill_gap": 0.2
+      },
+      {
+        "career": "Data Architect",
+        "confidence_score": 0.85,
+        "match_reason": "Comprehensive data management and modeling skills",
+        "required_skills": ["Data Modeling", "Database Design", "ETL"],
+        "missing_skills": ["Big Data", "Data Governance"],
+        "skill_gap": 0.25
+      }
+    ],
+    "skill_gap_analysis": {
+      "strengths": [
+        "Database Administration",
+        "Performance Tuning",
+        "Data Modeling"
+      ],
+      "weaknesses": [
+        "NoSQL Technologies",
+        "Cloud Migration",
+        "Modern Data Stack"
+      ],
+      "recommendations": [
+        "Learn NoSQL databases (MongoDB, Cassandra, Redis)",
+        "Master cloud database services (AWS RDS, Azure SQL)",
+        "Study modern data architecture patterns"
+      ]
+    }
+  },
+  {
+    "user_id": "user_022",
+    "input_features": {
+      "skills": [
+        "Unreal Engine",
+        "C++",
+        "3D Modeling",
+        "Blender",
+        "Game Design",
+        "Physics"
+      ],
+      "education": "Bachelor in Game Development",
+      "experience_years": 4,
+      "current_role": "Game Developer"
+    },
+    "recommended_careers": [
+      {
+        "career": "Senior Game Developer",
+        "confidence_score": 0.91,
+        "match_reason": "Strong game development with Unreal Engine expertise",
+        "required_skills": ["Unreal Engine", "C++", "Game Design"],
+        "missing_skills": ["Multiplayer Systems", "VR Development"],
+        "skill_gap": 0.2
+      },
+      {
+        "career": "Technical Game Designer",
+        "confidence_score": 0.87,
+        "match_reason": "Excellent game design with technical implementation skills",
+        "required_skills": ["Game Design", "Unreal Engine", "Physics"],
+        "missing_skills": ["Game Balancing", "Analytics"],
+        "skill_gap": 0.25
+      },
+      {
+        "career": "Game Engine Programmer",
+        "confidence_score": 0.84,
+        "match_reason": "Strong C++ and engine-level programming",
+        "required_skills": ["C++", "Unreal Engine", "Physics"],
+        "missing_skills": ["Engine Architecture", "Rendering"],
+        "skill_gap": 0.28
+      }
+    ],
+    "skill_gap_analysis": {
+      "strengths": ["Game Development", "3D Graphics", "Physics Simulation"],
+      "weaknesses": ["Multiplayer Architecture", "VR/AR", "Optimization"],
+      "recommendations": [
+        "Learn multiplayer game architecture and networking",
+        "Explore VR/AR development with Unreal Engine",
+        "Master game optimization and performance profiling"
+      ]
+    }
+  },
+  {
+    "user_id": "user_023",
+    "input_features": {
+      "skills": [
+        "Project Management",
+        "Agile",
+        "Scrum",
+        "Jira",
+        "Stakeholder Management",
+        "Risk Management"
+      ],
+      "education": "Master in Project Management",
+      "experience_years": 9,
+      "current_role": "Project Manager"
+    },
+    "recommended_careers": [
+      {
+        "career": "Senior Project Manager",
+        "confidence_score": 0.89,
+        "match_reason": "Extensive project management with Agile expertise",
+        "required_skills": [
+          "Agile Methodologies",
+          "Stakeholder Management",
+          "Project Planning"
+        ],
+        "missing_skills": ["Product Management", "Portfolio Management"],
+        "skill_gap": 0.23
+      },
+      {
+        "career": "Program Manager",
+        "confidence_score": 0.86,
+        "match_reason": "Strong project management with multi-project potential",
+        "required_skills": [
+          "Project Management",
+          "Stakeholder Management",
+          "Risk Management"
+        ],
+        "missing_skills": ["Portfolio Strategy", "Executive Communication"],
+        "skill_gap": 0.28
+      },
+      {
+        "career": "Agile Coach",
+        "confidence_score": 0.83,
+        "match_reason": "Deep Agile/Scrum knowledge with coaching potential",
+        "required_skills": ["Agile", "Scrum", "Team Leadership"],
+        "missing_skills": ["Organizational Change", "Training"],
+        "skill_gap": 0.3
+      }
+    ],
+    "skill_gap_analysis": {
+      "strengths": ["Agile/Scrum", "Team Leadership", "Risk Management"],
+      "weaknesses": [
+        "Product Strategy",
+        "Technical Knowledge",
+        "Portfolio Management"
+      ],
+      "recommendations": [
+        "Transition into product management with market analysis",
+        "Learn portfolio management for multi-project oversight",
+        "Gain technical certifications to improve team collaboration"
+      ]
+    }
+  },
+  {
+    "user_id": "user_024",
+    "input_features": {
+      "skills": [
+        "Penetration Testing",
+        "Ethical Hacking",
+        "Network Security",
+        "Wireshark",
+        "Metasploit",
+        "Python"
+      ],
+      "education": "Bachelor in Cybersecurity",
+      "experience_years": 3,
+      "current_role": "Security Analyst"
+    },
+    "recommended_careers": [
+      {
+        "career": "Penetration Tester",
+        "confidence_score": 0.93,
+        "match_reason": "Strong security assessment and testing skills",
+        "required_skills": [
+          "Penetration Testing",
+          "Network Security",
+          "Python"
+        ],
+        "missing_skills": ["Cloud Security", "Threat Intelligence"],
+        "skill_gap": 0.18
+      },
+      {
+        "career": "Security Engineer",
+        "confidence_score": 0.89,
+        "match_reason": "Comprehensive security skills with engineering potential",
+        "required_skills": [
+          "Network Security",
+          "Python",
+          "Penetration Testing"
+        ],
+        "missing_skills": ["Security Architecture", "Automation"],
+        "skill_gap": 0.22
+      },
+      {
+        "career": "Ethical Hacker",
+        "confidence_score": 0.86,
+        "match_reason": "Strong offensive security and hacking skills",
+        "required_skills": [
+          "Ethical Hacking",
+          "Penetration Testing",
+          "Metasploit"
+        ],
+        "missing_skills": ["Bug Bounty", "Advanced Exploits"],
+        "skill_gap": 0.25
+      }
+    ],
+    "skill_gap_analysis": {
+      "strengths": [
+        "Security Testing",
+        "Vulnerability Assessment",
+        "Network Analysis"
+      ],
+      "weaknesses": ["Cloud Security", "Application Security", "Automation"],
+      "recommendations": [
+        "Learn cloud security for AWS, Azure, and GCP",
+        "Master application security testing (OWASP)",
+        "Develop automation scripts for security testing"
+      ]
+    }
+  },
+  {
+    "user_id": "user_025",
+    "input_features": {
+      "skills": [
+        "Blockchain",
+        "Solidity",
+        "Web3.js",
+        "Ethereum",
+        "Smart Contracts",
+        "JavaScript"
+      ],
+      "education": "Master in Computer Science",
+      "experience_years": 4,
+      "current_role": "Blockchain Developer"
+    },
+    "recommended_careers": [
+      {
+        "career": "Senior Blockchain Developer",
+        "confidence_score": 0.92,
+        "match_reason": "Strong blockchain and smart contract expertise",
+        "required_skills": ["Blockchain", "Solidity", "Smart Contracts"],
+        "missing_skills": ["DeFi", "Layer 2 Solutions"],
+        "skill_gap": 0.2
+      },
+      {
+        "career": "Web3 Developer",
+        "confidence_score": 0.88,
+        "match_reason": "Excellent Web3 and decentralized app development",
+        "required_skills": ["Web3.js", "Solidity", "JavaScript"],
+        "missing_skills": ["Frontend Frameworks", "UX"],
+        "skill_gap": 0.25
+      },
+      {
+        "career": "Blockchain Architect",
+        "confidence_score": 0.85,
+        "match_reason": "Strong technical foundation with architecture potential",
+        "required_skills": ["Blockchain", "Smart Contracts", "Architecture"],
+        "missing_skills": ["System Design", "Scalability"],
+        "skill_gap": 0.28
+      }
+    ],
+    "skill_gap_analysis": {
+      "strengths": [
+        "Smart Contract Development",
+        "Blockchain Protocols",
+        "Cryptography"
+      ],
+      "weaknesses": [
+        "DeFi Protocols",
+        "Scalability Solutions",
+        "Security Auditing"
+      ],
+      "recommendations": [
+        "Learn DeFi protocols and decentralized exchanges",
+        "Master Layer 2 scaling solutions (Polygon, Optimism)",
+        "Study smart contract security and auditing practices"
+      ]
+    }
+  },
+  {
+    "user_id": "user_026",
+    "input_features": {
+      "skills": [
+        "SAP",
+        "ERP Implementation",
+        "Business Process",
+        "ABAP",
+        "Consulting",
+        "Project Management"
+      ],
+      "education": "Bachelor in Business Administration",
+      "experience_years": 7,
+      "current_role": "SAP Consultant"
+    },
+    "recommended_careers": [
+      {
+        "career": "Senior SAP Consultant",
+        "confidence_score": 0.88,
+        "match_reason": "Extensive SAP and ERP implementation experience",
+        "required_skills": ["SAP", "ERP Systems", "Business Process"],
+        "missing_skills": ["SAP S/4HANA", "Cloud Integration"],
+        "skill_gap": 0.25
+      },
+      {
+        "career": "ERP Architect",
+        "confidence_score": 0.85,
+        "match_reason": "Strong ERP knowledge with architecture potential",
+        "required_skills": ["SAP", "ERP Implementation", "Business Process"],
+        "missing_skills": ["System Architecture", "Integration"],
+        "skill_gap": 0.28
+      },
+      {
+        "career": "IT Consultant",
+        "confidence_score": 0.82,
+        "match_reason": "Comprehensive consulting and technical skills",
+        "required_skills": [
+          "Consulting",
+          "Project Management",
+          "Business Process"
+        ],
+        "missing_skills": ["Technology Breadth", "Strategy"],
+        "skill_gap": 0.3
+      }
+    ],
+    "skill_gap_analysis": {
+      "strengths": [
+        "ERP Implementation",
+        "Business Process",
+        "Client Management"
+      ],
+      "weaknesses": ["Cloud ERP", "Technical Skills", "Digital Transformation"],
+      "recommendations": [
+        "Learn SAP S/4HANA and cloud ERP solutions",
+        "Master cloud integration and migration strategies",
+        "Study digital transformation and change management"
+      ]
+    }
+  },
+  {
+    "user_id": "user_027",
+    "input_features": {
+      "skills": [
+        "Flutter",
+        "Dart",
+        "Firebase",
+        "REST API",
+        "Git",
+        "Mobile UI Design"
+      ],
+      "education": "Bachelor in Computer Science",
+      "experience_years": 2,
+      "current_role": "Mobile Developer"
+    },
+    "recommended_careers": [
+      {
+        "career": "Senior Flutter Developer",
+        "confidence_score": 0.91,
+        "match_reason": "Strong cross-platform mobile development skills",
+        "required_skills": ["Flutter", "Dart", "Mobile Development"],
+        "missing_skills": ["State Management", "Native Integration"],
+        "skill_gap": 0.2
+      },
+      {
+        "career": "Mobile Architect",
+        "confidence_score": 0.87,
+        "match_reason": "Solid mobile foundation with architecture potential",
+        "required_skills": ["Flutter", "Mobile Development", "Architecture"],
+        "missing_skills": ["System Design", "Performance"],
+        "skill_gap": 0.28
+      },
+      {
+        "career": "Cross-platform Developer",
+        "confidence_score": 0.84,
+        "match_reason": "Excellent Flutter expertise for cross-platform apps",
+        "required_skills": ["Flutter", "Dart", "REST API"],
+        "missing_skills": ["React Native", "Native Code"],
+        "skill_gap": 0.3
+      }
+    ],
+    "skill_gap_analysis": {
+      "strengths": [
+        "Cross-platform Development",
+        "UI Implementation",
+        "Firebase Integration"
+      ],
+      "weaknesses": ["Advanced State Management", "Native Code", "Performance"],
+      "recommendations": [
+        "Master advanced state management (Bloc, Riverpod)",
+        "Learn native code integration for iOS and Android",
+        "Study mobile performance optimization techniques"
+      ]
+    }
+  },
+  {
+    "user_id": "user_028",
+    "input_features": {
+      "skills": [
+        "Salesforce",
+        "CRM",
+        "Apex",
+        "Lightning",
+        "Integration",
+        "Business Analysis"
+      ],
+      "education": "Bachelor in Information Technology",
+      "experience_years": 5,
+      "current_role": "Salesforce Developer"
+    },
+    "recommended_careers": [
+      {
+        "career": "Salesforce Architect",
+        "confidence_score": 0.9,
+        "match_reason": "Strong Salesforce development and integration skills",
+        "required_skills": ["Salesforce", "Apex", "Lightning", "CRM"],
+        "missing_skills": ["Complex Integrations", "Architecture Design"],
+        "skill_gap": 0.22
+      },
+      {
+        "career": "Senior Salesforce Developer",
+        "confidence_score": 0.88,
+        "match_reason": "Comprehensive Salesforce development expertise",
+        "required_skills": ["Salesforce", "Apex", "Lightning"],
+        "missing_skills": ["Advanced Features", "Performance"],
+        "skill_gap": 0.18
+      },
+      {
+        "career": "CRM Consultant",
+        "confidence_score": 0.84,
+        "match_reason": "Strong CRM and business analysis skills",
+        "required_skills": ["CRM", "Salesforce", "Business Analysis"],
+        "missing_skills": ["Strategy", "Change Management"],
+        "skill_gap": 0.25
+      }
+    ],
+    "skill_gap_analysis": {
+      "strengths": [
+        "Salesforce Development",
+        "CRM Configuration",
+        "Business Process"
+      ],
+      "weaknesses": [
+        "Enterprise Architecture",
+        "Multiple System Integration",
+        "Solution Design"
+      ],
+      "recommendations": [
+        "Learn complex integration patterns and middleware",
+        "Master Salesforce architecture and scalability",
+        "Gain Salesforce Architect certifications"
+      ]
+    }
+  },
+  {
+    "user_id": "user_029",
+    "input_features": {
+      "skills": [
+        "Video Editing",
+        "Adobe Premiere",
+        "After Effects",
+        "Color Grading",
+        "Motion Graphics",
+        "Storytelling"
+      ],
+      "education": "Bachelor in Film Production",
+      "experience_years": 6,
+      "current_role": "Video Editor"
+    },
+    "recommended_careers": [
+      {
+        "career": "Senior Video Editor",
+        "confidence_score": 0.89,
+        "match_reason": "Strong video production and post-production skills",
+        "required_skills": [
+          "Video Editing",
+          "Motion Graphics",
+          "Color Grading"
+        ],
+        "missing_skills": ["VFX", "3D Animation"],
+        "skill_gap": 0.25
+      },
+      {
+        "career": "Motion Graphics Designer",
+        "confidence_score": 0.86,
+        "match_reason": "Excellent motion graphics and After Effects skills",
+        "required_skills": [
+          "Motion Graphics",
+          "After Effects",
+          "Video Editing"
+        ],
+        "missing_skills": ["3D", "Advanced Animation"],
+        "skill_gap": 0.28
+      },
+      {
+        "career": "Creative Director",
+        "confidence_score": 0.82,
+        "match_reason": "Strong creative vision with production experience",
+        "required_skills": ["Storytelling", "Video Editing", "Creative Vision"],
+        "missing_skills": ["Team Leadership", "Strategy"],
+        "skill_gap": 0.32
+      }
+    ],
+    "skill_gap_analysis": {
+      "strengths": ["Video Production", "Post-production", "Storytelling"],
+      "weaknesses": ["Visual Effects", "3D Skills", "Creative Leadership"],
+      "recommendations": [
+        "Learn VFX techniques with After Effects and Nuke",
+        "Expand into 3D animation with Cinema 4D or Blender",
+        "Develop creative direction and team leadership skills"
+      ]
+    }
+  },
+  {
+    "user_id": "user_030",
+    "input_features": {
+      "skills": [
+        "Terraform",
+        "AWS",
+        "Infrastructure as Code",
+        "CloudFormation",
+        "Ansible",
+        "Python"
+      ],
+      "education": "Bachelor in Computer Engineering",
+      "experience_years": 4,
+      "current_role": "Cloud Engineer"
+    },
+    "recommended_careers": [
+      {
+        "career": "DevOps Architect",
+        "confidence_score": 0.92,
+        "match_reason": "Strong IaC and cloud infrastructure expertise",
+        "required_skills": ["Terraform", "AWS", "Infrastructure as Code"],
+        "missing_skills": ["Multi-cloud", "GitOps"],
+        "skill_gap": 0.18
+      },
+      {
+        "career": "Site Reliability Engineer",
+        "confidence_score": 0.89,
+        "match_reason": "Excellent infrastructure automation and cloud skills",
+        "required_skills": ["Infrastructure as Code", "AWS", "Python"],
+        "missing_skills": ["Observability", "Incident Management"],
+        "skill_gap": 0.22
+      },
+      {
+        "career": "Cloud Architect",
+        "confidence_score": 0.86,
+        "match_reason": "Strong cloud infrastructure with architecture potential",
+        "required_skills": ["AWS", "Infrastructure as Code", "Architecture"],
+        "missing_skills": ["Multi-cloud", "Security"],
+        "skill_gap": 0.25
+      }
+    ],
+    "skill_gap_analysis": {
+      "strengths": [
+        "Infrastructure as Code",
+        "Cloud Architecture",
+        "Automation"
+      ],
+      "weaknesses": ["Multi-cloud Strategy", "Cost Optimization", "Security"],
+      "recommendations": [
+        "Learn multi-cloud strategies for AWS, Azure, and GCP",
+        "Master GitOps practices with ArgoCD and Flux",
+        "Study FinOps for cloud cost optimization"
+      ]
+    }
+  },
+  {
+    "user_id": "user_031",
+    "input_features": {
+      "skills": [
+        "Product Management",
+        "User Stories",
+        "Roadmapping",
+        "Analytics",
+        "Agile",
+        "Wireframing"
+      ],
+      "education": "Master in Business Administration",
+      "experience_years": 6,
+      "current_role": "Product Manager"
+    },
+    "recommended_careers": [
+      {
+        "career": "Senior Product Manager",
+        "confidence_score": 0.91,
+        "match_reason": "Strong product management with data-driven approach",
+        "required_skills": ["Product Strategy", "User Research", "Analytics"],
+        "missing_skills": ["Technical Skills", "Growth Hacking"],
+        "skill_gap": 0.2
+      },
+      {
+        "career": "Product Lead",
+        "confidence_score": 0.88,
+        "match_reason": "Excellent product skills with leadership potential",
+        "required_skills": ["Product Management", "Roadmapping", "Agile"],
+        "missing_skills": ["Team Leadership", "Strategy"],
+        "skill_gap": 0.23
+      },
+      {
+        "career": "Chief Product Officer",
+        "confidence_score": 0.84,
+        "match_reason": "Strong product foundation with executive potential",
+        "required_skills": ["Product Strategy", "Analytics", "Leadership"],
+        "missing_skills": ["Executive Leadership", "Vision"],
+        "skill_gap": 0.28
+      }
+    ],
+    "skill_gap_analysis": {
+      "strengths": [
+        "Product Strategy",
+        "Stakeholder Management",
+        "Data Analysis"
+      ],
+      "weaknesses": [
+        "Technical Knowledge",
+        "Growth Strategies",
+        "Executive Leadership"
+      ],
+      "recommendations": [
+        "Learn SQL and data analysis for product insights",
+        "Master growth hacking and experimentation frameworks",
+        "Develop executive leadership and strategic thinking"
+      ]
+    }
+  },
+  {
+    "user_id": "user_032",
+    "input_features": {
+      "skills": [
+        "Network Engineering",
+        "Cisco",
+        "Routing",
+        "Switching",
+        "CCNP",
+        "Firewall"
+      ],
+      "education": "Bachelor in Network Engineering",
+      "experience_years": 7,
+      "current_role": "Network Engineer"
+    },
+    "recommended_careers": [
+      {
+        "career": "Senior Network Engineer",
+        "confidence_score": 0.89,
+        "match_reason": "Extensive networking and infrastructure expertise",
+        "required_skills": ["Networking", "Cisco", "Security"],
+        "missing_skills": ["SD-WAN", "Cloud Networking"],
+        "skill_gap": 0.23
+      },
+      {
+        "career": "Network Architect",
+        "confidence_score": 0.86,
+        "match_reason": "Strong network design with architecture potential",
+        "required_skills": ["Network Engineering", "Routing", "Switching"],
+        "missing_skills": ["Architecture Design", "Automation"],
+        "skill_gap": 0.26
+      },
+      {
+        "career": "Infrastructure Engineer",
+        "confidence_score": 0.83,
+        "match_reason": "Comprehensive infrastructure and security skills",
+        "required_skills": ["Networking", "Security", "Firewall"],
+        "missing_skills": ["Cloud", "Automation"],
+        "skill_gap": 0.3
+      }
+    ],
+    "skill_gap_analysis": {
+      "strengths": ["Network Design", "Cisco Technologies", "Security"],
+      "weaknesses": [
+        "Software Defined Networking",
+        "Cloud Infrastructure",
+        "Automation"
+      ],
+      "recommendations": [
+        "Learn SD-WAN and software-defined networking",
+        "Master cloud networking in AWS and Azure",
+        "Study network automation with Python and Ansible"
+      ]
+    }
+  },
+  {
+    "user_id": "user_033",
+    "input_features": {
+      "skills": [
+        "Unity",
+        "C#",
+        "2D/3D Game Development",
+        "Physics",
+        "UI",
+        "Animation"
+      ],
+      "education": "Bachelor in Game Design",
+      "experience_years": 3,
+      "current_role": "Game Developer"
+    },
+    "recommended_careers": [
+      {
+        "career": "Senior Unity Developer",
+        "confidence_score": 0.92,
+        "match_reason": "Strong Unity game development expertise",
+        "required_skills": ["Unity", "C#", "Game Design"],
+        "missing_skills": ["Shader Programming", "Optimization"],
+        "skill_gap": 0.18
+      },
+      {
+        "career": "Game Designer",
+        "confidence_score": 0.88,
+        "match_reason": "Excellent game design with technical implementation",
+        "required_skills": ["Game Development", "Game Design", "Unity"],
+        "missing_skills": ["Game Balancing", "Analytics"],
+        "skill_gap": 0.22
+      },
+      {
+        "career": "Technical Artist",
+        "confidence_score": 0.85,
+        "match_reason": "Strong technical and artistic skills combination",
+        "required_skills": ["Unity", "Animation", "Shaders"],
+        "missing_skills": ["Advanced Shaders", "Tools"],
+        "skill_gap": 0.25
+      }
+    ],
+    "skill_gap_analysis": {
+      "strengths": ["Unity Development", "Game Mechanics", "C# Programming"],
+      "weaknesses": [
+        "Advanced Graphics",
+        "Performance Optimization",
+        "Multiplayer"
+      ],
+      "recommendations": [
+        "Learn shader programming and graphics optimization",
+        "Master multiplayer networking in Unity",
+        "Study advanced optimization techniques for mobile games"
+      ]
+    }
+  },
+  {
+    "user_id": "user_034",
+    "input_features": {
+      "skills": [
+        "Technical Writing",
+        "Documentation",
+        "Markdown",
+        "Git",
+        "API Documentation",
+        "UX Writing"
+      ],
+      "education": "Bachelor in English",
+      "experience_years": 4,
+      "current_role": "Technical Writer"
+    },
+    "recommended_careers": [
+      {
+        "career": "Senior Technical Writer",
+        "confidence_score": 0.9,
+        "match_reason": "Strong technical communication and documentation skills",
+        "required_skills": [
+          "Technical Writing",
+          "Documentation",
+          "Information Architecture"
+        ],
+        "missing_skills": ["Developer Tools", "Programming"],
+        "skill_gap": 0.25
+      },
+      {
+        "career": "Documentation Manager",
+        "confidence_score": 0.86,
+        "match_reason": "Excellent documentation with management potential",
+        "required_skills": [
+          "Technical Writing",
+          "Documentation",
+          "Project Management"
+        ],
+        "missing_skills": ["Team Leadership", "Strategy"],
+        "skill_gap": 0.28
+      },
+      {
+        "career": "Developer Advocate",
+        "confidence_score": 0.82,
+        "match_reason": "Strong technical writing with developer community potential",
+        "required_skills": ["Technical Writing", "API Documentation"],
+        "missing_skills": ["Programming", "Public Speaking"],
+        "skill_gap": 0.35
+      }
+    ],
+    "skill_gap_analysis": {
+      "strengths": [
+        "Technical Communication",
+        "Documentation Tools",
+        "Information Design"
+      ],
+      "weaknesses": [
+        "Programming Knowledge",
+        "Developer Tools",
+        "Public Speaking"
+      ],
+      "recommendations": [
+        "Learn programming basics (Python, JavaScript)",
+        "Master developer tools and API documentation platforms",
+        "Develop public speaking for conference presentations"
+      ]
+    }
+  },
+  {
+    "user_id": "user_035",
+    "input_features": {
+      "skills": [
+        "Linux",
+        "Bash",
+        "System Administration",
+        "Monitoring",
+        "Security",
+        "Automation"
+      ],
+      "education": "Bachelor in Computer Science",
+      "experience_years": 8,
+      "current_role": "System Administrator"
+    },
+    "recommended_careers": [
+      {
+        "career": "DevOps Engineer",
+        "confidence_score": 0.91,
+        "match_reason": "Strong system administration with automation skills",
+        "required_skills": ["Linux", "System Administration", "Automation"],
+        "missing_skills": ["Kubernetes", "CI/CD"],
+        "skill_gap": 0.2
+      },
+      {
+        "career": "Site Reliability Engineer",
+        "confidence_score": 0.88,
+        "match_reason": "Excellent infrastructure and monitoring expertise",
+        "required_skills": ["Linux", "Monitoring", "System Administration"],
+        "missing_skills": ["Observability", "Cloud Platforms"],
+        "skill_gap": 0.23
+      },
+      {
+        "career": "Infrastructure Engineer",
+        "confidence_score": 0.85,
+        "match_reason": "Comprehensive system and security knowledge",
+        "required_skills": ["Linux", "System Administration", "Security"],
+        "missing_skills": ["Cloud", "Infrastructure as Code"],
+        "skill_gap": 0.25
+      }
+    ],
+    "skill_gap_analysis": {
+      "strengths": ["Linux Administration", "Scripting", "System Security"],
+      "weaknesses": [
+        "Container Orchestration",
+        "Cloud Platforms",
+        "Modern DevOps"
+      ],
+      "recommendations": [
+        "Learn Kubernetes and container orchestration",
+        "Master CI/CD pipelines with Jenkins and GitLab",
+        "Study cloud platforms and infrastructure as code"
+      ]
+    }
+  },
+  {
+    "user_id": "user_036",
+    "input_features": {
+      "skills": [
+        "React Native",
+        "JavaScript",
+        "Redux",
+        "GraphQL",
+        "Mobile Development",
+        "Git"
+      ],
+      "education": "Bachelor in Computer Science",
+      "experience_years": 3,
+      "current_role": "Mobile Developer"
+    },
+    "recommended_careers": [
+      {
+        "career": "Senior React Native Developer",
+        "confidence_score": 0.91,
+        "match_reason": "Strong cross-platform mobile development with React Native",
+        "required_skills": ["React Native", "JavaScript", "Mobile Development"],
+        "missing_skills": ["Performance Optimization", "Native Modules"],
+        "skill_gap": 0.2
+      },
+      {
+        "career": "Mobile Architect",
+        "confidence_score": 0.87,
+        "match_reason": "Solid mobile foundation with architecture potential",
+        "required_skills": [
+          "React Native",
+          "Mobile Development",
+          "Architecture"
+        ],
+        "missing_skills": ["System Design", "Native Performance"],
+        "skill_gap": 0.26
+      },
+      {
+        "career": "Full Stack Developer",
+        "confidence_score": 0.84,
+        "match_reason": "Strong mobile frontend with backend GraphQL knowledge",
+        "required_skills": ["JavaScript", "React Native", "GraphQL"],
+        "missing_skills": ["Backend Frameworks", "Databases"],
+        "skill_gap": 0.28
+      }
+    ],
+    "skill_gap_analysis": {
+      "strengths": ["Cross-platform Mobile", "JavaScript", "State Management"],
+      "weaknesses": [
+        "Native Performance",
+        "Complex Animations",
+        "Backend Integration"
+      ],
+      "recommendations": [
+        "Learn native module development for iOS and Android",
+        "Master mobile performance optimization techniques",
+        "Study backend technologies for full-stack development"
+      ]
+    }
+  },
+  {
+    "user_id": "user_037",
+    "input_features": {
+      "skills": ["Hadoop", "Hive", "Pig", "Sqoop", "HDFS", "MapReduce"],
+      "education": "Master in Big Data",
+      "experience_years": 6,
+      "current_role": "Big Data Engineer"
+    },
+    "recommended_careers": [
+      {
+        "career": "Big Data Architect",
+        "confidence_score": 0.89,
+        "match_reason": "Strong Hadoop ecosystem and big data processing",
+        "required_skills": ["Hadoop", "Distributed Systems", "Data Processing"],
+        "missing_skills": ["Cloud Data Platforms", "Real-time Processing"],
+        "skill_gap": 0.23
+      },
+      {
+        "career": "Senior Data Engineer",
+        "confidence_score": 0.86,
+        "match_reason": "Extensive big data ETL and pipeline experience",
+        "required_skills": ["Hadoop", "Hive", "Data Processing"],
+        "missing_skills": ["Modern Tools", "Cloud"],
+        "skill_gap": 0.26
+      },
+      {
+        "career": "Data Platform Engineer",
+        "confidence_score": 0.83,
+        "match_reason": "Strong data infrastructure and processing skills",
+        "required_skills": ["Hadoop", "HDFS", "Distributed Systems"],
+        "missing_skills": ["Cloud Platforms", "Streaming"],
+        "skill_gap": 0.3
+      }
+    ],
+    "skill_gap_analysis": {
+      "strengths": [
+        "Big Data Technologies",
+        "ETL Pipelines",
+        "Distributed Processing"
+      ],
+      "weaknesses": ["Cloud Migration", "Streaming Data", "Modern Data Stack"],
+      "recommendations": [
+        "Transition to cloud data platforms (Databricks, Snowflake)",
+        "Learn real-time processing with Kafka and Flink",
+        "Study modern data stack and data mesh architectures"
+      ]
+    }
+  },
+  {
+    "user_id": "user_038",
+    "input_features": {
+      "skills": [
+        "Digital Marketing",
+        "Google Ads",
+        "Facebook Ads",
+        "SEO",
+        "Analytics",
+        "Conversion Optimization"
+      ],
+      "education": "Bachelor in Marketing",
+      "experience_years": 5,
+      "current_role": "Digital Marketing Specialist"
+    },
+    "recommended_careers": [
+      {
+        "career": "Digital Marketing Manager",
+        "confidence_score": 0.9,
+        "match_reason": "Strong digital marketing across multiple channels",
+        "required_skills": [
+          "Digital Marketing",
+          "Analytics",
+          "Campaign Management"
+        ],
+        "missing_skills": ["Marketing Automation", "Growth Hacking"],
+        "skill_gap": 0.22
+      },
+      {
+        "career": "Growth Marketing Manager",
+        "confidence_score": 0.87,
+        "match_reason": "Excellent conversion optimization and analytics skills",
+        "required_skills": [
+          "Digital Marketing",
+          "Analytics",
+          "Conversion Optimization"
+        ],
+        "missing_skills": ["Experimentation", "Product Marketing"],
+        "skill_gap": 0.25
+      },
+      {
+        "career": "Marketing Director",
+        "confidence_score": 0.84,
+        "match_reason": "Comprehensive marketing skills with leadership potential",
+        "required_skills": ["Digital Marketing", "Strategy", "Analytics"],
+        "missing_skills": ["Team Leadership", "Budget Management"],
+        "skill_gap": 0.28
+      }
+    ],
+    "skill_gap_analysis": {
+      "strengths": [
+        "Multi-channel Marketing",
+        "Analytics",
+        "Campaign Optimization"
+      ],
+      "weaknesses": [
+        "Marketing Automation",
+        "Technical SEO",
+        "Team Leadership"
+      ],
+      "recommendations": [
+        "Learn marketing automation platforms (HubSpot, Marketo)",
+        "Master growth hacking and experimentation frameworks",
+        "Develop team leadership and strategic planning skills"
+      ]
+    }
+  },
+  {
+    "user_id": "user_039",
+    "input_features": {
+      "skills": [
+        "Puppet",
+        "Chef",
+        "Configuration Management",
+        "Linux",
+        "Automation",
+        "Ruby"
+      ],
+      "education": "Bachelor in Computer Engineering",
+      "experience_years": 5,
+      "current_role": "Configuration Management Engineer"
+    },
+    "recommended_careers": [
+      {
+        "career": "DevOps Engineer",
+        "confidence_score": 0.91,
+        "match_reason": "Strong configuration management and automation expertise",
+        "required_skills": ["Configuration Management", "Linux", "Automation"],
+        "missing_skills": ["Containerization", "Cloud Platforms"],
+        "skill_gap": 0.2
+      },
+      {
+        "career": "Site Reliability Engineer",
+        "confidence_score": 0.88,
+        "match_reason": "Excellent infrastructure automation and Linux skills",
+        "required_skills": ["Linux", "Automation", "Configuration Management"],
+        "missing_skills": ["Observability", "Incident Management"],
+        "skill_gap": 0.23
+      },
+      {
+        "career": "Infrastructure Automation Engineer",
+        "confidence_score": 0.85,
+        "match_reason": "Strong automation and infrastructure management",
+        "required_skills": ["Puppet", "Chef", "Automation"],
+        "missing_skills": ["Modern Tools", "Cloud"],
+        "skill_gap": 0.26
+      }
+    ],
+    "skill_gap_analysis": {
+      "strengths": ["Configuration Management", "Automation", "Infrastructure"],
+      "weaknesses": ["Modern DevOps Tools", "Cloud Native", "Orchestration"],
+      "recommendations": [
+        "Transition to modern tools like Terraform and Ansible",
+        "Learn containerization with Docker and Kubernetes",
+        "Master cloud platforms and cloud-native technologies"
+      ]
+    }
+  },
+  {
+    "user_id": "user_040",
+    "input_features": {
+      "skills": [
+        "TypeScript",
+        "NestJS",
+        "GraphQL",
+        "PostgreSQL",
+        "Microservices",
+        "Docker"
+      ],
+      "education": "Master in Software Engineering",
+      "experience_years": 4,
+      "current_role": "Backend Developer"
+    },
+    "recommended_careers": [
+      {
+        "career": "Senior Backend Developer",
+        "confidence_score": 0.92,
+        "match_reason": "Strong modern backend with TypeScript and microservices",
+        "required_skills": ["TypeScript", "NestJS", "Microservices", "GraphQL"],
+        "missing_skills": ["Event-driven Architecture", "Distributed Tracing"],
+        "skill_gap": 0.18
+      },
+      {
+        "career": "Backend Architect",
+        "confidence_score": 0.89,
+        "match_reason": "Excellent architecture understanding with modern stack",
+        "required_skills": [
+          "TypeScript",
+          "Microservices",
+          "GraphQL",
+          "PostgreSQL"
+        ],
+        "missing_skills": ["System Design", "Scalability"],
+        "skill_gap": 0.22
+      },
+      {
+        "career": "Full Stack Developer",
+        "confidence_score": 0.86,
+        "match_reason": "Strong backend with potential for frontend expansion",
+        "required_skills": ["TypeScript", "GraphQL", "NestJS"],
+        "missing_skills": ["Frontend Frameworks", "UI Development"],
+        "skill_gap": 0.25
+      }
+    ],
+    "skill_gap_analysis": {
+      "strengths": ["Modern Backend", "API Design", "Microservices"],
+      "weaknesses": [
+        "Event-driven Systems",
+        "Observability",
+        "Cloud Architecture"
+      ],
+      "recommendations": [
+        "Learn event-driven architecture patterns",
+        "Master distributed tracing and observability tools",
+        "Study cloud architecture and serverless technologies"
+      ]
+    }
   }
 ]

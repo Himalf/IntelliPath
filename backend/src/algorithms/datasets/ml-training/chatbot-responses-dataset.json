@@ -2,98 +2,619 @@
   {
     "query_id": "query_001",
     "question_pattern": "what career should I choose",
-    "question_keywords": ["career", "choose", "path", "direction"],
+    "question_keywords": [
+      "career",
+      "choose",
+      "path",
+      "direction",
+      "profession",
+      "occupation"
+    ],
     "ml_classification": {
       "intent": "career_guidance",
       "confidence": 0.95,
-      "entities": ["career_selection"]
+      "entities": ["career_selection"],
+      "sub_categories": ["initial_exploration", "undecided"]
     },
     "response_template": "Based on your skills and interests, I can help you explore suitable career paths. Here are some recommendations:\n\n1. **Assess Your Skills**: Identify your technical and soft skills\n2. **Explore Industries**: Research industries that align with your interests\n3. **Consider Growth**: Look for careers with strong growth potential\n4. **Network**: Connect with professionals in your target field\n\nWould you like me to analyze your specific skills and provide personalized career suggestions?",
-    "context": "general_career_advice"
+    "context": "general_career_advice",
+    "follow_up_questions": [
+      "What are your strongest skills?",
+      "What industries interest you most?",
+      "What's your educational background?"
+    ]
   },
   {
     "query_id": "query_002",
     "question_pattern": "how to improve my resume",
-    "question_keywords": ["resume", "improve", "better", "enhance"],
+    "question_keywords": [
+      "resume",
+      "improve",
+      "better",
+      "enhance",
+      "CV",
+      "curriculum vitae"
+    ],
     "ml_classification": {
       "intent": "resume_improvement",
       "confidence": 0.92,
-      "entities": ["resume_optimization"]
+      "entities": ["resume_optimization"],
+      "sub_categories": [
+        "formatting",
+        "content_enhancement",
+        "ATS_optimization"
+      ]
     },
     "response_template": "Here are key strategies to improve your resume:\n\n**Structure & Format:**\n- Use a clean, ATS-friendly format\n- Keep it to 1-2 pages maximum\n- Use consistent formatting and fonts\n\n**Content Tips:**\n- Use action verbs (e.g., 'Developed', 'Implemented', 'Led')\n- Quantify achievements with numbers and metrics\n- Tailor your resume to each job application\n- Include relevant keywords from job descriptions\n\n**Key Sections:**\n- Professional summary (2-3 lines)\n- Work experience with achievements\n- Skills section (technical and soft skills)\n- Education and certifications\n\nWould you like to upload your resume for a detailed analysis?",
-    "context": "resume_advice"
+    "context": "resume_advice",
+    "follow_up_questions": [
+      "What industry are you targeting?",
+      "How many years of experience do you have?",
+      "What's your career level (entry, mid, senior)?"
+    ]
   },
   {
     "query_id": "query_003",
     "question_pattern": "what skills do I need for",
-    "question_keywords": ["skills", "need", "required", "learn"],
+    "question_keywords": [
+      "skills",
+      "need",
+      "required",
+      "learn",
+      "competencies",
+      "abilities"
+    ],
     "ml_classification": {
       "intent": "skill_requirements",
-      "confidence": 0.90,
-      "entities": ["skill_gap_analysis"]
+      "confidence": 0.9,
+      "entities": ["skill_gap_analysis"],
+      "sub_categories": ["technical_skills", "soft_skills", "industry_specific"]
     },
     "response_template": "To succeed in [CAREER_FIELD], you'll typically need:\n\n**Technical Skills:**\n- [List relevant technical skills]\n- [Programming languages/frameworks]\n- [Tools and technologies]\n\n**Soft Skills:**\n- Problem-solving\n- Communication\n- Team collaboration\n- Adaptability\n\n**Recommended Learning Path:**\n1. Start with fundamentals\n2. Build projects to practice\n3. Get certified (if applicable)\n4. Contribute to open source\n5. Network with professionals\n\nWould you like me to analyze your current skills and create a personalized learning plan?",
-    "context": "skill_development"
+    "context": "skill_development",
+    "follow_up_questions": [
+      "What field are you interested in?",
+      "What's your current skill level?",
+      "What's your learning timeline?"
+    ]
   },
   {
     "query_id": "query_004",
     "question_pattern": "job interview tips",
-    "question_keywords": ["interview", "tips", "prepare", "advice"],
+    "question_keywords": [
+      "interview",
+      "tips",
+      "prepare",
+      "advice",
+      "preparation"
+    ],
     "ml_classification": {
       "intent": "interview_preparation",
       "confidence": 0.88,
-      "entities": ["interview_guidance"]
+      "entities": ["interview_guidance"],
+      "sub_categories": [
+        "behavioral_interview",
+        "technical_interview",
+        "panel_interview"
+      ]
     },
     "response_template": "Here are essential interview preparation tips:\n\n**Before the Interview:**\n- Research the company and role thoroughly\n- Prepare STAR method examples (Situation, Task, Action, Result)\n- Practice common interview questions\n- Prepare questions to ask the interviewer\n\n**During the Interview:**\n- Arrive 10-15 minutes early\n- Dress professionally\n- Maintain eye contact and positive body language\n- Listen carefully and answer concisely\n- Show enthusiasm for the role\n\n**Common Questions to Prepare:**\n- 'Tell me about yourself'\n- 'Why do you want this job?'\n- 'What are your strengths/weaknesses?'\n- 'Where do you see yourself in 5 years?'\n\n**After the Interview:**\n- Send a thank-you email within 24 hours\n- Follow up if you don't hear back in a week\n\nGood luck with your interview!",
-    "context": "interview_advice"
+    "context": "interview_advice",
+    "follow_up_questions": [
+      "What type of interview is it?",
+      "What position are you interviewing for?",
+      "When is your interview scheduled?"
+    ]
   },
   {
     "query_id": "query_005",
     "question_pattern": "salary negotiation",
-    "question_keywords": ["salary", "negotiate", "compensation", "pay"],
+    "question_keywords": [
+      "salary",
+      "negotiate",
+      "compensation",
+      "pay",
+      "benefits",
+      "package"
+    ],
     "ml_classification": {
       "intent": "salary_negotiation",
       "confidence": 0.85,
-      "entities": ["compensation_discussion"]
+      "entities": ["compensation_discussion"],
+      "sub_categories": [
+        "initial_offer",
+        "counteroffer",
+        "benefits_negotiation"
+      ]
     },
     "response_template": "Effective salary negotiation strategies:\n\n**Research First:**\n- Research market rates for your role and location\n- Use sites like Glassdoor, PayScale, LinkedIn Salary\n- Consider your experience level and skills\n\n**Timing:**\n- Wait for the job offer before negotiating\n- Don't discuss salary too early in the process\n- Be prepared to walk away if needed\n\n**Negotiation Tips:**\n- Start with a range, not a specific number\n- Highlight your value and achievements\n- Consider total compensation (benefits, equity, etc.)\n- Be professional and respectful\n- Practice your pitch beforehand\n\n**What to Say:**\n- 'Based on my research and experience, I was expecting a range of [X-Y]'\n- 'I'm excited about this opportunity, and I'd like to discuss the compensation package'\n\nRemember: Negotiation is a normal part of the hiring process!",
-    "context": "career_advice"
+    "context": "career_advice",
+    "follow_up_questions": [
+      "Have you received an offer?",
+      "What's your current/expected salary range?",
+      "What's your location and industry?"
+    ]
   },
   {
     "query_id": "query_006",
     "question_pattern": "who built you",
-    "question_keywords": ["who", "built", "made", "created", "developer"],
+    "question_keywords": [
+      "who",
+      "built",
+      "made",
+      "created",
+      "developer",
+      "creator",
+      "founder"
+    ],
     "ml_classification": {
       "intent": "about_creator",
       "confidence": 0.98,
-      "entities": ["creator_information"]
+      "entities": ["creator_information"],
+      "sub_categories": ["platform_info", "developer_info"]
     },
     "response_template": "I have been developed and trained by Himal Fullel, who built the IntelliPath software. IntelliPath is a comprehensive career guidance platform designed to help individuals make informed career decisions through AI-powered analysis, resume evaluation, and personalized career recommendations.\n\nThe platform combines machine learning algorithms with expert career guidance to provide users with actionable insights for their professional development journey.",
-    "context": "about_platform"
+    "context": "about_platform",
+    "follow_up_questions": [
+      "Would you like to know more about IntelliPath features?",
+      "How can I help you with your career goals?",
+      "What brought you to IntelliPath today?"
+    ]
   },
   {
     "query_id": "query_007",
     "question_pattern": "career change advice",
-    "question_keywords": ["career", "change", "switch", "transition"],
+    "question_keywords": [
+      "career",
+      "change",
+      "switch",
+      "transition",
+      "pivot",
+      "new field"
+    ],
     "ml_classification": {
       "intent": "career_transition",
-      "confidence": 0.90,
-      "entities": ["career_change"]
+      "confidence": 0.9,
+      "entities": ["career_change"],
+      "sub_categories": ["industry_change", "role_change", "complete_pivot"]
     },
     "response_template": "Making a successful career change requires careful planning:\n\n**Self-Assessment:**\n- Identify transferable skills from your current role\n- Assess your interests and values\n- Consider your financial situation and timeline\n\n**Research:**\n- Explore target industries and roles\n- Network with professionals in your desired field\n- Understand required qualifications and skills\n\n**Skill Development:**\n- Take relevant courses or certifications\n- Build a portfolio or side projects\n- Gain experience through internships or volunteering\n\n**Transition Strategy:**\n- Update your resume to highlight transferable skills\n- Leverage your network for opportunities\n- Consider a gradual transition (part-time, freelance)\n- Be patient - career changes take time\n\nWould you like personalized advice based on your current situation?",
-    "context": "career_transition"
+    "context": "career_transition",
+    "follow_up_questions": [
+      "What's your current field?",
+      "What field do you want to transition to?",
+      "What's motivating this change?"
+    ]
   },
   {
     "query_id": "query_008",
     "question_pattern": "networking tips",
-    "question_keywords": ["network", "connect", "professional", "relationships"],
+    "question_keywords": [
+      "network",
+      "connect",
+      "professional",
+      "relationships",
+      "contacts"
+    ],
     "ml_classification": {
       "intent": "networking_advice",
       "confidence": 0.87,
-      "entities": ["professional_networking"]
+      "entities": ["professional_networking"],
+      "sub_categories": [
+        "online_networking",
+        "in_person_events",
+        "relationship_building"
+      ]
     },
     "response_template": "Effective networking strategies:\n\n**Online Networking:**\n- Optimize your LinkedIn profile\n- Join relevant professional groups\n- Share valuable content and insights\n- Engage with others' posts meaningfully\n\n**In-Person Networking:**\n- Attend industry events and conferences\n- Join professional associations\n- Participate in meetups and workshops\n- Volunteer for relevant organizations\n\n**Building Relationships:**\n- Offer value before asking for help\n- Follow up after meetings\n- Maintain regular contact (not just when you need something)\n- Be genuine and authentic\n\n**Networking Etiquette:**\n- Respect people's time\n- Personalize your outreach\n- Be clear about your goals\n- Show appreciation for help received\n\nRemember: Networking is about building long-term relationships, not just collecting contacts!",
-    "context": "professional_development"
+    "context": "professional_development",
+    "follow_up_questions": [
+      "What's your industry?",
+      "Are you more comfortable with online or in-person networking?",
+      "What are your networking goals?"
+    ]
+  },
+  {
+    "query_id": "query_009",
+    "question_pattern": "linkedin profile optimization",
+    "question_keywords": [
+      "linkedin",
+      "profile",
+      "optimize",
+      "improve",
+      "professional"
+    ],
+    "ml_classification": {
+      "intent": "linkedin_optimization",
+      "confidence": 0.91,
+      "entities": ["social_media_professional"],
+      "sub_categories": ["profile_content", "visibility", "engagement"]
+    },
+    "response_template": "Optimize your LinkedIn profile with these strategies:\n\n**Profile Basics:**\n- Use a professional headshot\n- Create a compelling headline (not just job title)\n- Write a strong summary showcasing your value proposition\n- Use a custom background photo\n\n**Content Optimization:**\n- List all relevant experience with achievements\n- Add skills and get endorsements\n- Request recommendations from colleagues\n- Include certifications and education\n- Add portfolio items and projects\n\n**Visibility & Engagement:**\n- Use relevant keywords throughout your profile\n- Set profile to public and open to opportunities\n- Post regularly (articles, insights, achievements)\n- Engage with others' content\n- Join and participate in relevant groups\n\n**Networking:**\n- Connect with industry professionals\n- Personalize connection requests\n- Follow companies you're interested in\n- Engage with recruiter content\n\n**Pro Tips:**\n- Turn on 'Open to Work' feature strategically\n- Keep your profile updated\n- Customize your LinkedIn URL\n- Add media to showcase your work",
+    "context": "professional_branding",
+    "follow_up_questions": [
+      "Is your LinkedIn profile complete?",
+      "What's your industry or target role?",
+      "Are you actively job searching?"
+    ]
+  },
+  {
+    "query_id": "query_010",
+    "question_pattern": "cover letter writing",
+    "question_keywords": ["cover letter", "write", "application", "letter"],
+    "ml_classification": {
+      "intent": "cover_letter_help",
+      "confidence": 0.89,
+      "entities": ["application_materials"],
+      "sub_categories": ["structure", "content", "customization"]
+    },
+    "response_template": "Writing an effective cover letter:\n\n**Structure (3-4 paragraphs):**\n1. Opening: Hook and position you're applying for\n2. Body: Why you're qualified (2 paragraphs)\n3. Closing: Call to action and thank you\n\n**Opening Paragraph:**\n- Start with enthusiasm and specific position\n- Mention how you found the role\n- Brief statement of why you're a great fit\n\n**Body Paragraphs:**\n- Highlight 2-3 key achievements relevant to role\n- Use specific examples with metrics\n- Show knowledge of the company\n- Explain how you'll add value\n\n**Closing Paragraph:**\n- Express enthusiasm for next steps\n- Thank them for consideration\n- Include call to action (request interview)\n\n**Best Practices:**\n- Keep it to one page\n- Customize for each application\n- Address hiring manager by name (research if needed)\n- Match company tone and culture\n- Proofread carefully\n- Don't just repeat your resume\n\n**What to Avoid:**\n- Generic templates\n- Focusing only on what you want\n- Spelling/grammar errors\n- Being too formal or too casual\n- Negative language about current employer",
+    "context": "application_materials",
+    "follow_up_questions": [
+      "What position are you applying for?",
+      "What are your key qualifications?",
+      "Do you have the hiring manager's name?"
+    ]
+  },
+  {
+    "query_id": "query_011",
+    "question_pattern": "work life balance",
+    "question_keywords": [
+      "work",
+      "life",
+      "balance",
+      "burnout",
+      "stress",
+      "wellbeing"
+    ],
+    "ml_classification": {
+      "intent": "work_life_balance",
+      "confidence": 0.86,
+      "entities": ["career_wellbeing"],
+      "sub_categories": ["stress_management", "time_management", "boundaries"]
+    },
+    "response_template": "Achieving work-life balance:\n\n**Set Boundaries:**\n- Define clear work hours\n- Create a dedicated workspace\n- Turn off work notifications after hours\n- Learn to say no to non-essential tasks\n- Communicate boundaries with colleagues\n\n**Time Management:**\n- Prioritize tasks using methods like Eisenhower Matrix\n- Use time-blocking techniques\n- Batch similar tasks together\n- Take regular breaks (Pomodoro technique)\n- Delegate when possible\n\n**Self-Care:**\n- Schedule personal time like work meetings\n- Exercise regularly\n- Maintain hobbies and interests\n- Get adequate sleep (7-9 hours)\n- Practice mindfulness or meditation\n\n**Professional Strategies:**\n- Discuss flexible work arrangements\n- Use vacation time fully\n- Avoid checking emails constantly\n- Set realistic expectations with managers\n- Focus on productivity, not just hours worked\n\n**Signs of Burnout:**\n- Chronic exhaustion\n- Decreased productivity\n- Cynicism about work\n- Physical symptoms (headaches, insomnia)\n\nIf experiencing burnout, consider talking to your manager or HR about support options.",
+    "context": "career_wellbeing",
+    "follow_up_questions": [
+      "Are you currently experiencing work stress?",
+      "What aspects of work-life balance are most challenging?",
+      "Does your workplace offer flexibility options?"
+    ]
+  },
+  {
+    "query_id": "query_012",
+    "question_pattern": "remote work tips",
+    "question_keywords": [
+      "remote",
+      "work",
+      "home",
+      "virtual",
+      "telecommute",
+      "WFH"
+    ],
+    "ml_classification": {
+      "intent": "remote_work_guidance",
+      "confidence": 0.88,
+      "entities": ["work_arrangement"],
+      "sub_categories": ["productivity", "communication", "setup"]
+    },
+    "response_template": "Succeeding in remote work:\n\n**Workspace Setup:**\n- Create a dedicated workspace\n- Invest in ergonomic furniture\n- Ensure good lighting\n- Minimize distractions\n- Have reliable internet and equipment\n\n**Productivity Strategies:**\n- Maintain regular work hours\n- Get dressed for work\n- Use productivity tools (Trello, Asana, Notion)\n- Take scheduled breaks\n- Set daily goals and priorities\n\n**Communication:**\n- Over-communicate with team\n- Use video for important discussions\n- Respond promptly to messages\n- Schedule regular check-ins\n- Be clear about availability\n\n**Staying Connected:**\n- Participate in virtual team events\n- Have informal video chats with colleagues\n- Join online professional communities\n- Attend virtual conferences/webinars\n\n**Work-Life Separation:**\n- Have a start and end work ritual\n- Leave workspace when done\n- Set boundaries with household members\n- Don't work from bed\n- Take lunch breaks away from desk\n\n**Tools for Remote Work:**\n- Communication: Slack, Microsoft Teams, Zoom\n- Project Management: Asana, Trello, Monday.com\n- File Sharing: Google Drive, Dropbox\n- Time Tracking: Toggl, RescueTime",
+    "context": "work_arrangements",
+    "follow_up_questions": [
+      "Are you new to remote work?",
+      "What challenges are you facing?",
+      "What's your current remote work setup?"
+    ]
+  },
+  {
+    "query_id": "query_013",
+    "question_pattern": "how to ask for promotion",
+    "question_keywords": [
+      "promotion",
+      "advance",
+      "career growth",
+      "raise",
+      "move up"
+    ],
+    "ml_classification": {
+      "intent": "career_advancement",
+      "confidence": 0.87,
+      "entities": ["promotion_request"],
+      "sub_categories": ["timing", "preparation", "negotiation"]
+    },
+    "response_template": "Asking for a promotion effectively:\n\n**Preparation (3-6 months before):**\n- Document your achievements and impact\n- Gather quantifiable results and metrics\n- Research the next role and requirements\n- Identify skills gaps and address them\n- Seek feedback from manager regularly\n- Take on additional responsibilities\n\n**Building Your Case:**\n- List specific contributions to company goals\n- Show leadership and initiative\n- Demonstrate skills for next level\n- Collect testimonials from colleagues/clients\n- Understand promotion criteria at your company\n\n**Timing:**\n- During performance review cycles\n- After major project success\n- When company is doing well financially\n- After exceeding expectations consistently\n- Avoid during company struggles or budget cuts\n\n**The Conversation:**\n- Schedule dedicated meeting with manager\n- Be confident but not demanding\n- Present your case with evidence\n- Express long-term commitment\n- Ask about pathway if not ready now\n- Be open to feedback\n\n**What to Say:**\n- 'I'd like to discuss my career progression'\n- 'Based on my contributions [list examples], I believe I'm ready for [position]'\n- 'What would I need to demonstrate to be considered for promotion?'\n\n**If Denied:**\n- Ask for specific feedback\n- Create development plan together\n- Set timeline for reconsideration\n- Stay professional and committed\n- Consider if external opportunities make sense",
+    "context": "career_advancement",
+    "follow_up_questions": [
+      "How long have you been in your current role?",
+      "What achievements can you highlight?",
+      "What's the next role you're targeting?"
+    ]
+  },
+  {
+    "query_id": "query_014",
+    "question_pattern": "freelance career advice",
+    "question_keywords": [
+      "freelance",
+      "self-employed",
+      "contractor",
+      "gig",
+      "independent"
+    ],
+    "ml_classification": {
+      "intent": "freelance_guidance",
+      "confidence": 0.84,
+      "entities": ["work_arrangement"],
+      "sub_categories": ["getting_started", "client_management", "finances"]
+    },
+    "response_template": "Starting and succeeding as a freelancer:\n\n**Getting Started:**\n- Define your niche and services\n- Set competitive but fair rates\n- Create a professional portfolio/website\n- Set up business structure (sole proprietor, LLC, etc.)\n- Get necessary licenses and insurance\n\n**Finding Clients:**\n- Use platforms: Upwork, Fiverr, Freelancer, Toptal\n- Network in your industry\n- Leverage social media (LinkedIn, Twitter)\n- Ask for referrals from satisfied clients\n- Create content to showcase expertise\n- Cold outreach to potential clients\n\n**Client Management:**\n- Use clear contracts for every project\n- Set expectations upfront\n- Communicate regularly\n- Meet deadlines consistently\n- Handle feedback professionally\n- Build long-term relationships\n\n**Pricing Strategies:**\n- Research market rates\n- Consider hourly vs. project-based pricing\n- Factor in taxes, benefits, overhead (30-40% markup)\n- Offer package deals\n- Increase rates as you gain experience\n\n**Financial Management:**\n- Set aside 25-30% for taxes\n- Use accounting software (QuickBooks, FreshBooks)\n- Send professional invoices promptly\n- Follow up on late payments\n- Build emergency fund (3-6 months expenses)\n- Consider retirement savings (IRA, Solo 401k)\n\n**Tools for Freelancers:**\n- Project Management: Trello, Asana\n- Time Tracking: Toggl, Harvest\n- Invoicing: FreshBooks, Wave\n- Contracts: HelloSign, DocuSign\n- Communication: Slack, Zoom\n\n**Common Challenges:**\n- Irregular income\n- Finding clients consistently\n- Work-life boundaries\n- Isolation\n- Managing multiple clients\n\n**Tips for Success:**\n- Diversify client base\n- Keep learning and upskilling\n- Save during good months\n- Build passive income streams\n- Join freelancer communities",
+    "context": "alternative_careers",
+    "follow_up_questions": [
+      "What services do you plan to offer?",
+      "Do you have experience in your field?",
+      "Are you transitioning from full-time employment?"
+    ]
+  },
+  {
+    "query_id": "query_015",
+    "question_pattern": "dealing with difficult coworkers",
+    "question_keywords": [
+      "difficult",
+      "coworker",
+      "colleague",
+      "conflict",
+      "workplace"
+    ],
+    "ml_classification": {
+      "intent": "workplace_conflict",
+      "confidence": 0.82,
+      "entities": ["workplace_relationships"],
+      "sub_categories": ["conflict_resolution", "communication", "boundaries"]
+    },
+    "response_template": "Handling difficult coworker situations:\n\n**Initial Approach:**\n- Stay professional and calm\n- Don't take things personally\n- Try to understand their perspective\n- Address issues directly with them first\n- Choose the right time and place for conversation\n\n**Communication Strategies:**\n- Use 'I' statements instead of 'you' accusations\n- Focus on behavior, not personality\n- Be specific about the issue\n- Listen actively to their side\n- Seek common ground\n- Keep emotions in check\n\n**Example Script:**\n- 'I noticed [specific behavior]. This impacts me by [effect]. Can we discuss how to work together better?'\n\n**Types of Difficult Behaviors:**\n\n**Micromanager:**\n- Set clear expectations upfront\n- Provide regular updates\n- Document your work\n- Ask about preferred communication style\n\n**Credit Stealer:**\n- Document your contributions\n- Speak up in meetings\n- CC relevant people on emails\n- Address directly if pattern continues\n\n**Gossip/Drama Creator:**\n- Don't engage in gossip\n- Keep conversations professional\n- Set boundaries\n- Don't share personal information\n\n**Passive-Aggressive:**\n- Address behavior directly\n- Ask clarifying questions\n- Don't mirror their behavior\n- Document interactions if needed\n\n**When to Escalate:**\n- Harassment or discrimination\n- Safety concerns\n- After attempting direct resolution\n- Pattern of unprofessional behavior\n- Impact on your work performance\n\n**Escalation Process:**\n- Document incidents (dates, what happened, witnesses)\n- Speak with your manager\n- Contact HR if necessary\n- Follow company procedures\n\n**Self-Care:**\n- Set emotional boundaries\n- Don't let it affect your work quality\n- Seek support from trusted colleagues\n- Focus on what you can control\n- Consider if situation is worth leaving over",
+    "context": "workplace_relationships",
+    "follow_up_questions": [
+      "What specific behavior is problematic?",
+      "Have you tried addressing it directly?",
+      "Is this affecting your work performance?"
+    ]
+  },
+  {
+    "query_id": "query_016",
+    "question_pattern": "leadership skills development",
+    "question_keywords": ["leadership", "manage", "lead", "team", "management"],
+    "ml_classification": {
+      "intent": "leadership_development",
+      "confidence": 0.86,
+      "entities": ["skill_development"],
+      "sub_categories": ["team_management", "decision_making", "communication"]
+    },
+    "response_template": "Developing strong leadership skills:\n\n**Core Leadership Skills:**\n\n**Communication:**\n- Active listening\n- Clear and concise messaging\n- Adapting style to audience\n- Giving constructive feedback\n- Public speaking\n\n**Emotional Intelligence:**\n- Self-awareness\n- Empathy\n- Relationship management\n- Social awareness\n- Emotional regulation\n\n**Decision Making:**\n- Analytical thinking\n- Risk assessment\n- Strategic planning\n- Problem-solving\n- Decisive action\n\n**Team Building:**\n- Motivating others\n- Conflict resolution\n- Delegation\n- Recognition and appreciation\n- Creating inclusive environment\n\n**Development Strategies:**\n\n**Formal Learning:**\n- Take leadership courses/certifications\n- Read leadership books and articles\n- Attend workshops and seminars\n- Get executive coaching\n- Pursue MBA or leadership programs\n\n**Practical Experience:**\n- Volunteer to lead projects\n- Mentor junior colleagues\n- Join committees or boards\n- Take on stretch assignments\n- Lead initiatives outside work\n\n**Self-Development:**\n- Seek feedback regularly\n- Reflect on experiences\n- Keep a leadership journal\n- Find a mentor\n- Join peer leadership groups\n\n**Leadership Styles to Study:**\n- Transformational\n- Servant leadership\n- Democratic\n- Coaching\n- Situational\n\n**Common Leadership Challenges:**\n- Delegating effectively\n- Handling underperformance\n- Managing change\n- Balancing authority and approachability\n- Making unpopular decisions\n\n**Recommended Resources:**\n- Books: 'Leaders Eat Last', 'Dare to Lead', 'The 7 Habits'\n- Podcasts: 'The Craig Groeschel Leadership Podcast'\n- Platforms: LinkedIn Learning, Coursera Leadership courses",
+    "context": "professional_development",
+    "follow_up_questions": [
+      "Do you currently manage people?",
+      "What leadership areas do you want to improve?",
+      "What's your leadership style?"
+    ]
+  },
+  {
+    "query_id": "query_017",
+    "question_pattern": "career after graduation",
+    "question_keywords": [
+      "graduate",
+      "fresh",
+      "entry level",
+      "new grad",
+      "first job"
+    ],
+    "ml_classification": {
+      "intent": "entry_level_guidance",
+      "confidence": 0.91,
+      "entities": ["career_stage"],
+      "sub_categories": ["job_search", "expectations", "skill_building"]
+    },
+    "response_template": "Launching your career after graduation:\n\n**Immediate Action Steps:**\n- Update resume for entry-level positions\n- Optimize LinkedIn profile\n- Create a professional portfolio (if applicable)\n- Prepare elevator pitch\n- Build professional email address\n\n**Job Search Strategy:**\n\n**Where to Look:**\n- LinkedIn Jobs\n- Indeed, Glassdoor\n- Company career pages directly\n- University career centers\n- Entry-level programs (rotational, graduate schemes)\n- Job fairs and campus recruiting\n\n**Application Tips:**\n- Apply to 15-20 positions weekly\n- Tailor each application\n- Highlight internships, projects, coursework\n- Emphasize transferable skills\n- Include volunteer work and leadership roles\n- Follow up on applications\n\n**Building Experience:**\n- Internships (even post-graduation)\n- Volunteer work\n- Freelance projects\n- Personal projects relevant to your field\n- Contributing to open source (for tech)\n- Part-time relevant work\n\n**Networking for New Grads:**\n- Connect with alumni network\n- Attend industry meetups\n- Join professional associations\n- Reach out for informational interviews\n- Leverage professors' connections\n- Participate in online communities\n\n**Entry-Level Expectations:**\n- Starting salary may be lower\n- May need to accept less than ideal first role\n- Focus on learning over title\n- Job search can take 3-6 months\n- Be open to different industries\n\n**Skills to Develop:**\n- Professional communication\n- Time management\n- Collaboration\n- Industry-specific tools\n- Business etiquette\n- Adaptability\n\n**First Job Success:**\n- Be eager to learn\n- Ask questions\n- Arrive on time\n- Take feedback well\n- Build relationships\n- Show initiative\n- Document your achievements\n\n**Alternative Paths:**\n- Graduate school (if industry requires it)\n- Gap year with purposeful activities\n- Entrepreneurship\n- Certification programs\n- Bootcamps (for career changers)\n\n**Financial Considerations:**\n- Start emergency fund\n- Understand benefits packages\n- Begin retirement contributions early\n- Create budget for new expenses\n- Manage student loan repayment",
+    "context": "entry_level_career",
+    "follow_up_questions": [
+      "What field did you study?",
+      "Do you have any internship experience?",
+      "What type of role are you seeking?"
+    ]
+  },
+  {
+    "query_id": "query_018",
+    "question_pattern": "career in tech without degree",
+    "question_keywords": [
+      "tech",
+      "technology",
+      "no degree",
+      "self-taught",
+      "bootcamp",
+      "alternative education"
+    ],
+    "ml_classification": {
+      "intent": "alternative_education_path",
+      "confidence": 0.88,
+      "entities": ["non_traditional_path"],
+      "sub_categories": ["tech_career", "self_learning", "certifications"]
+    },
+    "response_template": "Breaking into tech without a traditional degree:\n\n**Viable Tech Careers:**\n- Software Developer/Engineer\n- Web Developer\n- Data Analyst\n- UX/UI Designer\n- DevOps Engineer\n- Quality Assurance Tester\n- Technical Support\n- Product Manager (with experience)\n- Cybersecurity Analyst\n\n**Learning Paths:**\n\n**Self-Learning (Free/Low Cost):**\n- freeCodeCamp\n- The Odin Project\n- Khan Academy\n- YouTube tutorials\n- Official documentation\n- Open source contributions\n- Personal projects\n\n**Bootcamps (3-6 months):**\n- General Assembly\n- Le Wagon\n- Flatiron School\n- App Academy\n- Springboard\n- Career Foundry\n\n**Online Courses:**\n- Coursera (Google, IBM certificates)\n- edX\n- Udemy\n- Pluralsight\n- LinkedIn Learning\n- Codecademy\n\n**Certifications:**\n- AWS Certified Solutions Architect\n- Google IT Support Professional\n- CompTIA A+, Network+, Security+\n- Microsoft Azure certifications\n- Cisco CCNA\n- Salesforce Administrator\n\n**Building Your Portfolio:**\n- Create 3-5 substantial projects\n- Contribute to open source\n- Build a personal website\n- Document your code on GitHub\n- Write technical blog posts\n- Participate in hackathons\n\n**Getting Your First Job:**\n- Start with internships or apprenticeships\n- Apply to startups (more flexible on degrees)\n- Leverage networking heavily\n- Consider contract/freelance work initially\n- Target junior roles specifically\n- Highlight projects over education\n\n**Resume Tips:**\n- Lead with skills and projects\n- Quantify your project impacts\n- Include GitHub profile\n- List relevant certifications prominently\n- Show continuous learning\n- Address bootcamp/self-taught positively\n\n**Job Search Strategy:**\n- Apply to 20-30 jobs per week\n- Network on LinkedIn and Twitter\n- Attend tech meetups and conferences\n- Join online tech communities (Discord, Reddit)\n- Consider relocating to tech hubs\n- Look for 'no degree required' postings\n\n**Skills in High Demand:**\n- JavaScript/TypeScript\n- Python\n- React, Node.js\n- Cloud platforms (AWS, Azure, GCP)\n- SQL and databases\n- Git version control\n- API development\n- Testing frameworks\n\n**Timeline Expectations:**\n- Learning phase: 6-12 months intensive study\n- Portfolio building: 2-4 months\n- Job search: 3-6 months\n- Total: 12-18 months to first role\n\n**Common Challenges:**\n- Imposter syndrome\n- Standing out without degree\n- Longer job search\n- Lower starting salary initially\n- Self-discipline for self-learning\n\n**Success Factors:**\n- Consistent daily practice\n- Strong portfolio\n- Active networking\n- Persistence through rejections\n- Continuous skill updating\n- Community involvement",
+    "context": "alternative_education",
+    "follow_up_questions": [
+      "What area of tech interests you most?",
+      "Do you have any coding experience?",
+      "What's your timeline for career transition?"
+    ]
+  },
+  {
+    "query_id": "query_019",
+    "question_pattern": "how to handle job rejection",
+    "question_keywords": [
+      "rejection",
+      "didn't get job",
+      "failed interview",
+      "not selected",
+      "turned down"
+    ],
+    "ml_classification": {
+      "intent": "coping_with_rejection",
+      "confidence": 0.85,
+      "entities": ["job_search_challenge"],
+      "sub_categories": ["emotional_support", "improvement", "persistence"]
+    },
+    "response_template": "Handling job rejection constructively:\n\n**Immediate Response:**\n- Allow yourself to feel disappointed (it's normal!)\n- Don't take it personally\n- Remember: rejection is part of the process\n- Take a short break to recharge\n- Keep perspective - one rejection doesn't define you\n\n**Professional Follow-Up:**\n- Send a gracious thank-you email\n- Ask for feedback (politely)\n- Express continued interest in company\n- Request consideration for future roles\n- Stay connected on LinkedIn\n\n**Sample Response:**\n'Thank you for letting me know. While I'm disappointed, I appreciate the opportunity to interview. I'd value any feedback you could share to help me improve. I remain very interested in [Company] and hope you'll consider me for future opportunities.'\n\n**Learning from Rejection:**\n- Review your interview performance honestly\n- Identify areas for improvement\n- Practice weak areas\n- Update your approach based on patterns\n- Seek mock interviews for practice\n\n**Common Rejection Reasons:**\n- Better-qualified candidate\n- Cultural fit concerns\n- Budget constraints\n- Position filled internally\n- Hiring freeze\n- Interview performance\n- Overqualified/underqualified\n- Salary expectations mismatch\n\n**Moving Forward:**\n- Apply to more positions\n- Expand your search criteria\n- Improve your skills\n- Network more actively\n- Refine your resume/cover letter\n- Practice interview responses\n- Consider feedback received\n\n**Maintaining Mental Health:**\n- Set daily application goals (not just volume)\n- Celebrate small wins (interviews, callbacks)\n- Maintain routine and self-care\n- Talk to supportive friends/family\n- Join job seeker support groups\n- Focus on what you can control\n- Consider professional help if needed\n\n**Reality Check:**\n- Average job search: 3-6 months\n- Typical success rate: 2-5% of applications\n- Most people face multiple rejections\n- Even qualified candidates get rejected\n- Timing and luck play significant roles\n\n**When to Reassess:**\n- After 50+ applications with no interviews\n- Consistent early-stage rejections\n- Feedback indicates specific gaps\n- 6+ months without progress\n\n**Reassessment Actions:**\n- Get professional resume review\n- Seek career counseling\n- Consider additional training/certifications\n- Expand geographical search\n- Explore related roles or industries\n- Work with recruiters\n\n**Stay Motivated:**\n- Track your progress and improvements\n- Read success stories\n- Remember past achievements\n- Visualize your goal\n- Every 'no' is closer to 'yes'\n- Quality applications over quantity\n\n**Alternative Strategies:**\n- Temp or contract work for experience\n- Informational interviews\n- Volunteer in your field\n- Freelance projects\n- Networking events\n- Internal transfers (if employed)",
+    "context": "job_search_support",
+    "follow_up_questions": [
+      "How many applications have you submitted?",
+      "What stage are rejections occurring?",
+      "Have you received any feedback?"
+    ]
+  },
+  {
+    "query_id": "query_020",
+    "question_pattern": "personal branding strategy",
+    "question_keywords": [
+      "personal brand",
+      "professional identity",
+      "reputation",
+      "online presence"
+    ],
+    "ml_classification": {
+      "intent": "personal_branding",
+      "confidence": 0.84,
+      "entities": ["professional_development"],
+      "sub_categories": ["online_presence", "thought_leadership", "networking"]
+    },
+    "response_template": "Building a strong personal brand:\n\n**Define Your Brand:**\n- Identify your unique value proposition\n- Determine your target audience\n- Choose 2-3 core areas of expertise\n- Define your professional values\n- Craft your brand statement\n\n**Brand Statement Template:**\n'I help [target audience] achieve [result] through [your unique approach/expertise].'\n\n**Online Presence:**\n\n**LinkedIn (Priority Platform):**\n- Optimize profile completely\n- Post valuable content 2-3x/week\n- Share industry insights and perspectives\n- Engage with others' content meaningfully\n- Use relevant hashtags\n- Publish articles showcasing expertise\n\n**Personal Website/Portfolio:**\n- Professional bio and headshot\n- Work samples and case studies\n- Blog with valuable content\n- Contact information\n- Testimonials and achievements\n- Clear call-to-action\n\n**Other Platforms (Choose Based on Industry):**\n- Twitter/X: Tech, marketing, journalism\n- Instagram: Creative fields, personal brands\n- YouTube: Teaching, speaking, demos\n- Medium: Writing, thought leadership\n- GitHub: Developers, technical roles\n- Behance/Dribbble: Designers\n\n**Content Strategy:**\n\n**Content Types:**\n- How-to guides and tutorials\n- Industry insights and analysis\n- Personal experiences and lessons\n- Case studies from your work\n- Curated industry news with commentary\n- Behind-the-scenes of your work\n\n**Content Calendar:**\n- Plan topics in advance\n- Mix educational, inspirational, promotional (80/10/10 rule)\n- Repurpose content across platforms\n- Stay consistent with posting schedule\n- Engage within 1 hour of posting\n\n**Thought Leadership:**\n- Speak at industry events\n- Guest on podcasts\n- Write guest posts for industry blogs\n- Participate in panel discussions\n- Host webinars or workshops\n- Comment on industry news\n\n**Networking for Brand:**\n- Attend industry events consistently\n- Join professional associations\n- Participate in online communities\n- Offer value before asking for favors\n- Collaborate with others in your field\n- Build genuine relationships\n\n**Consistency is Key:**\n- Use same professional photo across platforms\n- Consistent messaging and tone\n- Regular content posting\n- Aligned values in all interactions\n- Professional in all public forums\n\n**Monitoring Your Brand:**\n- Google yourself regularly\n- Set up Google Alerts for your name\n- Review privacy settings\n- Clean up old social media posts\n- Monitor what others say about you\n- Address negative content professionally\n\n**Common Mistakes:**\n- Being too promotional\n- Inconsistent messaging\n- Neglecting to engage with others\n- Posting controversial personal views\n- Copying others' content without credit\n- Being inactive for long periods\n- Mixing personal and professional inappropriately\n\n**Measuring Success:**\n- Profile views and connections\n- Content engagement (likes, comments, shares)\n- Inbound opportunities\n- Speaking invitations\n- Media mentions\n- Growing network quality\n\n**Long-term Strategy:**\n- Year 1: Build foundation and consistency\n- Year 2: Establish expertise and visibility\n- Year 3+: Thought leader and influencer status\n\n**Time Investment:**\n- 30-60 minutes daily for engagement\n- 2-3 hours weekly for content creation\n- Regular profile updates\n- Consistent over time (marathon, not sprint)",
+    "context": "professional_development",
+    "follow_up_questions": [
+      "What's your industry or field?",
+      "What makes you unique in your field?",
+      "What's your current online presence?"
+    ]
+  },
+  {
+    "query_id": "query_021",
+    "question_pattern": "career gap in resume",
+    "question_keywords": [
+      "career gap",
+      "employment gap",
+      "break",
+      "time off",
+      "unemployment"
+    ],
+    "ml_classification": {
+      "intent": "career_gap_management",
+      "confidence": 0.89,
+      "entities": ["resume_challenge"],
+      "sub_categories": [
+        "explanation",
+        "resume_formatting",
+        "interview_response"
+      ]
+    },
+    "response_template": "Addressing career gaps effectively:\n\n**Understanding Career Gaps:**\n- Gaps are increasingly common and accepted\n- Context matters more than the gap itself\n- Employers care about what you did during the gap\n- Honesty is always the best policy\n\n**Resume Formatting Options:**\n\n**Functional Resume:**\n- Emphasizes skills over chronology\n- Groups experience by skill category\n- De-emphasizes dates\n- Best for longer gaps (1+ years)\n\n**Hybrid Resume:**\n- Skills summary at top\n- Chronological experience below\n- Balances both approaches\n- Good for moderate gaps (6-12 months)\n\n**Date Formatting:**\n- Use years only (2022-2024) instead of months\n- Groups short gaps into employment periods\n- Less obvious for gaps under 6 months\n\n**Addressing the Gap:**\n\n**On Resume:**\n- Include gap period if you did something productive\n- Examples: 'Career Break (2023)', 'Professional Development (2023)', 'Family Care Leave (2023)'\n- Brief explanation in cover letter if relevant\n\n**In Cover Letter:**\n- Address proactively if significant (1+ year)\n- Keep it brief (1-2 sentences)\n- Focus on what you learned/gained\n- Pivot quickly to your qualifications\n\n**Example:**\n'Following a planned career break to [reason], I'm excited to return to [field] where I can apply my [skills] and [refreshed perspective/new skills].'\n\n**Legitimate Gap Reasons:**\n- Health issues (yours or family)\n- Caregiving responsibilities\n- Education or professional development\n- Personal projects or entrepreneurship\n- Traveling/personal growth\n- Layoff/difficult job market\n- Relocation\n- Volunteer work\n\n**Making Gaps Productive:**\n- Freelance or consulting work\n- Online courses and certifications\n- Volunteer activities\n- Personal projects relevant to field\n- Industry networking\n- Reading and staying current\n- Contributing to open source (tech)\n- Writing or content creation\n\n**Interview Response Strategy:**\n\n**Be Honest:**\n- Don't lie or make up positions\n- Don't over-explain or apologize excessively\n- Be confident in your explanation\n\n**Be Brief:**\n- 30-60 second explanation\n- Don't dwell on details\n- Quickly redirect to qualifications\n\n**Be Positive:**\n- Frame as a choice when possible\n- Highlight what you gained\n- Show enthusiasm about returning\n- Demonstrate continued professional development\n\n**Sample Responses:**\n\n**Health-related:**\n'I took time to address a health matter, which is now fully resolved. During this period, I stayed current with industry trends through [courses/reading], and I'm excited to bring fresh energy to this role.'\n\n**Caregiving:**\n'I took time to care for a family member, which taught me valuable lessons in time management and priorities. I remained professionally active through [specific activities], and I'm ready to fully commit to this next chapter.'\n\n**Layoff:**\n'I was impacted by company restructuring along with [X]% of staff. I used the time to [upskill/certifications/projects] and conducted a thoughtful job search to find the right fit.'\n\n**Personal Development:**\n'I took a planned sabbatical to [travel/study/recharge] after [X] years of continuous work. This experience gave me [renewed perspective/new skills/cultural awareness] that I'm eager to apply.'\n\n**Addressing Concerns:**\n\n**'Are you still committed?'**\n- Emphasize enthusiasm and readiness\n- Provide examples of continued learning\n- Discuss long-term career goals\n\n**'Will you take another break?'**\n- Explain specific circumstances of gap\n- Assure it was situation-specific\n- Express commitment to role\n\n**'Are your skills current?'**\n- Highlight recent courses/certifications\n- Discuss how you stayed current\n- Demonstrate knowledge in interview\n\n**Minimizing Future Gaps:**\n- Maintain professional network during breaks\n- Keep skills updated\n- Consider part-time or contract work\n- Document activities during gap\n- Stay visible on LinkedIn\n\n**Red Flags to Avoid:**\n- Multiple unexplained gaps\n- Vague or evasive answers\n- Negative talk about previous employers\n- Appearing unprepared for gap questions\n- Gaps with no productive activity\n\n**When Gap is Recent:**\n- Be prepared for more questions\n- Show evidence of job search activity\n- Demonstrate urgency to return\n- Have references ready\n- Show continued professional engagement",
+    "context": "resume_challenges",
+    "follow_up_questions": [
+      "How long was your career gap?",
+      "What did you do during the gap?",
+      "What type of role are you seeking now?"
+    ]
+  },
+  {
+    "query_id": "query_022",
+    "question_pattern": "executive presence development",
+    "question_keywords": [
+      "executive presence",
+      "gravitas",
+      "leadership presence",
+      "professional image"
+    ],
+    "ml_classification": {
+      "intent": "executive_development",
+      "confidence": 0.83,
+      "entities": ["leadership_skills"],
+      "sub_categories": ["communication", "appearance", "influence"]
+    },
+    "response_template": "Developing executive presence:\n\n**Three Pillars of Executive Presence:**\n\n**1. Gravitas (Core of EP - 67%):**\n- Confidence under pressure\n- Decisive decision-making\n- Emotional intelligence\n- Integrity and authenticity\n- Vision and strategic thinking\n- Speaking truth to power\n\n**2. Communication (28%):**\n- Clear, concise messaging\n- Commanding speaking skills\n- Active listening\n- Reading the room\n- Assertiveness without aggression\n- Executive presence in writing\n\n**3. Appearance (5%):**\n- Professional polished look\n- Appropriate dress for context\n- Good posture and body language\n- Energy and vitality\n- Attention to grooming\n\n**Building Gravitas:**\n\n**Confidence:**\n- Maintain composure in crisis\n- Admit what you don't know\n- Stand by your convictions\n- Make decisions with incomplete information\n- Take calculated risks\n\n**Credibility:**\n- Deliver on promises consistently\n- Be knowledgeable in your domain\n- Show business acumen\n- Understand financial impacts\n- Think strategically, not just tactically\n\n**Emotional Intelligence:**\n- Read social dynamics\n- Manage your emotions\n- Empathize with others\n- Build authentic relationships\n- Navigate politics skillfully\n\n**Communication Skills:**\n\n**Speaking:**\n- Speak in clear, simple language\n- Vary your tone and pace\n- Pause for emphasis\n- Make eye contact\n- Use gestures purposefully\n- Project your voice\n- Eliminate filler words (um, like, you know)\n\n**Meeting Presence:**\n- Arrive prepared\n- Contribute meaningfully\n- Build on others' ideas\n- Ask insightful questions\n- Know when to speak and when to listen\n- Summarize key points effectively\n\n**Storytelling:**\n- Use narratives to illustrate points\n- Make data memorable\n- Connect emotionally\n- Have a clear structure\n- Practice key stories\n\n**Presentation Skills:**\n- Command the room\n- Handle tough questions gracefully\n- Use visual aids effectively\n- Engage the audience\n- Start and end strong\n\n**Physical Presence:**\n\n**Body Language:**\n- Stand/sit up straight\n- Open, confident posture\n- Firm handshake\n- Appropriate eye contact\n- Controlled gestures\n- Take up appropriate space\n- Move with purpose\n\n**Appearance:**\n- Dress one level up\n- Maintain professional grooming\n- Pay attention to details\n- Dress for your industry context\n- Ensure clothes fit well\n- Keep accessories minimal and quality\n\n**Energy:**\n- Show enthusiasm appropriately\n- Maintain alertness in meetings\n- Practice self-care for vitality\n- Manage stress visibly\n- Project calm energy\n\n**Building Skills:**\n\n**Practical Steps:**\n- Join Toastmasters for speaking\n- Get executive coaching\n- Seek leadership rotations\n- Present to senior leaders regularly\n- Lead high-visibility projects\n- Attend board meetings as observer\n\n**Feedback:**\n- Request 360 feedback specifically on EP\n- Video record yourself presenting\n- Find an executive mentor\n- Work with a coach\n- Self-assess against EP framework\n\n**Common Mistakes:**\n\n**What Undermines EP:**\n- Speaking too much or too little\n- Being overly emotional or robotic\n- Lack of preparation\n- Poor listening\n- Inconsistent behavior\n- Avoiding difficult conversations\n- Taking things personally\n- Gossip or politics\n- Defensive reactions\n- Micromanaging\n\n**Industry/Context Considerations:**\n- Tech: casual dress, direct communication\n- Finance: formal dress, measured communication\n- Creative: authentic expression, innovative thinking\n- Healthcare: empathy, precision\n- Adjust while maintaining core presence\n\n**Authenticity Matters:**\n- Don't fake a persona\n- Find your natural style\n- Amplify your strengths\n- Address your weaknesses\n- Be consistently yourself\n- Align words and actions\n\n**For Women:**\n- Navigate double standards consciously\n- Balance warmth and authority\n- Speak up without apologizing\n- Build coalitions\n- Address being interrupted\n- Own your accomplishments\n\n**For Introverts:**\n- Prepare thoroughly before meetings\n- Leverage one-on-one influence\n- Write to communicate\n- Speak up strategically\n- Recharge between events\n- Quality over quantity in speaking\n\n**Timeline:**\n- Noticeable improvement: 6-12 months\n- Solid presence: 2-3 years of practice\n- Mastery: Ongoing refinement throughout career\n\n**Measuring Progress:**\n- Feedback from leaders\n- Invitation to high-level meetings\n- Increased influence\n- People seek your opinion\n- Better meeting dynamics\n- Promotion opportunities",
+    "context": "executive_development",
+    "follow_up_questions": [
+      "What's your current leadership level?",
+      "What aspect of executive presence do you struggle with?",
+      "What feedback have you received?"
+    ]
+  },
+  {
+    "query_id": "query_023",
+    "question_pattern": "side hustle ideas",
+    "question_keywords": [
+      "side hustle",
+      "extra income",
+      "part-time",
+      "second job",
+      "gig"
+    ],
+    "ml_classification": {
+      "intent": "additional_income",
+      "confidence": 0.86,
+      "entities": ["alternative_income"],
+      "sub_categories": ["entrepreneurship", "freelancing", "passive_income"]
+    },
+    "response_template": "Side hustle ideas and strategies:\n\n**Based on Skills:**\n\n**Creative Skills:**\n- Graphic design (Fiverr, 99designs)\n- Writing/Copywriting (Upwork, Contently)\n- Photography (Stock photos, events)\n- Video editing (YouTube editors needed)\n- Web design (Freelance clients)\n- Social media management\n- Podcast editing\n- Illustration\n\n**Technical Skills:**\n- Web development (Freelance, Toptal)\n- App development\n- Data analysis\n- Excel consulting\n- WordPress customization\n- SEO consulting\n- IT support\n- Coding tutoring\n\n**Professional Services:**\n- Consulting in your expertise\n- Business coaching\n- Resume writing\n- Career coaching\n- Virtual assistance\n- Bookkeeping\n- Tax preparation (if certified)\n- Translation services\n\n**Teaching/Tutoring:**\n- Online tutoring (Wyzant, Tutor.com)\n- Create online courses (Udemy, Teachable)\n- Music lessons\n- Language teaching (italki, VIPKid)\n- Test prep tutoring\n- Skill workshops\n\n**Low-Barrier Entry:**\n\n**Service-Based:**\n- Pet sitting/Dog walking (Rover, Wag)\n- House sitting\n- Personal shopping\n- Errand running (TaskRabbit)\n- Moving help\n- Handy work\n- Car detailing\n- Lawn care\n\n**Delivery/Transport:**\n- Food delivery (DoorDash, Uber Eats)\n- Grocery delivery (Instacart, Shipt)\n- Rideshare (Uber, Lyft)\n- Package delivery (Amazon Flex)\n\n**Online Opportunities:**\n\n**E-commerce:**\n- Print-on-demand (Printify, Printful)\n- Dropshipping (Shopify)\n- Amazon FBA\n- Etsy shop (crafts, digital products)\n- eBay flipping\n- Facebook Marketplace arbitrage\n\n**Content Creation:**\n- YouTube channel (ad revenue)\n- Blog with affiliate marketing\n- TikTok creator fund\n- Instagram influencer\n- Twitch streaming\n- Podcast with sponsors\n\n**Digital Products:**\n- Stock photography\n- Templates (Notion, Excel, Canva)\n- Ebooks\n- Printables\n- Online courses\n- Presets (Lightroom, Photoshop)\n- Music/Sound effects\n\n**Investment-Based:**\n\n**Real Estate:**\n- Airbnb hosting\n- Rent out parking space\n- Storage space rental\n- Equipment rental\n- REIT investing (passive)\n\n**Other:**\n- Dividend investing\n- Peer-to-peer lending\n- Create and sell websites\n\n**Choosing the Right Hustle:**\n\n**Consider:**\n- Available time (5, 10, 20+ hours/week)\n- Initial capital needed\n- Your existing skills\n- Passive vs. active income\n- Scalability potential\n- Your interests and energy\n- Tax implications\n\n**Starting Steps:**\n1. Validate idea with small test\n2. Start part-time while employed\n3. Set clear income goals\n4. Create simple business plan\n5. Track time and income\n6. Separate business finances\n\n**Time Management:**\n- Set specific hustle hours\n- Use lunch breaks or mornings\n- Batch work on weekends\n- Automate what you can\n- Protect your primary job\n- Set boundaries\n\n**Financial Management:**\n- Set aside 25-30% for taxes\n- Track all expenses\n- Separate bank account\n- Reinvest initial profits\n- Know when to scale or quit\n\n**Legal Considerations:**\n- Check employment contract for restrictions\n- Get necessary licenses/permits\n- Consider business insurance\n- Understand tax obligations\n- Form LLC if appropriate\n\n**Scaling Your Hustle:**\n- Raise prices as you grow\n- Systematize processes\n- Outsource or automate\n- Build email list/audience\n- Create passive income streams\n- Consider full-time transition\n\n**Warning Signs:**\n- Hurting primary job performance\n- Burnout and exhaustion\n- Family/relationship strain\n- No profit after 6-12 months\n- Loss of interest/passion\n\n**Success Metrics:**\n- Monthly revenue targets\n- Profit margins\n- Time efficiency\n- Customer satisfaction\n- Growth trajectory\n- Personal satisfaction",
+    "context": "entrepreneurship",
+    "follow_up_questions": [
+      "How many hours per week can you dedicate?",
+      "What skills do you have to monetize?",
+      "What's your income goal?"
+    ]
+  },
+  {
+    "query_id": "query_024",
+    "question_pattern": "industry research tips",
+    "question_keywords": [
+      "industry research",
+      "company research",
+      "market analysis",
+      "sector information"
+    ],
+    "ml_classification": {
+      "intent": "research_guidance",
+      "confidence": 0.82,
+      "entities": ["job_search_preparation"],
+      "sub_categories": [
+        "company_analysis",
+        "industry_trends",
+        "competitive_landscape"
+      ]
+    },
+    "response_template": "Conducting effective industry and company research:\n\n**Industry Research:**\n\n**Understanding the Industry:**\n- Industry size and growth rate\n- Key players and market leaders\n- Emerging trends and disruptions\n- Regulatory environment\n- Economic factors affecting industry\n- Technology impacts\n- Future outlook and predictions\n\n**Research Sources:**\n- Industry reports (IBISWorld, Statista)\n- Trade publications and journals\n- Professional associations\n- Government data (Bureau of Labor Statistics)\n- McKinsey, Deloitte industry reports\n- LinkedIn industry pages\n- Podcasts and industry blogs\n- Conference proceedings\n\n**Company Research:**\n\n**Essential Information:**\n- Company history and founding story\n- Mission, vision, values\n- Products and services\n- Target customers and markets\n- Revenue and growth trajectory\n- Organizational structure\n- Recent news and developments\n- Competitors and market position\n\n**Where to Research:**\n\n**Company-Owned:**\n- Official website (About, Careers, News)\n- Annual reports (for public companies)\n- Press releases\n- Company blog\n- Social media profiles\n- YouTube channel\n- Investor relations (public companies)\n\n**Third-Party Sources:**\n- Glassdoor (reviews, salaries, interviews)\n- LinkedIn (employees, company updates)\n- Crunchbase (funding, key people)\n- Google News\n- Industry news sites\n- BBB ratings\n- Customer reviews (Trustpilot, G2)\n\n**Deep Dive Research:**\n\n**Leadership Team:**\n- CEO and executive backgrounds\n- Leadership philosophy\n- Recent interviews or talks\n- LinkedIn profiles\n- Track record and experience\n\n**Company Culture:**\n- Glassdoor reviews (look for patterns)\n- Employee LinkedIn posts\n- Company social media presence\n- Values and mission alignment\n- Work-life balance indicators\n- Diversity and inclusion efforts\n\n**Financial Health:**\n- Revenue growth\n- Profitability\n- Recent funding rounds\n- Layoffs or hiring trends\n- Stock performance (public companies)\n- Debt levels\n\n**Products/Services:**\n- Customer reviews and feedback\n- Product roadmap (if available)\n- Competitive advantages\n- Innovation track record\n- Quality and reputation\n\n**For Interviews:**\n\n**Must-Know Information:**\n- Core business and value proposition\n- Recent achievements or launches\n- Company challenges or opportunities\n- Role of your target position\n- Company size and growth stage\n- Key competitors\n- Why company interests you specifically\n\n**Impressive Research Points:**\n- Recent executive interviews\n- Latest product launches\n- Strategic initiatives mentioned in earnings\n- Industry awards or recognition\n- Partnership announcements\n- Expansion plans\n\n**Networking for Information:**\n- Connect with current employees on LinkedIn\n- Request informational interviews\n- Ask about day-to-day reality\n- Inquire about team dynamics\n- Learn about unwritten rules\n- Understand growth opportunities\n\n**Organizing Your Research:**\n\n**Create Company Profiles:**\n- Basic facts sheet\n- Key people to know\n- Important dates and milestones\n- Questions to ask\n- Connections or talking points\n- Application/interview notes\n\n**Tools to Use:**\n- Notion or Evernote for organization\n- Google Sheets for tracking\n- Pocket or Instapaper for articles\n- Google Alerts for updates\n- RSS feeds for news\n\n**Red Flags to Watch:**\n- High turnover rates\n- Consistently negative reviews\n- Legal issues or scandals\n- Declining financials\n- Frequent leadership changes\n- Vague job descriptions\n- Poor communication during hiring\n- Unrealistic expectations\n\n**Green Flags:**\n- Strong growth trajectory\n- Positive employee reviews\n- Clear mission and values\n- Investment in employees\n- Industry recognition\n- Innovation and adaptation\n- Transparent communication\n- Good work-life balance reputation\n\n**Competitive Analysis:**\n- Identify top 3-5 competitors\n- Compare products/services\n- Analyze market positioning\n- Understand competitive advantages\n- Note industry dynamics\n- See where target company fits\n\n**Industry Trends:**\n- Technology disruptions\n- Regulatory changes\n- Consumer behavior shifts\n- Economic factors\n- Sustainability initiatives\n- Remote work impacts\n\n**Timing Your Research:**\n- Initial research: Before applying (30-60 min)\n- Phone screen: Refresh + deeper dive (1-2 hours)\n- Final interview: Comprehensive review (2-3 hours)\n- Offer stage: Due diligence (thorough)\n\n**Using Research in Applications:**\n- Customize resume keywords\n- Reference specific initiatives in cover letter\n- Align your skills with company needs\n- Show genuine interest\n- Demonstrate cultural fit\n\n**Interview Preparation:**\n- Prepare questions based on research\n- Reference specific company facts\n- Connect your experience to company needs\n- Show understanding of challenges\n- Demonstrate enthusiasm intelligently\n\n**Questions to Prepare:**\n- About recent news/developments\n- About team structure and dynamics\n- About growth opportunities\n- About company culture\n- About success metrics for role\n\n**Staying Updated:**\n- Set Google Alerts for company name\n- Follow company on social media\n- Subscribe to company newsletter\n- Monitor industry news\n- Track competitor moves\n\n**Research Checklist:**\n□ Company mission and values\n□ Products and services\n□ Recent news (last 6 months)\n□ Leadership team\n□ Company size and structure\n□ Growth trajectory\n□ Glassdoor reviews\n□ Competitors\n□ Industry trends\n□ Your specific role details\n□ Questions to ask\n□ Talking points prepared",
+    "context": "job_search_preparation",
+    "follow_up_questions": [
+      "Which company are you researching?",
+      "Is this for an interview or application?",
+      "What do you know about the company so far?"
+    ]
+  },
+  {
+    "query_id": "query_025",
+    "question_pattern": "dealing with micromanager",
+    "question_keywords": [
+      "micromanager",
+      "controlling boss",
+      "overly involved",
+      "no autonomy"
+    ],
+    "ml_classification": {
+      "intent": "manager_relationship",
+      "confidence": 0.85,
+      "entities": ["workplace_challenge"],
+      "sub_categories": ["communication", "boundaries", "autonomy"]
+    },
+    "response_template": "Managing a micromanaging boss:\n\n**Understanding Micromanagement:**\n\n**Why Managers Micromanage:**\n- Lack of trust (in you or themselves)\n- Fear of failure or mistakes\n- Perfectionism\n- Insecurity about own role\n- Past negative experiences\n- Organizational pressure\n- Unclear about your capabilities\n- Their management style/habit\n\n**Signs of Micromanagement:**\n- Constant check-ins on progress\n- Excessive oversight of minor tasks\n- Reluctance to delegate meaningful work\n- Insistence on specific methods\n- CC'd on every email\n- Requests for unnecessary reports\n- Hovering or frequent drop-bys\n- Second-guessing your decisions\n- Taking over tasks you can handle\n\n**Strategies to Manage Up:**\n\n**Build Trust:**\n- Deliver consistently high-quality work\n- Meet all deadlines\n- Anticipate their questions\n- Communicate proactively\n- Document everything\n- Show attention to detail\n- Admit mistakes quickly\n\n**Over-Communicate:**\n- Provide frequent updates before they ask\n- Share your plan and timeline\n- Document decisions and reasoning\n- CC them when appropriate\n- Use status reports\n- Be visible about your work\n- Schedule regular check-ins\n\n**Seek Clarity:**\n- Ask about specific expectations\n- Clarify decision-making authority\n- Understand their priorities\n- Get detailed requirements upfront\n- Document agreements\n- Confirm understanding\n\n**Set Boundaries (Carefully):**\n- Propose check-in schedules\n- Ask for autonomy on specific projects\n- Suggest alternatives to constant oversight\n- Request feedback at milestones, not constantly\n- Be diplomatic and respectful\n\n**Have a Direct Conversation:**\n\n**When to Talk:**\n- After establishing trust\n- When you have specific examples\n- In a calm, private setting\n- During a good performance period\n\n**How to Approach:**\n- Use 'I' statements\n- Be respectful and curious\n- Ask about their concerns\n- Propose solutions\n- Focus on outcomes\n\n**Sample Script:**\n'I appreciate your guidance and want to ensure I'm meeting your expectations. I've noticed you check in frequently on [specific task type]. I want to understand - are there concerns about my work in this area? I'd love to discuss how we can work together in a way that gives you confidence while allowing me to grow.'\n\n**Alternative Approach:**\n'I work best when I have [describe your needs]. Could we try [proposed solution] for the next month and see how it goes?'\n\n**Practical Tactics:**\n\n**Anticipate Needs:**\n- Predict their questions\n- Provide information before asked\n- Think ahead to potential concerns\n- Over-prepare for meetings\n- Share drafts early for input\n\n**Structured Updates:**\n- Daily/weekly status emails\n- Standardized format they can rely on\n- Include progress, blockers, next steps\n- Be proactive, not reactive\n\n**Ask for Feedback:**\n- Regular feedback sessions\n- Specific questions about performance\n- Show willingness to improve\n- Implement their suggestions\n- Close the feedback loop\n\n**Document Everything:**\n- Keep email trails\n- Confirm verbal conversations in writing\n- Track accomplishments\n- Note agreed-upon approaches\n\n**What NOT to Do:**\n\n**Avoid:**\n- Going over their head initially\n- Being defensive or argumentative\n- Ignoring their requests\n- Complaining to colleagues openly\n- Making it personal\n- Matching their anxiety with yours\n- Giving up on excellence\n\n**When to Escalate:**\n\n**HR or Senior Management If:**\n- Affecting your mental health\n- Preventing you from doing your job\n- After direct conversation failed\n- Behavior is abusive\n- Impacting team morale\n- Violations of policy\n\n**How to Escalate:**\n- Document specific examples with dates\n- Show impact on work/team\n- Come with attempted solutions\n- Be professional, not emotional\n- Follow company procedures\n\n**Coping Strategies:**\n\n**Mindset:**\n- Don't take it personally\n- Focus on what you can control\n- View it as learning patience\n- Maintain your confidence\n- Remember it's about them, not you\n\n**Self-Care:**\n- Set boundaries on work hours\n- Don't let it affect your off-hours\n- Talk to trusted friends/mentors\n- Practice stress management\n- Maintain perspective\n\n**Professional Development:**\n- Document your achievements elsewhere\n- Build skills despite constraints\n- Network outside your team\n- Maintain external validation sources\n\n**When to Leave:**\n\n**Consider Moving On If:**\n- No improvement after 6-12 months\n- Severely impacting mental health\n- No growth opportunities\n- Direct conversation didn't help\n- HR won't intervene\n- You've learned all you can\n- Better opportunities elsewhere\n- Company culture supports micromanagement\n\n**Before Leaving:**\n- Ensure you've tried everything\n- Have another job lined up\n- Leave professionally\n- Don't burn bridges\n- Take lessons learned\n\n**Long-term Perspective:**\n- Some managers can improve\n- Building this skill helps future roles\n- Not all managers are like this\n- Teaches you what not to do\n- Develops patience and communication\n\n**Teaching Moment:**\nIf you become a manager, remember this experience. Practice:\n- Trusting your team\n- Delegating meaningfully\n- Focusing on outcomes, not methods\n- Providing autonomy\n- Coaching, not controlling",
+    "context": "workplace_challenges",
+    "follow_up_questions": [
+      "How long have you worked with this manager?",
+      "Have you tried discussing it with them?",
+      "How is this affecting your work?"
+    ]
   }
 ]
-

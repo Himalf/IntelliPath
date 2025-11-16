@@ -1,9 +1,9 @@
-import { useState, useEffect } from 'react';
-import { Button } from '@/components/ui/button';
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
-import { Download, FileText, Database } from 'lucide-react';
-import { exportService } from '@/services/exportService';
-import { toast } from 'sonner';
+import { useState, useEffect } from "react";
+import { Button } from "@/components/ui/button";
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import { Download, FileText, Database } from "lucide-react";
+import { exportService } from "@/services/exportService";
+import { toast } from "sonner";
 
 interface Dataset {
   name: string;
@@ -24,8 +24,8 @@ export default function DataExport() {
       const data = await exportService.listDatasets();
       setDatasets(data.datasets);
     } catch (error) {
-      console.error('Failed to load datasets:', error);
-      toast.error('Failed to load datasets');
+      console.error("Failed to load datasets:", error);
+      toast.error("Failed to load datasets");
     }
   };
 
@@ -33,10 +33,10 @@ export default function DataExport() {
     setLoading(true);
     try {
       await exportService.downloadCSV(datasetName);
-      toast.success(`Successfully exported ${datasetName}.csv`);
+      toast.success(`Successfully exported ${datasetName}.json`);
     } catch (error) {
-      console.error('Export error:', error);
-      toast.error('Failed to export dataset');
+      console.error("Export error:", error);
+      toast.error("Failed to export dataset");
     } finally {
       setLoading(false);
     }
@@ -53,9 +53,10 @@ export default function DataExport() {
       <CardContent className="pt-6">
         <div className="space-y-4">
           <p className="text-sm text-slate-600 mb-4">
-            Export ML training datasets in CSV format for analysis and model training.
+            Export ML training datasets in CSV format for analysis and model
+            training.
           </p>
-          
+
           <div className="grid gap-4 md:grid-cols-2">
             {datasets.map((dataset) => (
               <div
@@ -66,10 +67,13 @@ export default function DataExport() {
                   <FileText className="h-5 w-5 text-slate-500" />
                   <div>
                     <p className="font-medium text-slate-800">
-                      {dataset.name.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}
+                      {dataset.name
+                        .replace(/-/g, " ")
+                        .replace(/\b\w/g, (l) => l.toUpperCase())}
                     </p>
                     <p className="text-xs text-slate-500">
-                      Available formats: {dataset.formats.join(', ').toUpperCase()}
+                      Available formats:{" "}
+                      {dataset.formats.join(", ").toUpperCase()}
                     </p>
                   </div>
                 </div>
@@ -98,4 +102,3 @@ export default function DataExport() {
     </Card>
   );
 }
-

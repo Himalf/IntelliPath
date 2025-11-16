@@ -76,8 +76,12 @@ export default function AdminDashboardPage() {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [avgFeedbackRating, setAvgFeedbackRating] = useState<number>(0);
-  const [topSkills, setTopSkills] = useState<{ skill: string; count: number }[]>([]);
-  const [careerDistribution, setCareerDistribution] = useState<{ career: string; count: number }[]>([]);
+  const [topSkills, setTopSkills] = useState<
+    { skill: string; count: number }[]
+  >([]);
+  const [careerDistribution, setCareerDistribution] = useState<
+    { career: string; count: number }[]
+  >([]);
 
   // Classic, light color palette
   const COLORS = ["#4682B4", "#87CEFA", "#20B2AA", "#90EE90", "#F0E68C"];
@@ -286,7 +290,9 @@ export default function AdminDashboardPage() {
 
         // Calculate average feedback rating
         if (safeFeedbacks.length > 0) {
-          const avg = safeFeedbacks.reduce((sum, f) => sum + f.rating, 0) / safeFeedbacks.length;
+          const avg =
+            safeFeedbacks.reduce((sum, f) => sum + f.rating, 0) /
+            safeFeedbacks.length;
           setAvgFeedbackRating(Number(avg.toFixed(2)));
         }
 
@@ -294,9 +300,10 @@ export default function AdminDashboardPage() {
         const skillCounts: Record<string, number> = {};
         safeUsers.forEach((u) => {
           if (u.skills) {
-            u.skills.split(',').forEach((skill) => {
+            u.skills.split(",").forEach((skill) => {
               const trimmed = skill.trim();
-              if (trimmed) skillCounts[trimmed] = (skillCounts[trimmed] || 0) + 1;
+              if (trimmed)
+                skillCounts[trimmed] = (skillCounts[trimmed] || 0) + 1;
             });
           }
         });
@@ -311,9 +318,10 @@ export default function AdminDashboardPage() {
         const careerCounts: Record<string, number> = {};
         safeSuggestions.forEach((s) => {
           if (s.suggestedCareers) {
-            s.suggestedCareers.split(',').forEach((career) => {
+            s.suggestedCareers.split(",").forEach((career) => {
               const trimmed = career.trim();
-              if (trimmed) careerCounts[trimmed] = (careerCounts[trimmed] || 0) + 1;
+              if (trimmed)
+                careerCounts[trimmed] = (careerCounts[trimmed] || 0) + 1;
             });
           }
         });
@@ -325,7 +333,9 @@ export default function AdminDashboardPage() {
         );
       } catch (error: any) {
         console.error("Error fetching dashboard data:", error);
-        setError(error?.message || "Failed to load dashboard data. Please try again.");
+        setError(
+          error?.message || "Failed to load dashboard data. Please try again."
+        );
       } finally {
         setIsLoading(false);
       }
@@ -641,7 +651,9 @@ export default function AdminDashboardPage() {
             {topSkills.length > 0 ? (
               topSkills.map((item, idx) => (
                 <div key={idx} className="flex items-center justify-between">
-                  <span className="text-sm font-medium text-gray-700">{item.skill}</span>
+                  <span className="text-sm font-medium text-gray-700">
+                    {item.skill}
+                  </span>
                   <div className="flex items-center gap-2">
                     <div className="w-24 h-2 bg-gray-200 rounded-full overflow-hidden">
                       <div
@@ -651,12 +663,16 @@ export default function AdminDashboardPage() {
                         }}
                       />
                     </div>
-                    <span className="text-sm text-gray-600 w-8 text-right">{item.count}</span>
+                    <span className="text-sm text-gray-600 w-8 text-right">
+                      {item.count}
+                    </span>
                   </div>
                 </div>
               ))
             ) : (
-              <p className="text-sm text-gray-500 text-center py-4">No skills data available</p>
+              <p className="text-sm text-gray-500 text-center py-4">
+                No skills data available
+              </p>
             )}
           </div>
         </ChartCard>
@@ -669,15 +685,22 @@ export default function AdminDashboardPage() {
           <div className="space-y-3">
             {careerDistribution.length > 0 ? (
               careerDistribution.map((item, idx) => (
-                <div key={idx} className="flex items-center justify-between p-2 rounded-lg hover:bg-gray-50 transition-colors">
-                  <span className="text-sm font-medium text-gray-700 flex-1">{item.career}</span>
+                <div
+                  key={idx}
+                  className="flex items-center justify-between p-2 rounded-lg hover:bg-gray-50 transition-colors"
+                >
+                  <span className="text-sm font-medium text-gray-700 flex-1">
+                    {item.career}
+                  </span>
                   <Badge variant="outline" className="ml-2">
                     {item.count}
                   </Badge>
                 </div>
               ))
             ) : (
-              <p className="text-sm text-gray-500 text-center py-4">No career data available</p>
+              <p className="text-sm text-gray-500 text-center py-4">
+                No career data available
+              </p>
             )}
           </div>
         </ChartCard>
